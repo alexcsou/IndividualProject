@@ -1,4 +1,4 @@
-package com.individualproject;
+package com.soloproject;
 
 import static org.junit.Assert.assertTrue;
 
