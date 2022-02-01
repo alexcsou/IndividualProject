@@ -6,14 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
-import javafx.scene.media.Media;
-
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
-
 public class App extends Application {
 
     @Override
