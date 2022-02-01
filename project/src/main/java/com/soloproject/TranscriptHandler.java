@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import javafx.scene.control.Button;
 
@@ -30,7 +31,9 @@ public class TranscriptHandler {
     private Stage stage;
     private File transcript = null;
     private ArrayList<TranscriptSentence> sentences;
-    private String meetingDuration;
+    private String meetingDurationString;
+    private int meetingDurationSeconds;
+
     private String transcriptRecognizability;
     private String language;
 
@@ -38,7 +41,8 @@ public class TranscriptHandler {
         button.setOnAction(e -> chooseFile());
         this.stage = stage;
         sentences = new ArrayList<>();
-        meetingDuration = "";
+        meetingDurationString = "";
+        meetingDurationSeconds = 0;
         transcriptRecognizability = "";
         language = "";
     }
@@ -53,13 +57,12 @@ public class TranscriptHandler {
         setTranscript(newTranscript);
         handlefile();
 
-        ;
         return transcript;
     }
 
     public void handlefile() {
-        // getGeneralMeetingData();
-        generateSentences();
+        getGeneralMeetingData();
+        // generateSentences();
     }
 
     public void generateSentences() {
@@ -90,24 +93,53 @@ public class TranscriptHandler {
     public void getGeneralMeetingData() {
         try {
             Scanner reader = new Scanner(transcript);
+
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 if (line.contains("NOTE duration:")) {
 
+                    Pattern pattern = Pattern.compile("\\d+:\\d+:\\d+");
+                    Matcher matcher = pattern.matcher(line);
+                    matcher.find();
+                    if (matcher.find()) {
+                        System.out.println("here");
+                        setMeetingDurationString(matcher.group(0));
+                        System.out.println(matcher.group(0));
+                    }
                 } else if (line.contains("NOTE recognizability:")) {
 
+                    Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+"); // from https: //
+                                                                                  // stackoverflow.com/questions/12643009/regular-expression-for-floating-point-numbers/12643073
+                    Matcher matcher = pattern.matcher(line);
+                    matcher.find();
+                    if (matcher.find()) {
+                        System.out.println("here");
+                        setTranscriptRecognizability(matcher.group(0));
+                        System.out.println(matcher.group(0));
+                    }
                 } else if (line.contains("NOTE language:")) {
 
+                    Pattern pattern = Pattern.compile("/(?!NOTE|language|:)([a-z0-9]+)");
+                    Matcher matcher = pattern.matcher(line);
+                    matcher.find();
+                    if (matcher.find()) {
+                        System.out.println("here");
+                        setLanguage(matcher.group(0));
+                        System.out.println(matcher.group(0));
+                    }
                 }
             }
             reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("transcript file was not found");
+        } catch (Exception e) {
+            System.out.println("Something went wrong...");
         }
     }
 
     public TranscriptSentence generateSentence(String confidence, String duration, String text) {
-        return new TranscriptSentence(text, 0, 0);
+
+        return new TranscriptSentence(text, Double.parseDouble(duration), Double.parseDouble(confidence));
     }
 
     public Button getFileSelectButton() {
@@ -123,5 +155,61 @@ public class TranscriptHandler {
 
     public void setTranscript(File file) {
         this.transcript = file;
+    }
+
+    public Button getButton() {
+        return this.button;
+    }
+
+    public void setButton(Button button) {
+        this.button = button;
+    }
+
+    public Stage getStage() {
+        return this.stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public ArrayList<TranscriptSentence> getSentences() {
+        return this.sentences;
+    }
+
+    public void setSentences(ArrayList<TranscriptSentence> sentences) {
+        this.sentences = sentences;
+    }
+
+    public String getMeetingDurationString() {
+        return this.meetingDurationString;
+    }
+
+    public void setMeetingDurationString(String meetingDurationString) {
+        this.meetingDurationString = meetingDurationString;
+    }
+
+    public String getTranscriptRecognizability() {
+        return this.transcriptRecognizability;
+    }
+
+    public void setTranscriptRecognizability(String transcriptRecognizability) {
+        this.transcriptRecognizability = transcriptRecognizability;
+    }
+
+    public String getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public int getMeetingDurationSeconds() {
+        return this.meetingDurationSeconds;
+    }
+
+    public void setMeetingDurationSeconds(int meetingDurationSeconds) {
+        this.meetingDurationSeconds = meetingDurationSeconds;
     }
 }

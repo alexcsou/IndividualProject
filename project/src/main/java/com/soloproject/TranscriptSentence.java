@@ -12,7 +12,28 @@ public class TranscriptSentence {
         this.CONFIDENCE = confidence;
     }
 
-    public String getSentence() {
-        return SENTENCE;
+    public String getSENTENCE() {
+        return this.SENTENCE;
     }
+
+    public void setSENTENCE(String SENTENCE) {
+        this.SENTENCE = SENTENCE;
+    }
+
+    public double getDURATION() {
+        return this.DURATION;
+    }
+
+    public void setDURATION(double DURATION) {
+        this.DURATION = DURATION;
+    }
+
+    public double getCONFIDENCE() {
+        return this.CONFIDENCE;
+    }
+
+    public void setCONFIDENCE(double CONFIDENCE) {
+        this.CONFIDENCE = CONFIDENCE;
+    }
+
 }
