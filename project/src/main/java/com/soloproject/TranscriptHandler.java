@@ -1,24 +1,16 @@
 package com.soloproject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
+import java.util.regex.*;
 
 import javafx.scene.control.Button;
-
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
-
-import java.util.regex.*;
 
 /**
  * A class to allow a user to select the trancript .vtt file they want analysed
@@ -61,8 +53,8 @@ public class TranscriptHandler {
     }
 
     public void handlefile() {
-        getGeneralMeetingData();
-        // generateSentences();
+        generateMeetingData();
+        generateSentences();
     }
 
     public void generateSentences() {
@@ -90,7 +82,7 @@ public class TranscriptHandler {
                 || line.contains("NOTE language:") || line.isBlank());
     }
 
-    public void getGeneralMeetingData() {
+    public void generateMeetingData() {
         boolean durationSet = false;
         boolean recogSet = false;
         boolean languageSet = false;
@@ -104,6 +96,7 @@ public class TranscriptHandler {
                     Matcher matcher = pattern.matcher(line);
                     if (matcher.find()) {
                         setMeetingDurationString(matcher.group(0));
+                        setMeetingDurationSeconds(secondParser(matcher.group(0)));
                         durationSet = true;
                     }
                 } else if (line.contains("NOTE recognizability:") && !recogSet) {
@@ -129,9 +122,31 @@ public class TranscriptHandler {
         }
     }
 
+    /**
+     * method inspired by: https://stackoverflow.com/q/34331637
+     * 
+     * @param input
+     * @return
+     */
+    public int secondParser(String input) {
+        String[] duration = input.split(":");
+        int HH = Integer.parseInt(duration[0]);
+        int mm = Integer.parseInt(duration[1]);
+        int ss = Integer.parseInt(duration[2]);
+        return (HH * 3600 + mm * 60 + ss);
+    }
+
     public TranscriptSentence generateSentence(String confidence, String duration, String text) {
 
-        return new TranscriptSentence(text, Double.parseDouble(duration), Double.parseDouble(confidence));
+        return new TranscriptSentence(text, computeSentenceDuration(duration), computeSentenceConfidence(confidence));
+    }
+
+    public double computeSentenceDuration(String input) {
+        return 0;
+    }
+
+    public double computeSentenceConfidence(String input) {
+        return 0;
     }
 
     public Button getFileSelectButton() {
