@@ -2,38 +2,57 @@ package com.soloproject;
 
 public class TranscriptSentence {
 
-    private String SENTENCE;
-    private double DURATION;
-    private double CONFIDENCE;
+    private String sentence;
+    private double confidence;
+    private double duration;
+    private double startTime;
+    private double endTime;
 
-    public TranscriptSentence(String sentence, double duration, double confidence) {
-        this.SENTENCE = sentence;
-        this.DURATION = duration;
-        this.CONFIDENCE = confidence;
+    public TranscriptSentence(String sentence, double startTime, double endTime, double confidence) {
+        this.sentence = sentence;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.duration = endTime - startTime;
+        this.confidence = confidence;
     }
 
-    public String getSENTENCE() {
-        return this.SENTENCE;
+    public double getStartTime() {
+        return this.startTime;
     }
 
-    public void setSENTENCE(String SENTENCE) {
-        this.SENTENCE = SENTENCE;
+    public void setStartTime(double startTime) {
+        this.startTime = startTime;
     }
 
-    public double getDURATION() {
-        return this.DURATION;
+    public double getEndTime() {
+        return this.endTime;
     }
 
-    public void setDURATION(double DURATION) {
-        this.DURATION = DURATION;
+    public void setEndTime(double endTime) {
+        this.endTime = endTime;
     }
 
-    public double getCONFIDENCE() {
-        return this.CONFIDENCE;
+    public String getSentence() {
+        return this.sentence;
     }
 
-    public void setCONFIDENCE(double CONFIDENCE) {
-        this.CONFIDENCE = CONFIDENCE;
+    public void setSentence(String sentence) {
+        this.sentence = sentence;
     }
 
+    public double getDuration() {
+        return this.duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
+    public double getConfidence() {
+        return this.confidence;
+    }
+
+    public void setConfidence(double confidence) {
+        this.confidence = confidence;
+    }
 }

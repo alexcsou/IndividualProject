@@ -24,8 +24,7 @@ public class TranscriptHandler {
     private File transcript = null;
     private ArrayList<TranscriptSentence> sentences;
     private String meetingDurationString;
-    private int meetingDurationSeconds;
-
+    private double meetingDurationSeconds;
     private String transcriptRecognizability;
     private String language;
 
@@ -34,7 +33,7 @@ public class TranscriptHandler {
         this.stage = stage;
         sentences = new ArrayList<>();
         meetingDurationString = "";
-        meetingDurationSeconds = 0;
+        meetingDurationSeconds = 0.0;
         transcriptRecognizability = "";
         language = "";
     }
@@ -55,6 +54,15 @@ public class TranscriptHandler {
     public void handlefile() {
         generateMeetingData();
         generateSentences();
+        for (TranscriptSentence s : sentences) {
+            System.out.println("NEW SETENCE:");
+            System.out.println(s.getSentence());
+            System.out.println(s.getConfidence());
+            System.out.println(s.getStartTime());
+            System.out.println(s.getEndTime());
+            System.out.println(s.getDuration());
+            System.out.println("");
+        }
     }
 
     public void generateSentences() {
@@ -128,25 +136,39 @@ public class TranscriptHandler {
      * @param input
      * @return
      */
-    public int secondParser(String input) {
+    public double secondParser(String input) {
         String[] duration = input.split(":");
-        int HH = Integer.parseInt(duration[0]);
-        int mm = Integer.parseInt(duration[1]);
-        int ss = Integer.parseInt(duration[2]);
+        double HH = Double.parseDouble(duration[0]);
+        double mm = Double.parseDouble(duration[1]);
+        double ss = Double.parseDouble(duration[2]);
         return (HH * 3600 + mm * 60 + ss);
     }
 
     public TranscriptSentence generateSentence(String confidence, String duration, String text) {
-
-        return new TranscriptSentence(text, computeSentenceDuration(duration), computeSentenceConfidence(confidence));
+        ArrayList<Double> durationValues = getDurationDataToDouble(duration);
+        return new TranscriptSentence(text, durationValues.get(0), durationValues.get(1),
+                convertSentenceConfidence(confidence));
     }
 
-    public double computeSentenceDuration(String input) {
-        return 0;
+    public ArrayList<Double> getDurationDataToDouble(String durationLine) {
+        ArrayList<Double> list = new ArrayList<>();
+        String[] durations = durationLine.split("-->");
+        double startTime = secondParser(durations[0]);
+        double endTime = secondParser(durations[1]);
+        list.add(startTime);
+        list.add(endTime);
+        return list;
     }
 
-    public double computeSentenceConfidence(String input) {
-        return 0;
+    public double convertSentenceConfidence(String input) {
+        Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return Double.parseDouble(matcher.group(0));
+        } else {
+            System.out.println("Confidence note error");
+            return 0;
+        }
     }
 
     public Button getFileSelectButton() {
@@ -212,11 +234,11 @@ public class TranscriptHandler {
         this.language = language;
     }
 
-    public int getMeetingDurationSeconds() {
+    public Double getMeetingDurationSeconds() {
         return this.meetingDurationSeconds;
     }
 
-    public void setMeetingDurationSeconds(int meetingDurationSeconds) {
+    public void setMeetingDurationSeconds(double meetingDurationSeconds) {
         this.meetingDurationSeconds = meetingDurationSeconds;
     }
 }
