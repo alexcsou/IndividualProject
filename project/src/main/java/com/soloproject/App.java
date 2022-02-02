@@ -6,9 +6,16 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+/**
+ * The main class of the application. It contains the start method and the main
+ * method which calls launch(args).
+ */
 public class App extends Application {
 
     @Override
+    /**
+     * @param stage the stage of the GUI
+     */
     public void start(Stage stage) {
 
         TranscriptHandler handler = new TranscriptHandler(stage);

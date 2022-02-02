@@ -13,24 +13,28 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
- * A class to allow a user to select the trancript .vtt file they want analysed
- * by
- * Fixated.
+ * TranscriptHandler is a class responsible for all operations to do with the
+ * .vtt transcript provided by the user. It generates TranscriptSentence items
+ * stored in a "sentences" arraylist. It also extracts the meeting duration and
+ * the transcript recognizability, as well as its language. It also provides
+ * the button that opens a file chooser.
  */
 public class TranscriptHandler {
 
-    private Button button = new Button("Choose a file");
+    private Button button;
     private Stage stage;
     private File transcript = null;
     private ArrayList<TranscriptSentence> sentences;
-    private String meetingDurationString;
-    private double meetingDurationSeconds;
-    private String transcriptRecognizability;
-    private String language;
+    private String meetingDurationString; // stored as string as displayed in .vtt file
+    private double meetingDurationSeconds; // converts string duration to sum of seconds
+    private String transcriptRecognizability; // value out of 1
+    private String language; // usually en-us or en-uk.
 
     public TranscriptHandler(Stage stage) {
+        button = new Button("Choose a file");
         button.setOnAction(e -> chooseFile());
         this.stage = stage;
+
         sentences = new ArrayList<>();
         meetingDurationString = "";
         meetingDurationSeconds = 0.0;
@@ -81,6 +85,11 @@ public class TranscriptHandler {
                 || line.contains("NOTE language:") || isIDLine(line) || line.isBlank());
     }
 
+    /**
+     * 
+     * @param input
+     * @return
+     */
     public boolean isIDLine(String input) {
         Pattern pattern = Pattern.compile("(.*?)-(.*?)-(.*?)-(.*?)-(.*?)");
         Matcher matcher = pattern.matcher(input);
@@ -154,10 +163,18 @@ public class TranscriptHandler {
     public ArrayList<Double> getDurationDataToDouble(String durationLine) {
         ArrayList<Double> list = new ArrayList<>();
         String[] durations = durationLine.split("-->");
-        double startTime = secondParser(durations[0]);
-        double endTime = secondParser(durations[1]);
-        list.add(startTime);
-        list.add(endTime);
+        try {
+            double startTime = secondParser(durations[0]);
+            double endTime = secondParser(durations[1]);
+            list.add(startTime);
+            list.add(endTime);
+        } catch (NumberFormatException e) {
+            System.out.println("getDurationDataToDouble failed");
+            list.add(0.0);
+            list.add(0.0);
+            return list;
+        }
+
         return list;
     }
 
