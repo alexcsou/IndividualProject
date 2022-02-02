@@ -91,42 +91,34 @@ public class TranscriptHandler {
     }
 
     public void getGeneralMeetingData() {
+        boolean durationSet = false;
+        boolean recogSet = false;
+        boolean languageSet = false;
         try {
             Scanner reader = new Scanner(transcript);
 
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
-                if (line.contains("NOTE duration:")) {
-
+                if (line.contains("NOTE duration:") && !durationSet) {
                     Pattern pattern = Pattern.compile("\\d+:\\d+:\\d+");
                     Matcher matcher = pattern.matcher(line);
-                    matcher.find();
                     if (matcher.find()) {
-                        System.out.println("here");
                         setMeetingDurationString(matcher.group(0));
-                        System.out.println(matcher.group(0));
+                        durationSet = true;
                     }
-                } else if (line.contains("NOTE recognizability:")) {
+                } else if (line.contains("NOTE recognizability:") && !recogSet) {
 
-                    Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+"); // from https: //
-                                                                                  // stackoverflow.com/questions/12643009/regular-expression-for-floating-point-numbers/12643073
+                    Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
                     Matcher matcher = pattern.matcher(line);
-                    matcher.find();
                     if (matcher.find()) {
-                        System.out.println("here");
                         setTranscriptRecognizability(matcher.group(0));
-                        System.out.println(matcher.group(0));
+                        recogSet = true;
                     }
-                } else if (line.contains("NOTE language:")) {
+                } else if (line.contains("NOTE language:") && !languageSet) {
 
-                    Pattern pattern = Pattern.compile("/(?!NOTE|language|:)([a-z0-9]+)");
-                    Matcher matcher = pattern.matcher(line);
-                    matcher.find();
-                    if (matcher.find()) {
-                        System.out.println("here");
-                        setLanguage(matcher.group(0));
-                        System.out.println(matcher.group(0));
-                    }
+                    line = line.replace("NOTE language:", "");
+                    setLanguage(line);
+                    languageSet = true;
                 }
             }
             reader.close();
