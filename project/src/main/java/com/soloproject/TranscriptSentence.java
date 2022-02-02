@@ -10,10 +10,12 @@ public class TranscriptSentence {
 
     public TranscriptSentence(String sentence, double startTime, double endTime, double confidence) {
         this.sentence = sentence;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.duration = endTime - startTime;
-        this.confidence = confidence;
+        this.startTime = (double) Math.round(startTime * 100d) / 100d;
+        this.endTime = (double) Math.round(endTime * 100d) / 100d;
+        this.duration = (double) Math.round((endTime - startTime) * 100d) / 100d;
+        this.confidence = (double) Math.round(confidence * 100d) / 100d;
+        System.out.println(this.confidence + " " + this.duration + " " + this.startTime + " "
+                + this.endTime);
     }
 
     public double getStartTime() {

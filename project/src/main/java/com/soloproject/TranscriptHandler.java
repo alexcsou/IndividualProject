@@ -54,15 +54,6 @@ public class TranscriptHandler {
     public void handlefile() {
         generateMeetingData();
         generateSentences();
-        for (TranscriptSentence s : sentences) {
-            System.out.println("NEW SETENCE:");
-            System.out.println(s.getSentence());
-            System.out.println(s.getConfidence());
-            System.out.println(s.getStartTime());
-            System.out.println(s.getEndTime());
-            System.out.println(s.getDuration());
-            System.out.println("");
-        }
     }
 
     public void generateSentences() {
@@ -87,7 +78,17 @@ public class TranscriptHandler {
 
     public boolean isValid(String line) {
         return !(line.contains("WEBVTT") || line.contains("NOTE duration:") || line.contains("NOTE recognizability:")
-                || line.contains("NOTE language:") || line.isBlank());
+                || line.contains("NOTE language:") || isIDLine(line) || line.isBlank());
+    }
+
+    public boolean isIDLine(String input) {
+        Pattern pattern = Pattern.compile("(.*?)-(.*?)-(.*?)-(.*?)-(.*?)");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void generateMeetingData() {
