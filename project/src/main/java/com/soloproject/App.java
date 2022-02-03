@@ -13,9 +13,6 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     @Override
-    /**
-     * @param stage the stage of the GUI
-     */
     public void start(Stage stage) {
 
         TranscriptHandler handler = new TranscriptHandler(stage);
