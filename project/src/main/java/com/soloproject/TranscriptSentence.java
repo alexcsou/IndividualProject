@@ -27,6 +27,8 @@ public class TranscriptSentence {
 
     }
 
+    // ------------------- Getters and Setters -------------------
+
     public double getStartTime() {
         return this.startTime;
     }
