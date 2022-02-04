@@ -1,5 +1,6 @@
 * {
   -fx-font-family: "Calibri";
+  -fx-text-fill: "white";
   -fx-padding: 10;
 }
 
@@ -7,7 +8,9 @@
   -fx-font-size: 26;
 }
 
-
+.root {
+-fx-background-color: "#3C3C3C";
+}
 
 
 

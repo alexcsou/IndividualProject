@@ -53,8 +53,10 @@ public class TranscriptHandler {
         chooser.getExtensionFilters().addAll(
                 new ExtensionFilter("WebVTT Files", "*.vtt"));
         File newTranscript = chooser.showOpenDialog(stage);
-        setTranscript(newTranscript);
-        handlefile();
+        if (newTranscript != null) {
+            setTranscript(newTranscript);
+            handlefile();
+        }
 
         return transcript;
     }
