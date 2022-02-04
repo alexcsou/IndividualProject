@@ -1,6 +1,15 @@
 * {
-    -fx-background-color:black;
-  }
+  -fx-font-family: "Calibri";
+  -fx-padding: 10;
+}
+
+.welcomeView {
+  -fx-font-size: 26;
+}
+
+
+
+
 
   /* # for IDs (to set id, 
     .class for classes

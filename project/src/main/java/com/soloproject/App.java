@@ -1,6 +1,8 @@
 package com.soloproject;
 
 import javafx.application.Application;
+import javafx.css.StyleClass;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -16,11 +18,13 @@ public class App extends Application {
     public void start(Stage stage) {
 
         TranscriptHandler handler = new TranscriptHandler(stage);
+        WelcomeView welcomeView = new WelcomeView();
 
         BorderPane root = new BorderPane();
-        root.setCenter(handler.getFileSelectButton());
+        root.setTop(welcomeView.getView());
+        root.setCenter(handler.getButton());
 
-        Scene scene = new Scene(root, 640, 480);
+        Scene scene = new Scene(root, 700, 500);
         scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 
         stage.setTitle("Fixated");
