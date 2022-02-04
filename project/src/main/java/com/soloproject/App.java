@@ -21,6 +21,7 @@ public class App extends Application {
         root.setCenter(handler.getFileSelectButton());
 
         Scene scene = new Scene(root, 640, 480);
+        scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
 
         stage.setTitle("Fixated");
         stage.setScene(scene);

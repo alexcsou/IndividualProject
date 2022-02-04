@@ -1,0 +1,8 @@
+* {
+    -fx-background-color:black;
+  }
+
+  /* # for IDs (to set id, 
+    .class for classes
+    a:hover for specific states
+  */
