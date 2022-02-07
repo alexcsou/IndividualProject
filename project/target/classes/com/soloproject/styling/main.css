@@ -1,17 +1,41 @@
 * {
-  -fx-font-family: "Calibri";
+  -fx-font-family: "Trebuchet MS";
   -fx-text-fill: "white";
   -fx-padding: 10;
+
+
+  /* 
+  javafx does not support variables of the form --name. Calling a var using var(--name) fails.
+
+  backgroundGrey: "3C3C3C";
+  buttonGrey: "A9A9A9";
+  buttonGreyHover: "838383"
+  backgroundRadius: 5em;
+  */
 }
 
 .welcomeView {
-  -fx-font-size: 26;
+  -fx-font-size: 22;
 }
 
+.titleLabel {
+  -fx-font-size: 30;
+
+}
 .root {
--fx-background-color: "#3C3C3C";
+-fx-background-color: "3C3C3C";
 }
 
+.button {
+  -fx-background-color: "A9A9A9";
+  -fx-background-radius: 5em;
+  -fx-min-width: 100px;
+  
+}
+
+.button:hover {
+  -fx-background-color: "838383";
+}
 
 
   /* # for IDs (to set id, 

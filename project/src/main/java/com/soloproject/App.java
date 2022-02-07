@@ -24,15 +24,20 @@ public class App extends Application {
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView());
-        root.setCenter(handler.getButton());
-        root.setRight(new Arc());
+        handler.getButton().setDefaultButton(true);
+
+        HBox buttons = new HBox();
+        buttons.setSpacing(5);
+        buttons.setAlignment(Pos.CENTER);
+        buttons.getChildren().addAll(handler.getButton(), welcomeView.getHelpButton());
+        root.setCenter(buttons);
 
         Scene scene = new Scene(root, 700, 500);
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
 
         stage.setTitle("Fixated");
 
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/Capy.jpg")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
         stage.setScene(scene);
         stage.show();
     }
