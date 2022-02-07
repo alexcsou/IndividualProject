@@ -10,6 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * A view that a user is first presented with upon launching Fixated. It
+ * contains text giving some basic info about the app.
+ */
 public class WelcomeView {
 
     private VBox mainbox = new VBox();
@@ -19,7 +23,7 @@ public class WelcomeView {
     public WelcomeView() {
         mainbox.getStyleClass().add("welcomeView");
         mainbox.setAlignment(Pos.CENTER);
-        HelpButton = new Button("? Help");
+        HelpButton = new Button("Help");
         makeView(mainbox);
     }
 
@@ -29,7 +33,7 @@ public class WelcomeView {
         logoView.setFitHeight(60);
         logoView.setFitWidth(60);
 
-        Label titleLabel = new Label("𝗙𝗜𝗫𝗔𝗧𝗘𝗗", logoView);
+        Label titleLabel = new Label("𝗙𝗜𝗫𝗔𝗧𝗘𝗗", logoView); // fancy case title
         titleLabel.getStyleClass().add("titleLabel");
 
         Label infoText1 = new Label("Welcome to Fixated! Please start by selecting " +
@@ -38,7 +42,7 @@ public class WelcomeView {
         infoText1.setWrapText(true);
         infoText1.setTextAlignment(TextAlignment.CENTER);
 
-        box.getChildren().addAll(titleLabel, infoText1);
+        box.getChildren().addAll(titleLabel, infoText1); // both items in a VBox
     }
 
     public VBox getView() {

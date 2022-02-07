@@ -23,14 +23,15 @@ public class App extends Application {
         WelcomeView welcomeView = new WelcomeView();
 
         BorderPane root = new BorderPane();
-        root.setTop(welcomeView.getView());
-        handler.getButton().setDefaultButton(true);
+        root.setTop(welcomeView.getView()); // display the welcome messages
+        handler.getButton().setDefaultButton(true); // if a user presses enter, file select screen opens
 
         HBox buttons = new HBox();
         buttons.setSpacing(5);
         buttons.setAlignment(Pos.CENTER);
-        buttons.getChildren().addAll(handler.getButton(), welcomeView.getHelpButton());
-        root.setCenter(buttons);
+        buttons.getChildren().addAll(handler.getButton(), welcomeView.getHelpButton()); // add both buttons to the HBox
+
+        root.setCenter(buttons); // add HBox to the root pane
 
         Scene scene = new Scene(root, 700, 500);
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
