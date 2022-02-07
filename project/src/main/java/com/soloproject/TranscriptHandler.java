@@ -7,15 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
@@ -63,25 +60,34 @@ public class TranscriptHandler {
         if (newTranscript != null) {
             setTranscript(newTranscript);
             handlefile();
-            Alert successAlert = new Alert(AlertType.INFORMATION);
-            successAlert.getDialogPane().getStylesheets()
-                    .add(getClass().getResource("styling/main.css").toExternalForm());// specify styling file location
-            successAlert.getDialogPane().getStyleClass().add("alert");// style alert only
-            successAlert.setTitle("Operation Successful");
-            successAlert.setContentText(
-                    "Click \"OK\" to open your dashboard. Close this dialog to cancel.");
-            successAlert.setHeaderText("File successfully processed.");
-            successAlert.showAndWait()
-                    .filter(response -> response == ButtonType.OK)
-                    .ifPresent(response -> loadMainView());// wait until alert is closed or accepted.
+            alertSuccess();
         }
-
         return transcript;
     }
 
+    /**
+     * A method which loads the main view into the scene and fullscreens the app.
+     */
     public void loadMainView() {
         stage.getScene().setRoot(mainView.getView());// change root pane of scene to that of MainView
         stage.setFullScreen(true);
+    }
+
+    /**
+     * A method to display a success alert after selecting a file.
+     */
+    public void alertSuccess() {
+        Alert successAlert = new Alert(AlertType.INFORMATION);
+        successAlert.getDialogPane().getStylesheets()
+                .add(getClass().getResource("styling/main.css").toExternalForm());// specify styling file location
+        successAlert.getDialogPane().getStyleClass().add("alert");// style alert only
+        successAlert.setTitle("Operation Successful");
+        successAlert.setContentText(
+                "Click \"OK\" to open your dashboard. Close this dialog to cancel.");
+        successAlert.setHeaderText("File successfully processed.");
+        successAlert.showAndWait()
+                .filter(response -> response == ButtonType.OK)
+                .ifPresent(response -> loadMainView());// wait until alert is closed or accepted.
     }
 
     /**

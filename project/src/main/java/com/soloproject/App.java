@@ -1,14 +1,12 @@
 package com.soloproject;
 
 import javafx.application.Application;
-import javafx.css.StyleClass;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Arc;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 
 /**
  * The main class of the application. It contains the start method and the main
@@ -33,10 +31,12 @@ public class App extends Application {
 
         root.setCenter(buttons); // add HBox to the root pane
 
-        Scene scene = new Scene(root, 700, 500);
+        Scene scene = new Scene(root, ScreenSizehandler.getWidth() / 2, ScreenSizehandler.getHeight() / 2); // size
+                                                                                                            // relatively
+        // to screen size
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
 
-        stage.setTitle("Fixated");
+        stage.setTitle("𝗙𝗜𝗫𝗔𝗧𝗘𝗗");
 
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
         stage.setScene(scene);
