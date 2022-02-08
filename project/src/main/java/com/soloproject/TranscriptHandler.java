@@ -33,6 +33,7 @@ public class TranscriptHandler {
     private String transcriptRecognizability; // value out of 1
     private String language; // usually en-us or en-uk.
     MainView mainView = new MainView(); // the handler calls the mainview so it is instantiated here.
+    private ErrorHandler errorHandler = new ErrorHandler();
 
     public TranscriptHandler(Stage stage) {
         button = new Button("Choose a file");
@@ -61,6 +62,9 @@ public class TranscriptHandler {
             setTranscript(newTranscript);
             handlefile();
             alertSuccess();
+        } else {
+            errorHandler.alertFailure("No file was processed.");
+            ;
         }
         return transcript;
     }
@@ -121,7 +125,7 @@ public class TranscriptHandler {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("transcript file was not found");
+            errorHandler.alertFailure("Your file couldn't be found");
         }
     }
 
@@ -203,9 +207,9 @@ public class TranscriptHandler {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("transcript file was not found");
+            errorHandler.alertFailure("Your file couldn't be found");
         } catch (Exception e) {
-            System.out.println("Something went wrong...");
+            errorHandler.alertFailure("something went wrong when processing your file...");
         }
     }
 
@@ -218,11 +222,18 @@ public class TranscriptHandler {
      * @return
      */
     public double secondParser(String input) {
-        String[] duration = input.split(":"); // split on : divider
-        double HH = Double.parseDouble(duration[0]);
-        double mm = Double.parseDouble(duration[1]);
-        double ss = Double.parseDouble(duration[2]);
-        return (HH * 3600 + mm * 60 + ss); // convert the hours and minutes to seconds, sum and return as double
+        try {
+            String[] duration = input.split(":"); // split on : divider
+            double HH = Double.parseDouble(duration[0]);
+            double mm = Double.parseDouble(duration[1]);
+            double ss = Double.parseDouble(duration[2]);
+            return (HH * 3600 + mm * 60 + ss); // convert the hours and minutes to seconds, sum and return as double
+
+        } catch (Exception e) {
+            errorHandler.alertFailure("Your file wasn't processed correctly.");
+            return 0.0;
+        }
+
     }
 
     /**
@@ -261,7 +272,7 @@ public class TranscriptHandler {
             list.add(startTime);
             list.add(endTime);
         } catch (NumberFormatException e) {
-            System.out.println("getDurationDataToDouble failed");
+            errorHandler.alertFailure("Your file wasn't processed correctly.");
             list.add(0.0);
             list.add(0.0);
             return list;
@@ -283,7 +294,7 @@ public class TranscriptHandler {
         if (matcher.find()) {
             return Double.parseDouble(matcher.group(0));
         } else {
-            System.out.println("Confidence note error");
+            errorHandler.alertFailure("Your file wasn't processed correctly.");
             return 0;
         }
     }
@@ -301,7 +312,7 @@ public class TranscriptHandler {
      */
     public File getTranscript() {
         if (transcript == null) {
-            System.out.println("Fetched null transcript file");
+            errorHandler.alertFailure("Your file does not exist.");
         }
         return transcript;
     }

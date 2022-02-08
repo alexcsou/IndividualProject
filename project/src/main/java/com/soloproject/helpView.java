@@ -21,6 +21,7 @@ import java.awt.Desktop;
 public class helpView {
 
     private Button HelpButton;
+    private ErrorHandler errorHandler = new ErrorHandler();
 
     private final String instruction1 = new String(
             "𝗙𝗜𝗫𝗔𝗧𝗘𝗗 is primarily targeted at meetings recorded on Microsoft Teams."
@@ -117,9 +118,9 @@ public class helpView {
         try {
             Desktop.getDesktop().browse(new URL(link).toURI());
         } catch (IOException e) {
-            e.printStackTrace();
+            errorHandler.alertFailure("Couldn't open your browser.");
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            errorHandler.alertFailure("Couldn't open your browser.");
         }
     }
 
