@@ -10,28 +10,37 @@
 * {
   -fx-font-family: "Trebuchet MS";
   -fx-text-fill: "white";
-  -fx-padding: 10;
 }
 
 .welcomeView {
   -fx-font-size: 22;
+  -fx-padding: 10;
+
 }
 
 .titleLabel {
   -fx-font-size: 30;
+  -fx-padding: 10;
+
 
 }
 .bigTitle {
   -fx-font-size: 30;
+  -fx-padding: 10;
+
 }
 .root {
 -fx-background-color: "3C3C3C";
+-fx-padding: 10;
+
 }
 
 .button {
   -fx-background-color: "A9A9A9";
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
+  -fx-padding: 10;
+
   
 }
 
@@ -41,13 +50,58 @@
 
 .alert{
   -fx-background-color: "3C3C3C";
+  -fx-padding: 10;
+
 }
 
 .alert:header *.header-panel{
   -fx-background-color: "3C3C3C";
 }
 
-.test {
-  -fx-font-size: 11;
+.helpViewItem {
+  -fx-padding: 10;
+}
+
+.mainView {
+  -fx-padding: 0;
+
+
+}
+
+
+/* some styling inspired by https://stackoverflow.com/q/19788661 */
+
+.tab-pane
+{
+  -fx-tab-min-width:90px;
+}
+
+.tab{
+  -fx-background-insets: 0 1 0 1,0,0;
+  -fx-focus-color: transparent; /*remove focus outline around tabs. Taken from https://stackoverflow.com/a/34247033*/
+  -fx-faint-focus-color: transparent;
+}
+
+.tab-header-area .tab{
+  -fx-padding: 3;
+  -fx-background-radius: 10 10 0 0;
+}
+
+.tab-pane .tab
+{
+  -fx-background-color: "838383";
+}
+
+.tab-pane .tab:selected
+{
   -fx-background-color: "3C3C3C";
+}
+
+.tab .tab-label { 
+  -fx-alignment: CENTER;
+}
+
+.tab-header-area .tab-header-background {
+  -fx-background-color: "white";
+
 }

@@ -19,7 +19,6 @@ public class App extends Application {
         TranscriptHandler handler = new TranscriptHandler(stage);
         WelcomeView welcomeView = new WelcomeView();
         helpView helpView = new helpView();
-        ;
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView()); // display the welcome messages
@@ -32,9 +31,11 @@ public class App extends Application {
 
         root.setCenter(buttons); // add HBox to the root pane
 
-        Scene scene = new Scene(root, ScreenSizehandler.getWidth() / 2, ScreenSizehandler.getHeight() / 2); // size
-                                                                                                            // relatively
-        // to screen size
+        MainView view = new MainView(); // TODO: delete
+
+        Scene scene = new Scene(view.getView(), ScreenSizehandler.getWidth() / 2, // size relatively to screen size
+                ScreenSizehandler.getHeight() / 2);
+
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
 
         stage.setTitle("𝗙𝗜𝗫𝗔𝗧𝗘𝗗");

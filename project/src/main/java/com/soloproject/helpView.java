@@ -94,6 +94,8 @@ public class helpView {
         contentBox.getChildren().addAll(bigTitle, instructionLabel1, link, instructionLabel2, instruction1View,
                 instructionLabel3, instruction2View, instructionLabel4, instruction3View);
 
+        contentBox.getChildren().forEach(c -> c.getStyleClass().add("helpViewItem")); // style all items on the helpview
+
         helpPane.setCenter(contentBox);
         Scene scene = new Scene(helpPane, ScreenSizehandler.getWidth() * 0.45, ScreenSizehandler.getHeight() * 0.8);
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
