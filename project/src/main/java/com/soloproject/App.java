@@ -31,9 +31,9 @@ public class App extends Application {
 
         root.setCenter(buttons); // add HBox to the root pane
 
-        MainView view = new MainView(); // TODO: delete
+        MainView view = new MainView(stage); // TODO: delete
 
-        Scene scene = new Scene(view.getView(), ScreenSizehandler.getWidth() / 2, // size relatively to screen size
+        Scene scene = new Scene(root, ScreenSizehandler.getWidth() / 2, // size relatively to screen size
                 ScreenSizehandler.getHeight() / 2);
 
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());

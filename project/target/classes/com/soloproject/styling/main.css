@@ -40,12 +40,22 @@
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
   -fx-padding: 10;
+}
 
-  
+.quitButton {
+  -fx-background-color: "dimgrey";
+  -fx-min-width: 20px;
+  -fx-background-radius: 0em;
+  -fx-padding: 8.6;
+
 }
 
 .button:hover {
   -fx-background-color: "838383";
+}
+
+.quitButton:hover {
+  -fx-background-color: "red";
 }
 
 .alert{
@@ -102,6 +112,6 @@
 }
 
 .tab-header-area .tab-header-background {
-  -fx-background-color: "white";
+  -fx-background-color: "dimgrey";
 
 }

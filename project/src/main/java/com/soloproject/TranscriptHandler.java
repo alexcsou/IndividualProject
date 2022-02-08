@@ -32,7 +32,7 @@ public class TranscriptHandler {
     private double meetingDurationSeconds; // converts string duration to sum of seconds
     private String transcriptRecognizability; // value out of 1
     private String language; // usually en-us or en-uk.
-    MainView mainView = new MainView(); // the handler calls the mainview so it is instantiated here.
+    MainView mainView; // the handler calls the mainview so it is instantiated here.
     private ErrorHandler errorHandler = new ErrorHandler();
 
     public TranscriptHandler(Stage stage) {
@@ -45,6 +45,8 @@ public class TranscriptHandler {
         meetingDurationSeconds = 0.0;
         transcriptRecognizability = "";
         language = "";
+
+        mainView = new MainView(stage);
     }
 
     /**
@@ -61,10 +63,9 @@ public class TranscriptHandler {
         if (newTranscript != null) {
             setTranscript(newTranscript);
             handlefile();
-            alertSuccess();
+            alertSuccess(); // calls loadmainview
         } else {
             errorHandler.alertFailure("No file was processed.");
-            ;
         }
         return transcript;
     }
@@ -75,6 +76,7 @@ public class TranscriptHandler {
     public void loadMainView() {
         stage.getScene().setRoot(mainView.getView());// change root pane of scene to that of MainView
         stage.setFullScreen(true);
+
     }
 
     /**
@@ -91,7 +93,7 @@ public class TranscriptHandler {
         successAlert.setHeaderText("File successfully processed.");
         successAlert.showAndWait()
                 .filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> loadMainView());// wait until alert is closed or accepted.
+                .ifPresent(response -> loadMainView());// wait until alert is closed or accepted, and open the dashboard
     }
 
     /**
