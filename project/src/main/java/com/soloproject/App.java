@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.stage.Screen;
 
 /**
  * The main class of the application. It contains the start method and the main
@@ -19,6 +18,8 @@ public class App extends Application {
 
         TranscriptHandler handler = new TranscriptHandler(stage);
         WelcomeView welcomeView = new WelcomeView();
+        helpView helpView = new helpView();
+        ;
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView()); // display the welcome messages
@@ -27,7 +28,7 @@ public class App extends Application {
         HBox buttons = new HBox();
         buttons.setSpacing(5);
         buttons.setAlignment(Pos.CENTER);
-        buttons.getChildren().addAll(handler.getButton(), welcomeView.getHelpButton()); // add both buttons to the HBox
+        buttons.getChildren().addAll(handler.getButton(), helpView.getButton()); // add both buttons to the HBox
 
         root.setCenter(buttons); // add HBox to the root pane
 

@@ -21,6 +21,9 @@
   -fx-font-size: 30;
 
 }
+.bigTitle {
+  -fx-font-size: 30;
+}
 .root {
 -fx-background-color: "3C3C3C";
 }
@@ -41,5 +44,10 @@
 }
 
 .alert:header *.header-panel{
+  -fx-background-color: "3C3C3C";
+}
+
+.scrollpane {
+  -fx-font-size: 11;
   -fx-background-color: "3C3C3C";
 }
