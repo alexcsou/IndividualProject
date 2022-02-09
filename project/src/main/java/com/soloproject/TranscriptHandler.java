@@ -32,7 +32,6 @@ public class TranscriptHandler {
     private double meetingDurationSeconds; // converts string duration to sum of seconds
     private String transcriptRecognizability; // value out of 1
     private String language; // usually en-us or en-uk.
-    MainView mainView; // the handler calls the mainview so it is instantiated here.
     private ErrorHandler errorHandler = new ErrorHandler();
 
     public TranscriptHandler(Stage stage) {
@@ -45,8 +44,6 @@ public class TranscriptHandler {
         meetingDurationSeconds = 0.0;
         transcriptRecognizability = "";
         language = "";
-
-        mainView = new MainView(stage);
     }
 
     /**
@@ -74,7 +71,7 @@ public class TranscriptHandler {
      * A method which loads the main view into the scene and fullscreens the app.
      */
     public void loadMainView() {
-        stage.getScene().setRoot(mainView.getView());// change root pane of scene to that of MainView
+        stage.getScene().setRoot(new MainView(stage, this).getView());// change root pane of scene to that of MainView
         stage.setFullScreen(true);
 
     }

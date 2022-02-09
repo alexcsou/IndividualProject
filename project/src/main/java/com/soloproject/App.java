@@ -31,8 +31,6 @@ public class App extends Application {
 
         root.setCenter(buttons); // add HBox to the root pane
 
-        MainView view = new MainView(stage); // TODO: delete
-
         Scene scene = new Scene(root, ScreenSizehandler.getWidth() / 2, // size relatively to screen size
                 ScreenSizehandler.getHeight() / 2);
 
