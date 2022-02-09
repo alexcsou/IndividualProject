@@ -9,12 +9,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
+/**
+ * The mainView of the application, which contains all tabs and appears
+ * fullscreened upon first launch.
+ * This is isntantiated in TranscriptHandler upon closing the file process
+ * success alert.
+ */
 public class MainView {
 
     private BorderPane mainPane;
     private Stage stage;
-    private TranscriptHandler handler;
-    private TranscriptView transcriptView;
+    private TranscriptHandler handler; // the mainView has a handler as a way to access meeting transcript info
+    private TranscriptView transcriptView; // This view is passed the transcript handler as to display it's data.
 
     public MainView(Stage stage, TranscriptHandler handler) {
         this.handler = handler;
@@ -29,6 +35,7 @@ public class MainView {
 
         TabPane tabs = new TabPane();
 
+        // Each tab is a different class of view.
         Tab dashboard = new Tab("Dashboard", new Label("content"));
         Tab charts = new Tab("Charts", new Label("content2"));
         Tab insights = new Tab("Insights", new Label("content3"));
@@ -38,7 +45,8 @@ public class MainView {
         tabs.getTabs().addAll(dashboard, charts, insights, transcript, settings);
         tabs.getTabs().forEach(t -> t.setClosable(false)); // unclosable tabs
 
-        Button quitButton = new Button("Quit");
+        Button quitButton = new Button("Quit"); // extra quit button as user is fullscreened and should be able to quit
+                                                // at any time.
         quitButton.setOnAction(e -> stage.close());
         quitButton.getStyleClass().add("quitButton");
 

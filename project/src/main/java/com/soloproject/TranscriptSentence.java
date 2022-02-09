@@ -2,7 +2,7 @@ package com.soloproject;
 
 /**
  * the TranscriptSentence class represents a portion of a .vtt transcript stored
- * neatly together, namely the actual sentence or half sentence spoken the
+ * neatly together, namely the actual sentence or half sentence spoken; the
  * confidence of the AI recognising it out of 1, the sentence start times and
  * end times in seconds since the start of the recording, and the duration of
  * the sentence.

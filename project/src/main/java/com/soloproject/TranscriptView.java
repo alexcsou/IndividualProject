@@ -2,6 +2,10 @@ package com.soloproject;
 
 import javafx.scene.layout.BorderPane;
 
+/**
+ * A view displayed in the transscript tab of the app, containing various
+ * transcript analysis results and information.
+ */
 public class TranscriptView {
 
     private BorderPane mainPane;

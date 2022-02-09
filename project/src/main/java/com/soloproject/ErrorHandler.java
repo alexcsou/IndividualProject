@@ -4,14 +4,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * This is a class which contains various methods to handle errors in the App.
+ * These methods create visible alerts that notify users of issues.
+ */
 public class ErrorHandler {
 
     public ErrorHandler() {
-
     }
 
     /**
      * A method to display a failure alert after any operation.
+     * 
+     * @param message the message to display in an alert after an error occurs.
      */
     public void alertFailure(String message) {
         Alert failureAlert = new Alert(AlertType.ERROR);

@@ -18,11 +18,17 @@ import javafx.stage.Stage;
 
 import java.awt.Desktop;
 
+/**
+ * The helpView class contains a view that a user is presented with upon
+ * clicking "help" once Fixated is open. It contains a quick guide on how to
+ * obtain a .vtt file.
+ */
 public class helpView {
 
     private Button HelpButton;
-    private ErrorHandler errorHandler = new ErrorHandler();
+    private ErrorHandler errorHandler = new ErrorHandler(); // created to handle browser opening errors.
 
+    // below are all the large strings of text displayed on the view.
     private final String instruction1 = new String(
             "𝗙𝗜𝗫𝗔𝗧𝗘𝗗 is primarily targeted at meetings recorded on Microsoft Teams."
                     + " Microsoft Teams meetings are automatically saved to Microsoft Stream, a video-sharing service."
@@ -48,7 +54,7 @@ public class helpView {
     }
 
     /**
-     * Method to show the help window to isntruct users on how to find and download
+     * Method to show the help window to instruct users on how to find and download
      * a .vtt of their transcript.
      */
     public void showHelp() {
@@ -67,7 +73,9 @@ public class helpView {
 
         Label instructionLabel1 = new Label(instruction1);
         instructionLabel1.setWrapText(true);
-        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5);
+        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5); // large label, restrict its size so that
+                                                                           // doesn't span the whole screen if app is
+                                                                           // fullscreened.
         instructionLabel1.setTextAlignment(TextAlignment.CENTER);
 
         Label instructionLabel2 = new Label(instruction2);
@@ -82,13 +90,16 @@ public class helpView {
         instructionLabel4.setWrapText(true);
         instructionLabel4.setTextAlignment(TextAlignment.CENTER);
 
-        Image instructionImage1 = new Image(getClass().getResourceAsStream("images/instructions1.png"));
+        Image instructionImage1 = new Image(getClass().getResourceAsStream("images/instructions1.png")); // helper
+                                                                                                         // screenshot
         ImageView instruction1View = new ImageView(instructionImage1);
 
-        Image instructionImage2 = new Image(getClass().getResourceAsStream("images/instructions2.png"));
+        Image instructionImage2 = new Image(getClass().getResourceAsStream("images/instructions2.png")); // helper
+                                                                                                         // screenshot
         ImageView instruction2View = new ImageView(instructionImage2);
 
-        Image instructionImage3 = new Image(getClass().getResourceAsStream("images/instructions3.png"));
+        Image instructionImage3 = new Image(getClass().getResourceAsStream("images/instructions3.png"));// helper
+                                                                                                        // screenshot
         ImageView instruction3View = new ImageView(instructionImage3);
 
         contentBox.getChildren().addAll(bigTitle, instructionLabel1, link, instructionLabel2, instruction1View,
@@ -97,11 +108,13 @@ public class helpView {
         contentBox.getChildren().forEach(c -> c.getStyleClass().add("helpViewItem")); // style all items on the helpview
 
         helpPane.setCenter(contentBox);
+        // size the window that opens up to not take too much space and show that it
+        // overlaps the previous one by making it's width thinner.
         Scene scene = new Scene(helpPane, ScreenSizehandler.getWidth() * 0.45, ScreenSizehandler.getHeight() * 0.8);
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
 
         Stage helpWindow = new Stage();
-        helpWindow.setMinHeight(ScreenSizehandler.getHeight() * 0.8);
+        helpWindow.setMinHeight(ScreenSizehandler.getHeight() * 0.8); // disables height resizing.
         helpWindow.setTitle(".vtt Import help");
 
         helpWindow.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
@@ -126,6 +139,10 @@ public class helpView {
         }
     }
 
+    /**
+     * 
+     * @return the help button, entry point to this view
+     */
     public Button getButton() {
         return HelpButton;
     }

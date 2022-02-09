@@ -16,7 +16,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        TranscriptHandler handler = new TranscriptHandler(stage);
+        TranscriptHandler handler = new TranscriptHandler(stage); // this handler creates a MainView. This is because
+                                                                  // the "choose file" button is the entry point to the
+                                                                  // application and to the main view, and it is
+                                                                  // contained in the TranscriptHandler class
         WelcomeView welcomeView = new WelcomeView();
         helpView helpView = new helpView();
 
@@ -38,7 +41,8 @@ public class App extends Application {
 
         stage.setTitle("𝗙𝗜𝗫𝗔𝗧𝗘𝗗");
 
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png"))); // app icon, show in window
+                                                                                            // corner and taskbar.
         stage.setScene(scene);
         stage.show();
     }
