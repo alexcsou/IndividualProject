@@ -6,7 +6,7 @@ package com.soloproject;
  * confidence of the AI recognising it out of 1, the sentence start times and
  * end times in seconds since the start of the recording, and the duration of
  * the sentence.
- * Transcript setences are generated in transcript handler.
+ * Transcript sentences are generated in transcript handler.
  */
 public class TranscriptSentence {
 

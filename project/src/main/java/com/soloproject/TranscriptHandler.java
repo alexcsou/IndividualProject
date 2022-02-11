@@ -304,7 +304,13 @@ public class TranscriptHandler {
         Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
-            return Double.parseDouble(matcher.group(0));
+            try {
+                return Double.parseDouble(matcher.group(0));
+            } catch (NumberFormatException e) {
+                errorHandler.alertFailure("Your file wasn't processed correctly");
+                return 0.0;
+            }
+
         } else {
             errorHandler.alertFailure("Your file wasn't processed correctly.");
             return 0;
@@ -331,6 +337,16 @@ public class TranscriptHandler {
 
     public Button getFileSelectButton() {
         return button;
+    }
+
+    public Double getTranscriptRecognizabilityDouble() {
+        try {
+            return Double.parseDouble(this.transcriptRecognizability);
+        } catch (NumberFormatException e) {
+            errorHandler.alertFailure("An error occured whilst generating your dashboard.");
+            return 0.0;
+        }
+
     }
 
     /**
@@ -383,10 +399,6 @@ public class TranscriptHandler {
 
     public String getTranscriptRecognizability() {
         return this.transcriptRecognizability;
-    }
-
-    public Double getTranscriptRecognizabilityDouble() {
-        return Double.parseDouble(this.transcriptRecognizability);
     }
 
     public void setTranscriptRecognizability(String transcriptRecognizability) {

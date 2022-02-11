@@ -118,7 +118,7 @@
 
 .transcriptVBox {
   -fx-border-style: hidden hidden hidden solid;
-  -fx-border-width: "3";
+  -fx-border-width: 3;
   -fx-border-color: "838383";
   -fx-padding: 12;
   
