@@ -128,11 +128,17 @@ public class TranscriptHandler {
         }
     }
 
+    /**
+     * A method that counts the number of spoken words in a transcript.
+     * 
+     * @return the number of words as an int.
+     */
     public int getNumberOfWords() {
         int count = 0;
         for (TranscriptSentence s : getSentences()) {
             count += s.getSentence().split(" ").length;
         }
+        return count;
     }
 
     /**

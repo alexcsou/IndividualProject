@@ -42,6 +42,7 @@ public class TranscriptView {
         Label totalSeconds = new Label("Meeting duration in seconds: " + handler.getMeetingDurationSeconds());
         Label meetingLanguage = new Label("Meeting language: " + handler.getLanguage());
         Label sentenceCount = new Label("Number of spoken sentences: " + handler.getFullSentenceCount());
+        Label wordCount = new Label("Number of spoekn words: " + handler.getNumberOfWords());
         Label meetingRecog = new Label(
                 "Transcript accuracy: " + handler.getTranscriptRecognizabilityDouble() * 100 + "%");
 
