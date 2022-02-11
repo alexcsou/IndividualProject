@@ -41,8 +41,12 @@ public class TranscriptView {
         Label meetingDuration = new Label("Meeting Duration: " + handler.getMeetingDurationString());
         Label totalSeconds = new Label("Meeting duration in seconds: " + handler.getMeetingDurationSeconds());
         Label meetingLanguage = new Label("Meeting language: " + handler.getLanguage());
+        Label sentenceCount = new Label("Number of spoken sentences: " + handler.getFullSentenceCount());
+        Label meetingRecog = new Label(
+                "Transcript accuracy: " + handler.getTranscriptRecognizabilityDouble() * 100 + "%");
 
-        meetingDetails.getChildren().addAll(meetingName, meetingDuration, totalSeconds, meetingLanguage);
+        meetingDetails.getChildren().addAll(meetingName, meetingDuration, totalSeconds, meetingRecog, sentenceCount,
+                meetingLanguage);
         meetingDetails.getStyleClass().add("transcriptVBox");
 
     }

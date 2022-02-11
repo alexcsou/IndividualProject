@@ -128,6 +128,13 @@ public class TranscriptHandler {
         }
     }
 
+    public int getNumberOfWords() {
+        int count = 0;
+        for (TranscriptSentence s : getSentences()) {
+            count += s.getSentence().split(" ").length;
+        }
+    }
+
     /**
      * A method to check if a line read from the .vtt file is either text, a time
      * stamp for the text line, or the confidence for that line. Excludes lines
@@ -298,6 +305,22 @@ public class TranscriptHandler {
         }
     }
 
+    /**
+     * A method that counts the nulber of sentences, that is lines of vtt text that
+     * end with a sentence punctuation.
+     * 
+     * @return the number of spoken sentences in the meeting.
+     */
+    public int getFullSentenceCount() {
+        int count = 0;
+        for (TranscriptSentence s : getSentences()) {
+            if (s.getSentence().endsWith(".") || s.getSentence().endsWith("?") || s.getSentence().endsWith("!")
+                    || s.getSentence().endsWith("...")) {
+                count++;
+            }
+        }
+        return count;
+    }
     // ------------------- Getters and Setters -------------------
 
     public Button getFileSelectButton() {
@@ -354,6 +377,10 @@ public class TranscriptHandler {
 
     public String getTranscriptRecognizability() {
         return this.transcriptRecognizability;
+    }
+
+    public Double getTranscriptRecognizabilityDouble() {
+        return Double.parseDouble(this.transcriptRecognizability);
     }
 
     public void setTranscriptRecognizability(String transcriptRecognizability) {
