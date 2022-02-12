@@ -28,6 +28,9 @@ public class MainView {
         mainPane = new BorderPane();
         mainPane.getStyleClass().addAll("mainView");
         this.stage = stage;
+        stage.setMinHeight(new ScreenSizehandler().getHeight() * 0.75);
+        stage.setMinWidth(new ScreenSizehandler().getWidth() * 0.75);
+
         makeView();
     }
 

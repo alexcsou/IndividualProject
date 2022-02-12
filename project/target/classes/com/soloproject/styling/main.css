@@ -14,24 +14,24 @@
 
 .welcomeView {
   -fx-font-size: 22;
-  -fx-padding: 10;
+  -fx-padding: 1em;
 
 }
 
 .titleLabel {
   -fx-font-size: 30;
-  -fx-padding: 10;
+  -fx-padding: 1em;
 
 
 }
 .bigTitle {
   -fx-font-size: 30;
-  -fx-padding: 10;
+  -fx-padding: 1em;
 
 }
 .root {
 -fx-background-color: "3C3C3C";
--fx-padding: 10;
+-fx-padding: 1em;
 
 }
 
@@ -39,7 +39,7 @@
   -fx-background-color: "A9A9A9";
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
-  -fx-padding: 10;
+  -fx-padding: 1em;
 }
 
 .quitButton {
@@ -60,7 +60,7 @@
 
 .alert{
   -fx-background-color: "3C3C3C";
-  -fx-padding: 10;
+  -fx-padding: 1em;
 
 }
 
@@ -69,7 +69,7 @@
 }
 
 .helpViewItem {
-  -fx-padding: 10;
+  -fx-padding: 1em;
 }
 
 .mainView {
@@ -83,7 +83,7 @@
 
 .tab-pane
 {
-  -fx-tab-min-width:90px;
+  -fx-tab-min-width: 90px;
 }
 
 .tab{
@@ -118,8 +118,13 @@
 
 .transcriptVBox {
   -fx-border-style: hidden hidden hidden solid;
-  -fx-border-width: 3;
+  -fx-border-width: 2;
   -fx-border-color: "838383";
-  -fx-padding: 12;
-  
+  -fx-padding: 1em;
+}
+
+.meetingInfo {
+  -fx-font-size: 1em;
+  -fx-padding: 1em;
+
 }
