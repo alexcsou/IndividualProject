@@ -87,7 +87,7 @@ public class TranscriptHandler {
         successAlert.setTitle("Operation Successful");
         successAlert.setContentText(
                 "Click \"OK\" to open your dashboard. Close this dialog to cancel.");
-        successAlert.setHeaderText("File successfully processed.");
+        successAlert.setHeaderText("File data analysed.");
         successAlert.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> loadMainView());// wait until alert is closed or accepted, and open the dashboard
@@ -331,7 +331,13 @@ public class TranscriptHandler {
                 count++;
             }
         }
-        return count;
+        // failsafe against div by 0
+        if (count == 0) {
+            return 1;
+        } else {
+            return count;
+
+        }
     }
     // ------------------- Getters and Setters -------------------
 
@@ -343,7 +349,7 @@ public class TranscriptHandler {
         try {
             return Double.parseDouble(this.transcriptRecognizability);
         } catch (NumberFormatException e) {
-            errorHandler.alertFailure("An error occured whilst generating your dashboard.");
+            // no alert as it appears mutliple times.
             return 0.0;
         }
 
@@ -414,7 +420,11 @@ public class TranscriptHandler {
     }
 
     public Double getMeetingDurationSeconds() {
-        return this.meetingDurationSeconds;
+        if (this.meetingDurationSeconds == 0) {
+            return 1.0;
+        } else {
+            return this.meetingDurationSeconds;
+        }
     }
 
     public void setMeetingDurationSeconds(double meetingDurationSeconds) {
