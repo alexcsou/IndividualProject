@@ -144,5 +144,39 @@
 
 .chatBubble {
   -fx-background-color: black;
+}
 
+.TranscriptScrollPane {
+  -fx-background: "3C3C3C";
+  -fx-background-color: "3C3C3C";
+  -fx-padding: 10;
+
+}
+
+/* some scroll bar styling inspired by https://stackoverflow.com/q/41804373 */
+
+.scroll-bar:vertical{
+  -fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-color: white;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: white;
+}
+
+.scroll-bar:vertical .track{
+  -fx-background-color: "3C3C3C";
+  -fx-border-color: transparent;
+  -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+  -fx-background-color: white;
+  -fx-background-radius: 5em;
 }

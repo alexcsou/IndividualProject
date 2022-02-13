@@ -28,16 +28,19 @@ public class TranscriptView {
     public void makeView() {
 
         ScrollPane chatBubbles = new ScrollPane();
+        chatBubbles.getStyleClass().add("TranscriptScrollPane");
         chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        chatBubbles.setFitToHeight(false);
-        chatBubbles.setFitToWidth(false);
+        chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
+        chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.78);
+        chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
 
         VBox chatBubblesVBox = new VBox();
-        chatBubbles.setContent(chatBubblesVBox);
 
         for (TranscriptBubble bubble : handler.getBubbles()) {
             chatBubblesVBox.getChildren().add(bubble.getBubble());
         }
+
+        chatBubbles.setContent(chatBubblesVBox);
 
         VBox meetingDetails = new VBox();
         meetingDetails.setSpacing(1);
