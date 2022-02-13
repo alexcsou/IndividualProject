@@ -141,3 +141,8 @@
   -fx-border-color: "838383";
   -fx-border-width: 0.2;    
 }
+
+.chatBubble {
+  -fx-background-color: black;
+
+}

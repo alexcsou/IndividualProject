@@ -367,6 +367,20 @@ public class TranscriptHandler {
         return transcript;
     }
 
+    /**
+     * create and returns a list of transcript bubbles created from the list of
+     * transcript sentences generated prior.
+     * 
+     * @return the list of transcriptbubble nodes as an array.
+     */
+    public ArrayList<TranscriptBubble> getBubbles() {
+        ArrayList<TranscriptBubble> list = new ArrayList<>();
+        for (TranscriptSentence sentence : sentences) {
+            list.add(new TranscriptBubble(sentence));
+        }
+        return list;
+    }
+
     public void setTranscript(File file) {
         this.transcript = file;
     }

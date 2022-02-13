@@ -46,7 +46,11 @@ public class TranscriptSentence {
     }
 
     public String getSentence() {
-        return this.sentence;
+        if (sentence == null) {
+            return "";
+        } else {
+            return sentence;
+        }
     }
 
     public void setSentence(String sentence) {

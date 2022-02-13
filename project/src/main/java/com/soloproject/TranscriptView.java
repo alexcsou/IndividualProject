@@ -2,11 +2,13 @@ package com.soloproject;
 
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 
 /**
  * A view displayed in the transcript tab of the app, containing various
@@ -24,7 +26,18 @@ public class TranscriptView {
     }
 
     public void makeView() {
-        VBox chatBubbles = new VBox(new Label("test"));
+
+        ScrollPane chatBubbles = new ScrollPane();
+        chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        chatBubbles.setFitToHeight(false);
+        chatBubbles.setFitToWidth(false);
+
+        VBox chatBubblesVBox = new VBox();
+        chatBubbles.setContent(chatBubblesVBox);
+
+        for (TranscriptBubble bubble : handler.getBubbles()) {
+            chatBubblesVBox.getChildren().add(bubble.getBubble());
+        }
 
         VBox meetingDetails = new VBox();
         meetingDetails.setSpacing(1);
@@ -103,6 +116,12 @@ public class TranscriptView {
         mainPane.setRight(meetingDetails);
     }
 
+    /**
+     * a method that creates a vertical separator to add to the meeting info side
+     * panel.
+     * 
+     * @return Separator object created and styled.
+     */
     public Separator getSep() {
         Separator smallSep = new Separator(Orientation.HORIZONTAL);
         smallSep.setId("smallSep");
