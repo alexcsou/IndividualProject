@@ -24,9 +24,11 @@ import javafx.stage.FileChooser.ExtensionFilter;
  */
 public class TranscriptHandler {
 
-    private Button button;
+    private Button streamButton;
+    private Button teamsButton;
     private Stage stage;
-    private File transcript = null;
+    private File streamTranscript = null;
+    private File teamsTranscript = null;
     private ArrayList<TranscriptSentence> sentences;
     private String meetingDurationString; // stored as string as displayed in .vtt file
     private double meetingDurationSeconds; // converts string duration to sum of seconds
@@ -35,8 +37,10 @@ public class TranscriptHandler {
     private ErrorHandler errorHandler = new ErrorHandler();
 
     public TranscriptHandler(Stage stage) {
-        button = new Button("Choose a file");
-        button.setOnAction(e -> chooseFile());
+        streamButton = new Button("Choose a Microsoft Stream file");
+        streamButton.setOnAction(e -> chooseStreamFile());
+        teamsButton = new Button("Choose a Microsoft Teams file");
+        teamsButton.setOnAction(e -> chooseTeamsFile());
         this.stage = stage;
 
         sentences = new ArrayList<>();
@@ -50,21 +54,38 @@ public class TranscriptHandler {
      * A method to open a file chooser in an OS native look. Restricted to .vtt
      * files. Sets the transcript file and calls handlefile().
      */
-    public File chooseFile() {
+    public void chooseStreamFile() {
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Select a WebVTT file (.vtt)");
+        chooser.setTitle("Select a .vtt file downloaded from Microsoft Stream");
 
         chooser.getExtensionFilters().addAll(
                 new ExtensionFilter("WebVTT Files", "*.vtt"));
         File newTranscript = chooser.showOpenDialog(stage);
         if (newTranscript != null) {
-            setTranscript(newTranscript);
-            handlefile();
-            alertSuccess(); // calls loadmainview
+            setStreamTranscript(newTranscript);
+            generateMeetingData();
         } else {
             errorHandler.alertFailure("No file was processed.");
         }
-        return transcript;
+    }
+
+    /**
+     * A method to open a file chooser in an OS native look. Restricted to .vtt
+     * files. Sets the transcript file and calls handlefile().
+     */
+    public void chooseTeamsFile() {
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Select a .vtt file downloaded from Microsoft Teams");
+
+        chooser.getExtensionFilters().addAll(
+                new ExtensionFilter("WebVTT Files", "*.vtt"));
+        File newTranscript = chooser.showOpenDialog(stage);
+        if (newTranscript != null) {
+            setTeamsTranscript(newTranscript);
+            generateSentences();
+        } else {
+            errorHandler.alertFailure("No file was processed.");
+        }
     }
 
     /**
@@ -94,31 +115,22 @@ public class TranscriptHandler {
     }
 
     /**
-     * calls two big methods, the first which extracts some basic meeting data such
-     * as duration, language or transcript confidence. The second generates the
-     * array of TranscriptSentences.
-     */
-    public void handlefile() {
-        generateMeetingData();
-        generateSentences();
-    }
-
-    /**
      * Method which generates TranscriptSentences objetcs, which are composed of
      * lines extracted from the transcript: the confidence, the timestamp and the
      * text itself.
      */
     public void generateSentences() {
         try {
-            Scanner reader = new Scanner(transcript);
-            ArrayList<String> groupof3 = new ArrayList<>(); // create an array for storing lines during extraction
+            Scanner reader = new Scanner(teamsTranscript);
+            ArrayList<String> groupof2 = new ArrayList<>(); // create an array for storing lines during extraction
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
                 if (isValid(line)) { // check line isn't filler text or irrelevant
-                    groupof3.add(line);
-                    if (groupof3.size() == 3) { // as soon as the array reaches size 3, we create a sentence
-                        sentences.add(generateSentence(groupof3.get(0), groupof3.get(1), groupof3.get(2)));
-                        groupof3.clear(); // empty array and repeat until EOF
+                    groupof2.add(line);
+                    if (groupof2.size() == 2) { // as soon as the array reaches size 3, we create a sentence
+                        sentences.add(generateSentence(extractAuthor(groupof2.get(1)), groupof2.get(0),
+                                extractSentence(groupof2.get(0))));
+                        groupof2.clear(); // empty array and repeat until EOF
                     }
                 }
             }
@@ -126,6 +138,15 @@ public class TranscriptHandler {
         } catch (FileNotFoundException e) {
             errorHandler.alertFailure("Your file couldn't be found");
         }
+    }
+
+    public String extractAuthor(String input) {
+        return "";
+    }
+
+    public String extractSentence(String input) {
+        return "";
+
     }
 
     /**
@@ -184,7 +205,7 @@ public class TranscriptHandler {
         boolean recogSet = false;
         boolean languageSet = false;
         try {
-            Scanner reader = new Scanner(transcript);
+            Scanner reader = new Scanner(streamTranscript);
 
             while (reader.hasNextLine()) {
                 String line = reader.nextLine();
@@ -260,10 +281,10 @@ public class TranscriptHandler {
      * @param text       the spoken line as a string
      * @return a TranscriptSentence object with all its fields initialised.
      */
-    public TranscriptSentence generateSentence(String confidence, String duration, String text) {
+    public TranscriptSentence generateSentence(String author, String duration, String text) {
         ArrayList<Double> durationValues = getDurationDataToDouble(duration);
         return new TranscriptSentence(text, durationValues.get(0), durationValues.get(1),
-                convertSentenceConfidence(confidence));
+                author);
     }
 
     /**
@@ -300,22 +321,22 @@ public class TranscriptHandler {
      * @param input the sentence to extract the double from
      * @return
      */
-    public double convertSentenceConfidence(String input) {
-        Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
-        Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            try {
-                return Double.parseDouble(matcher.group(0));
-            } catch (NumberFormatException e) {
-                errorHandler.alertFailure("Your file wasn't processed correctly");
-                return 0.0;
-            }
+    // public double convertSentenceConfidence(String input) {
+    // Pattern pattern = Pattern.compile("[+-]?([0-9]*[.])?[0-9]+");
+    // Matcher matcher = pattern.matcher(input);
+    // if (matcher.find()) {
+    // try {
+    // return Double.parseDouble(matcher.group(0));
+    // } catch (NumberFormatException e) {
+    // errorHandler.alertFailure("Your file wasn't processed correctly");
+    // return 0.0;
+    // }
 
-        } else {
-            errorHandler.alertFailure("Your file wasn't processed correctly.");
-            return 0;
-        }
-    }
+    // } else {
+    // errorHandler.alertFailure("Your file wasn't processed correctly.");
+    // return 0;
+    // }
+    // }
 
     /**
      * A method that counts the nulber of sentences, that is lines of vtt text that
@@ -336,13 +357,17 @@ public class TranscriptHandler {
             return 1;
         } else {
             return count;
-
         }
     }
+
     // ------------------- Getters and Setters -------------------
 
-    public Button getFileSelectButton() {
-        return button;
+    public Button getStreamFileSelectButton() {
+        return streamButton;
+    }
+
+    public Button getTeamsFileSelectButton() {
+        return teamsButton;
     }
 
     public Double getTranscriptRecognizabilityDouble() {
@@ -358,13 +383,25 @@ public class TranscriptHandler {
     /**
      * signals if transcript is null
      * 
-     * @return the .vtt transcript file
+     * @return the .vtt Microsoft Stream transcript file
      */
-    public File getTranscript() {
-        if (transcript == null) {
+    public File getStreamTranscript() {
+        if (streamTranscript == null) {
             errorHandler.alertFailure("Your file does not exist.");
         }
-        return transcript;
+        return streamTranscript;
+    }
+
+    /**
+     * signals if transcript is null
+     * 
+     * @return the .vtt Teams transcript file
+     */
+    public File getTeamsTranscript() {
+        if (teamsTranscript == null) {
+            errorHandler.alertFailure("Your file does not exist.");
+        }
+        return teamsTranscript;
     }
 
     /**
@@ -381,16 +418,24 @@ public class TranscriptHandler {
         return list;
     }
 
-    public void setTranscript(File file) {
-        this.transcript = file;
+    public void setStreamTranscript(File file) {
+        this.streamTranscript = file;
     }
 
-    public Button getButton() {
-        return this.button;
+    public void setTeamsTranscript(File file) {
+        this.teamsTranscript = file;
+    }
+
+    public Button getStreamButton() {
+        return this.streamButton;
+    }
+
+    public Button getTeamsButton() {
+        return this.teamsButton;
     }
 
     public void setButton(Button button) {
-        this.button = button;
+        this.streamButton = button;
     }
 
     public Stage getStage() {

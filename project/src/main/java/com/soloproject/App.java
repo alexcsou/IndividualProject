@@ -25,12 +25,12 @@ public class App extends Application {
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView()); // display the welcome messages
-        handler.getButton().setDefaultButton(true); // if a user presses enter, file select screen opens
 
         HBox buttons = new HBox();
         buttons.setSpacing(5);
         buttons.setAlignment(Pos.CENTER);
-        buttons.getChildren().addAll(handler.getButton(), helpView.getButton()); // add both buttons to the HBox
+        // add all buttons to the box
+        buttons.getChildren().addAll(handler.getStreamButton(), handler.getTeamsButton(), helpView.getButton());
 
         root.setCenter(buttons); // add HBox to the root pane
 
