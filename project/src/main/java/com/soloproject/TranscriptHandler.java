@@ -129,7 +129,7 @@ public class TranscriptHandler {
                     groupof2.add(line);
                     if (groupof2.size() == 2) { // as soon as the array reaches size 3, we create a sentence
                         sentences.add(generateSentence(extractAuthor(groupof2.get(1)), groupof2.get(0),
-                                extractSentence(groupof2.get(0))));
+                                extractSentence(groupof2.get(1))));
                         groupof2.clear(); // empty array and repeat until EOF
                     }
                 }
@@ -141,12 +141,25 @@ public class TranscriptHandler {
     }
 
     public String extractAuthor(String input) {
-        return "";
+        Pattern pattern = Pattern.compile("<v (.*?)>");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            String[] split = matcher.group(1).split(", "); // split first and last name
+            return (split[1] + " " + split[0]); // return in order of first and last name
+        } else {
+            return ("Speaker not found");
+        }
     }
 
     public String extractSentence(String input) {
-        return "";
-
+        Pattern pattern = Pattern.compile(">(.*?)</v>");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            System.out.println(matcher.group(1));
+            return matcher.group(1);
+        } else {
+            return ("Sentence not found");
+        }
     }
 
     /**
