@@ -26,7 +26,7 @@ import java.awt.Desktop;
 public class helpView {
 
     private Button HelpButton;
-    private ErrorHandler errorHandler = new ErrorHandler(); // created to handle browser opening errors.
+    private AlertHandler errorHandler = new AlertHandler(); // created to handle browser opening errors.
 
     // below are all the large strings of text displayed on the view.
     private final String instruction1 = new String(

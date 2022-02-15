@@ -15,7 +15,7 @@ public class TranscriptBubble {
     }
 
     public Label getBubble() {
-        Label label = new Label(sentence.getSentence());
+        Label label = new Label(sentence.getAuthor() + ": " + sentence.getSentence());
         label.getStyleClass().add("chatBubble");
         return label;
     }

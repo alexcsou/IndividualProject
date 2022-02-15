@@ -31,9 +31,12 @@ public class WelcomeView {
         Label titleLabel = new Label("𝗙𝗜𝗫𝗔𝗧𝗘𝗗", logoView); // fancy case title
         titleLabel.getStyleClass().add("titleLabel");
 
-        Label infoText1 = new Label("Welcome to 𝗙𝗜𝗫𝗔𝗧𝗘𝗗! Please start by selecting " +
-                "a WebTTV transcript file (.vtt) of your meeting. " +
-                "(If you aren't sure how to acquire a transcript file, click the help button below.)");
+        Label infoText1 = new Label(
+                "Welcome to 𝗙𝗜𝗫𝗔𝗧𝗘𝗗! To start, select and upload both WebTTV transcript files (.vtt)"
+                        + " of your meeting: \n\n\n 1 - The first one can be downloaded directly from Microsoft Teams."
+                        + "\n 2 - The second should be downloaded from Microsoft Stream. "
+                        + " \n \n If you aren't sure how to acquire"
+                        + " either file, click the help button below.");
         infoText1.setWrapText(true);
         infoText1.setTextAlignment(TextAlignment.CENTER);
 

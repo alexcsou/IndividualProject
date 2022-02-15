@@ -30,7 +30,7 @@ public class TranscriptView {
         ScrollPane chatBubbles = new ScrollPane();
         chatBubbles.getStyleClass().add("TranscriptScrollPane");
         chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
+        chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
         chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.78);
         chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
 

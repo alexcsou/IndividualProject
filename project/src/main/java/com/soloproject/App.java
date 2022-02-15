@@ -16,21 +16,33 @@ public class App extends Application {
     @Override
     public void start(Stage stage) {
 
-        TranscriptHandler handler = new TranscriptHandler(stage); // this handler creates a MainView. This is because
-                                                                  // the "choose file" button is the entry point to the
-                                                                  // application and to the main view, and it is
-                                                                  // contained in the TranscriptHandler class
+        // this handler creates a MainView. This is because the "choose file" button is
+        // the entry point to the application and to the main view, and it is contained
+        // in the TranscriptHandler class
+
+        TranscriptHandler handler = new TranscriptHandler(stage);
         WelcomeView welcomeView = new WelcomeView();
         helpView helpView = new helpView();
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView()); // display the welcome messages
 
-        HBox buttons = new HBox();
-        buttons.setSpacing(5);
+        HBox buttonsRow1 = new HBox();
+        buttonsRow1.setSpacing(5);
+        buttonsRow1.setAlignment(Pos.CENTER);
+
+        HBox buttonsRow2 = new HBox();
+        buttonsRow2.setSpacing(5);
+        buttonsRow2.setAlignment(Pos.CENTER);
+
+        VBox buttons = new VBox();
+        buttons.getChildren().addAll(buttonsRow1, buttonsRow2);
+        buttons.setSpacing(15);
         buttons.setAlignment(Pos.CENTER);
+
         // add all buttons to the box
-        buttons.getChildren().addAll(handler.getStreamButton(), handler.getTeamsButton(), helpView.getButton());
+        buttonsRow1.getChildren().addAll(handler.getStreamButton(), handler.getTeamsButton());
+        buttonsRow2.getChildren().addAll(helpView.getButton(), handler.getContinueButton());
 
         root.setCenter(buttons); // add HBox to the root pane
 
