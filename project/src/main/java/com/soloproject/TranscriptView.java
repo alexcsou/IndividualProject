@@ -93,7 +93,8 @@ public class TranscriptView {
 
         Label wordsPerMinute = new Label(
                 "Words spoken per minute: " + handler.getNumberOfWords() / (handler.getMeetingDurationSeconds() / 60));
-        if (handler.getNumberOfWords() == 0 || handler.getMeetingDurationSeconds() == 0) {
+        if (handler.getNumberOfWords() == 0 || handler.getMeetingDurationSeconds() == 0
+                || handler.getNumberOfWords() > 500) {
             wordsPerMinute.setText("Words spoken per minute: not found.");
         }
 

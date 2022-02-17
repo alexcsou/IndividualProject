@@ -323,7 +323,6 @@ public class TranscriptHandler {
             return (HH * 3600 + mm * 60 + ss); // convert the hours and minutes to seconds, sum and return as double
 
         } catch (Exception e) {
-            alertHandler.alertFailure("Your file wasn't processed correctly.");
             return 0.0;
         }
 
@@ -365,7 +364,10 @@ public class TranscriptHandler {
             list.add(startTime);
             list.add(endTime);
         } catch (NumberFormatException e) {
-            alertHandler.alertFailure("Your file wasn't processed correctly.");
+            list.add(0.0);
+            list.add(0.0);
+            return list;
+        } catch (ArrayIndexOutOfBoundsException e) {
             list.add(0.0);
             list.add(0.0);
             return list;
