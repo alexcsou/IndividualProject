@@ -1,4 +1,4 @@
-  /* 
+/* 
   javafx does not support variables of the form --name. Calling a var using var(--name) fails.
 
   backgroundGrey: "3C3C3C";
@@ -15,24 +15,57 @@
 .welcomeView {
   -fx-font-size: 1.3em;
   -fx-padding: 0.5em;
-
 }
 
 .titleLabel {
   -fx-font-size: 30;
   -fx-padding: 1em;
-
-
 }
 .bigTitle {
   -fx-font-size: 28;
   -fx-padding: 1em;
-
 }
-.root {
--fx-background-color: "3C3C3C";
--fx-padding: 1em;
 
+#proceedButton {
+  -fx-background-color: "green";
+  -fx-background-radius: 5em;
+  -fx-min-width: 100px;
+  -fx-padding: 0.75em;
+}
+
+#proceedButton:hover {
+  -fx-background-color: "darkgreen";
+}
+
+#resetButton {
+  -fx-background-color: "red";
+  -fx-background-radius: 5em;
+  -fx-min-width: 100px;
+  -fx-padding: 0.75em;
+}
+
+#resetButton:hover {
+  -fx-background-color: "darkred";
+}
+
+#helpButton {
+  -fx-background-color: "orange";
+  -fx-background-radius: 5em;
+  -fx-min-width: 100px;
+  -fx-padding: 0.75em;
+}
+
+#helpButton:hover {
+  -fx-background-color: "darkorange";
+}
+
+.italicsLabel {
+  -fx-font-style: italic;
+}
+
+.root {
+  -fx-background-color: "3C3C3C";
+  -fx-padding: 1em;
 }
 
 .button {
@@ -47,7 +80,6 @@
   -fx-min-width: 50px;
   -fx-background-radius: 0em;
   -fx-padding: 8.6;
-
 }
 
 .button:hover {
@@ -58,13 +90,12 @@
   -fx-background-color: "red";
 }
 
-.alert{
+.alert {
   -fx-background-color: "3C3C3C";
   -fx-padding: 1em;
-
 }
 
-.alert:header *.header-panel{
+.alert:header *.header-panel {
   -fx-background-color: "3C3C3C";
 }
 
@@ -74,46 +105,39 @@
 
 .mainView {
   -fx-padding: 0;
-
-
 }
-
 
 /* some styling inspired by https://stackoverflow.com/q/19788661 */
 
-.tab-pane
-{
+.tab-pane {
   -fx-tab-min-width: 90px;
 }
 
-.tab{
-  -fx-background-insets: 0 1 0 1,0,0;
+.tab {
+  -fx-background-insets: 0 1 0 1, 0, 0;
   -fx-focus-color: transparent; /*remove focus outline around tabs. Taken from https://stackoverflow.com/a/34247033*/
   -fx-faint-focus-color: transparent;
 }
 
-.tab-header-area .tab{
+.tab-header-area .tab {
   -fx-padding: 3;
   -fx-background-radius: 10 10 0 0;
 }
 
-.tab-pane .tab
-{
+.tab-pane .tab {
   -fx-background-color: "838383";
 }
 
-.tab-pane .tab:selected
-{
+.tab-pane .tab:selected {
   -fx-background-color: "3C3C3C";
 }
 
-.tab .tab-label { 
+.tab .tab-label {
   -fx-alignment: CENTER;
 }
 
 .tab-header-area .tab-header-background {
   -fx-background-color: "dimgrey";
-
 }
 
 .transcriptVBox {
@@ -125,21 +149,20 @@
 .meetingInfo {
   -fx-font-size: 1em;
   -fx-padding: 0.5em;
-
 }
 
 #bigSep .line {
   -fx-border-color: "838383";
-  -fx-border-width: 1;   
+  -fx-border-width: 1;
 }
 
 #bigSep {
-  -fx-padding: 0; 
+  -fx-padding: 0;
 }
 
 #smallSep .line {
   -fx-border-color: "838383";
-  -fx-border-width: 0.2;    
+  -fx-border-width: 0.2;
 }
 
 .chatBubble {
@@ -150,33 +173,36 @@
   -fx-background: "3C3C3C";
   -fx-background-color: "3C3C3C";
   -fx-padding: 10;
-
 }
 
 /* some scroll bar styling inspired by https://stackoverflow.com/q/41804373 */
 
-.scroll-bar:vertical, .scroll-bar:horizontal{
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
   -fx-background-color: transparent;
 }
 
-.increment-button, .decrement-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-color: white;
+.increment-button,
+.decrement-button {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-color: white;
 }
 
 .scroll-bar > .increment-button > .increment-arrow,
 .scroll-bar > .decrement-button > .decrement-arrow {
-    -fx-background-color: white;
+  -fx-background-color: white;
 }
 
-.scroll-bar:vertical .track, .scroll-bar:horizontal .track{
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
   -fx-background-color: "3C3C3C";
   -fx-border-color: transparent;
   -fx-background-radius: 0em;
 }
 
-.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
   -fx-background-color: white;
   -fx-background-radius: 5em;
 }

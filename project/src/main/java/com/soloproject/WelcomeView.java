@@ -34,13 +34,18 @@ public class WelcomeView {
         Label infoText1 = new Label(
                 "Welcome to 𝗙𝗜𝗫𝗔𝗧𝗘𝗗! To start, select and upload both WebTTV transcript files (.vtt)"
                         + " of your meeting: \n\n\n 1 - The first one can be downloaded directly from Microsoft Teams."
-                        + "\n 2 - The second should be downloaded from Microsoft Stream. "
-                        + " \n \n If you aren't sure how to acquire"
-                        + " either file, click the help button below.");
+                        + "\n 2 - The second should be downloaded from Microsoft Stream. ");
+
+        Label infoText2 = new Label(" \n \n If you aren't sure how to acquire"
+                + " either file, click the help button below. \n"
+                + " If you make a mistake selecting your files, click the reset button.");
         infoText1.setWrapText(true);
         infoText1.setTextAlignment(TextAlignment.CENTER);
+        infoText2.setWrapText(true);
+        infoText2.setTextAlignment(TextAlignment.CENTER);
+        infoText2.getStyleClass().addAll("italicsLabel");
 
-        box.getChildren().addAll(titleLabel, infoText1); // both items in a VBox
+        box.getChildren().addAll(titleLabel, infoText1, infoText2); // both items in a VBox
     }
 
     public VBox getView() {

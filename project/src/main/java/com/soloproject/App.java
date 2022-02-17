@@ -3,7 +3,9 @@ package com.soloproject;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -40,9 +42,17 @@ public class App extends Application {
         buttons.setSpacing(15);
         buttons.setAlignment(Pos.CENTER);
 
+        Button restart = new Button("Reset");
+        restart.setOnAction(e -> relaunch(stage));
+
         // add all buttons to the box
         buttonsRow1.getChildren().addAll(handler.getStreamButton(), handler.getTeamsButton());
-        buttonsRow2.getChildren().addAll(helpView.getButton(), handler.getContinueButton());
+        buttonsRow2.getChildren().addAll(helpView.getButton(), handler.getContinueButton(), restart);
+
+        // style three buttons differently from all others manually here.
+        helpView.getButton().setId("helpButton");
+        handler.getContinueButton().setId("proceedButton");
+        restart.setId("resetButton");
 
         root.setCenter(buttons); // add HBox to the root pane
 
@@ -57,6 +67,17 @@ public class App extends Application {
                                                                                             // corner and taskbar.
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * A method to allows a user to restart Fixated if they have made errors in
+     * choosing files.
+     * 
+     * @param stage the main stage of the application.
+     */
+    public void relaunch(Stage stage) {
+        stage.close();
+        start(stage);
     }
 
     public static void main(String[] args) {

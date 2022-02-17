@@ -70,7 +70,8 @@ public class TranscriptHandler {
             setStreamTranscript(newTranscript);
             generateMeetingData();
             alertHandler.alertSuccess("file successfully registered.");
-            streamButton.setText("Edit Stream file");
+            streamButton.setText("Stream file Selected");
+            streamButton.setDisable(true);
 
             if (teamsTranscript != null) {
                 continueButton.setDisable(false); // allow user to proceed if both files are selected
@@ -99,7 +100,8 @@ public class TranscriptHandler {
             setTeamsTranscript(newTranscript);
             generateSentences();
             alertHandler.alertSuccess("file successfully registered.");
-            teamsButton.setText("Edit Teams file");
+            teamsButton.setText("Teams file Selected");
+            teamsButton.setDisable(true);
 
             if (streamTranscript != null) {
                 continueButton.setDisable(false); // allow user to proceed if both files are selected
