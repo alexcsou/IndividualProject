@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -56,8 +55,7 @@ public class App extends Application {
 
         root.setCenter(buttons); // add HBox to the root pane
 
-        Scene scene = new Scene(root, ScreenSizehandler.getWidth() / 2, // size relatively to screen size
-                ScreenSizehandler.getHeight() / 2);
+        Scene scene = new Scene(root);
 
         scene.getStylesheets().add(getClass().getResource("styling/main.css").toExternalForm());
 
@@ -66,6 +64,8 @@ public class App extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("images/logo.png"))); // app icon, show in window
                                                                                             // corner and taskbar.
         stage.setScene(scene);
+        stage.setResizable(false);
+
         stage.show();
     }
 

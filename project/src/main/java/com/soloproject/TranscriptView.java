@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Screen;
 
 /**
  * A view displayed in the transcript tab of the app, containing various
@@ -92,9 +91,11 @@ public class TranscriptView {
         }
 
         Label wordsPerMinute = new Label(
-                "Words spoken per minute: " + handler.getNumberOfWords() / (handler.getMeetingDurationSeconds() / 60));
+                "Words spoken per minute: "
+                        + (handler.getNumberOfWords() / (handler.getMeetingDurationSeconds() / 60)));
+
         if (handler.getNumberOfWords() == 0 || handler.getMeetingDurationSeconds() == 0
-                || handler.getNumberOfWords() > 500) {
+                || (handler.getNumberOfWords() / (handler.getMeetingDurationSeconds() / 60)) > 500) {
             wordsPerMinute.setText("Words spoken per minute: not found.");
         }
 
