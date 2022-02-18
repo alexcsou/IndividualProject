@@ -38,7 +38,7 @@ public class WelcomeView {
 
         Label infoText2 = new Label(" \n \n If you aren't sure how to acquire"
                 + " either file, click the help button below. \n"
-                + " If you make a mistake selecting your files, click the reset button.");
+                + " If you make a mistake selecting your files, click the reset button.\n\n\n");
         infoText1.setWrapText(true);
         infoText1.setTextAlignment(TextAlignment.CENTER);
         infoText2.setWrapText(true);

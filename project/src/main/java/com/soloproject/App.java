@@ -45,7 +45,7 @@ public class App extends Application {
         restart.setOnAction(e -> relaunch(stage));
 
         // add all buttons to the box
-        buttonsRow1.getChildren().addAll(handler.getStreamButton(), handler.getTeamsButton());
+        buttonsRow1.getChildren().addAll(handler.getTeamsButton(), handler.getStreamButton());
         buttonsRow2.getChildren().addAll(helpView.getButton(), handler.getContinueButton(), restart);
 
         // style three buttons differently from all others manually here.
