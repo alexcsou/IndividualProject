@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -69,7 +67,7 @@ public class TranscriptHandler {
         if (newTranscript != null) {
             setStreamTranscript(newTranscript);
             generateMeetingData();
-            alertHandler.alertSuccess("file successfully registered.");
+            alertHandler.alertSuccess("file successfully loaded.");
             streamButton.setText("Stream file Selected");
             streamButton.setDisable(true);
 
@@ -99,7 +97,7 @@ public class TranscriptHandler {
         if (newTranscript != null) {
             setTeamsTranscript(newTranscript);
             generateSentences();
-            alertHandler.alertSuccess("file successfully registered.");
+            alertHandler.alertSuccess("file successfully loaded.");
             teamsButton.setText("Teams file Selected");
             teamsButton.setDisable(true);
 
@@ -344,7 +342,7 @@ public class TranscriptHandler {
      */
     public TranscriptSentence generateSentence(String author, String duration, String text) {
         ArrayList<Double> durationValues = getDurationDataToDouble(duration);
-        return new TranscriptSentence(text, durationValues.get(0), durationValues.get(1),
+        return new TranscriptSentence(text, duration, durationValues.get(0), durationValues.get(1),
                 author);
     }
 
@@ -453,15 +451,21 @@ public class TranscriptHandler {
 
     /**
      * create and returns a list of transcript bubbles created from the list of
-     * transcript sentences generated prior.
+     * transcript sentences generated prior. This method also styles each bubble,
+     * with odd bubbles being styled to be left aligned and vice versa for even
+     * bubbles. This gives a "chat" look to the transcript.
      * 
      * @return the list of transcriptbubble nodes as an array.
      */
     public ArrayList<TranscriptBubble> getBubbles() {
         ArrayList<TranscriptBubble> list = new ArrayList<>();
-        for (TranscriptSentence sentence : sentences) {
-            list.add(new TranscriptBubble(sentence));
+
+        // style half of bubbles to be left aligned
+        for (int i = 0; i < sentences.size(); i += 2) {
+            list.add(new TranscriptBubble(sentences.get(i), false)); // true or false determine styling
+            list.add(new TranscriptBubble(sentences.get(i + 1), true));
         }
+
         return list;
     }
 

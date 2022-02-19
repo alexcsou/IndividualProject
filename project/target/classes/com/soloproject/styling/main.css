@@ -165,8 +165,22 @@
   -fx-border-width: 0.2;
 }
 
-.chatBubble {
-  -fx-background-color: black;
+.leftChatBubble {
+  -fx-padding: 1.5em;
+  -fx-border-insets: 1.5px;
+  -fx-background-insets: 1.5px;
+
+  -fx-background-color: #838383;
+  -fx-background-radius: 0em 1em 1em 1em;
+}
+
+.rightChatBubble {
+  -fx-padding: 1.5em;
+  -fx-border-insets: 1.5px;
+  -fx-background-insets: 1.5px;
+
+  -fx-background-color: #464545;
+  -fx-background-radius: 1em 0em 1em 1em;
 }
 
 .TranscriptScrollPane {

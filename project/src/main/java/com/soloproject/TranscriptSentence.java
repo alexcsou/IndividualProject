@@ -10,13 +10,15 @@ package com.soloproject;
 public class TranscriptSentence {
 
     private String sentence;
+    private String durationString;
     private double duration;
     private double startTime;
     private double endTime;
     private String author;
 
-    public TranscriptSentence(String sentence, double startTime, double endTime, String author) {
+    public TranscriptSentence(String sentence, String durationstring, double startTime, double endTime, String author) {
         this.sentence = sentence;
+        this.durationString = durationstring;
         this.startTime = (double) Math.round(startTime * 100d) / 100d; // rounding all doubles to 3 digits. These values
                                                                        // are not sensitive and roudning errors in
                                                                        // duration or confidence will have little effect
@@ -27,6 +29,10 @@ public class TranscriptSentence {
     }
 
     // ------------------- Getters and Setters -------------------
+
+    public String getdurationString() {
+        return this.durationString;
+    }
 
     public double getStartTime() {
         return this.startTime;

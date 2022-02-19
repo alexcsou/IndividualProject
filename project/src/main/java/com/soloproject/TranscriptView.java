@@ -1,11 +1,14 @@
 package com.soloproject;
 
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
@@ -24,19 +27,44 @@ public class TranscriptView {
         makeView();
     }
 
+    /**
+     * Method that returns a provided transcript bubble in an HBox, with a specified
+     * alignement.
+     * Used to have the chat be formatted correctly.
+     * 
+     * @param alignement a string used like a boolean to determine the alignement
+     * @param bubble     the transcript bubble to put in the HBox
+     * @return the formatted HBox
+     */
+    public HBox getHBox(String alignement, TranscriptBubble bubble) {
+        if (alignement.contentEquals("left")) {
+            HBox box = new HBox(bubble.getBubble());
+            box.setAlignment(Pos.BASELINE_RIGHT);
+            HBox.setHgrow(bubble.getBubble(), Priority.ALWAYS);
+            return box;
+        } else {
+            HBox box = new HBox(bubble.getBubble());
+            box.setAlignment(Pos.BASELINE_LEFT);
+            HBox.setHgrow(bubble.getBubble(), Priority.ALWAYS);
+            return box;
+        }
+    }
+
     public void makeView() {
 
         ScrollPane chatBubbles = new ScrollPane();
         chatBubbles.getStyleClass().add("TranscriptScrollPane");
-        chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        chatBubbles.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        chatBubbles.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
         chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.78);
         chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
 
         VBox chatBubblesVBox = new VBox();
 
-        for (TranscriptBubble bubble : handler.getBubbles()) {
-            chatBubblesVBox.getChildren().add(bubble.getBubble());
+        // style bubble alignment in alternating fashion
+        for (int i = 0; i < handler.getBubbles().size(); i += 2) {
+            chatBubblesVBox.getChildren().add(getHBox("right", handler.getBubbles().get(i)));
+            chatBubblesVBox.getChildren().add(getHBox("left", handler.getBubbles().get(i + 1)));
         }
 
         chatBubbles.setContent(chatBubblesVBox);
