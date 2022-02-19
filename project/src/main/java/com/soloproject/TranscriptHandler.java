@@ -460,10 +460,15 @@ public class TranscriptHandler {
     public ArrayList<TranscriptBubble> getBubbles() {
         ArrayList<TranscriptBubble> list = new ArrayList<>();
 
-        // style half of bubbles to be left aligned
-        for (int i = 0; i < sentences.size(); i += 2) {
-            list.add(new TranscriptBubble(sentences.get(i), false)); // true or false determine styling
-            list.add(new TranscriptBubble(sentences.get(i + 1), true));
+        try {
+            for (int i = 0; i < sentences.size(); i += 2) {
+                list.add(new TranscriptBubble(sentences.get(i), false)); // true or false determine styling
+                list.add(new TranscriptBubble(sentences.get(i + 1), true));
+            }
+        } catch (Exception e) {
+            list.clear();
+            list.add(new TranscriptBubble(
+                    new TranscriptSentence("your sentences Couldn't be loaded.", "", 0, 0, ""), true));
         }
 
         return list;

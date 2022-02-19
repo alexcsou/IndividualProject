@@ -20,9 +20,11 @@ public class TranscriptView {
 
     private BorderPane mainPane;
     private TranscriptHandler handler;
+    private AlertHandler alertHandler;
 
     public TranscriptView(TranscriptHandler handler) {
         this.handler = handler;
+        this.alertHandler = new AlertHandler();
         mainPane = new BorderPane();
         makeView();
     }
@@ -62,10 +64,16 @@ public class TranscriptView {
         VBox chatBubblesVBox = new VBox();
 
         // style bubble alignment in alternating fashion
-        for (int i = 0; i < handler.getBubbles().size(); i += 2) {
-            chatBubblesVBox.getChildren().add(getHBox("right", handler.getBubbles().get(i)));
-            chatBubblesVBox.getChildren().add(getHBox("left", handler.getBubbles().get(i + 1)));
+        try {
+            for (int i = 0; i < handler.getBubbles().size(); i += 2) {
+                chatBubblesVBox.getChildren().add(getHBox("right", handler.getBubbles().get(i)));
+                chatBubblesVBox.getChildren().add(getHBox("left", handler.getBubbles().get(i + 1)));
+            }
+        } catch (Exception e) {
+            alertHandler.alertFailure("Your data wasn't processed correctly.");
         }
+
+        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.70);
 
         chatBubbles.setContent(chatBubblesVBox);
 
@@ -147,6 +155,7 @@ public class TranscriptView {
 
         mainPane.setCenter(chatBubbles);
         mainPane.setRight(meetingDetails);
+
     }
 
     /**

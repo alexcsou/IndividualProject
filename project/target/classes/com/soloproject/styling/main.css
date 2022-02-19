@@ -179,7 +179,7 @@
   -fx-border-insets: 1.5px;
   -fx-background-insets: 1.5px;
 
-  -fx-background-color: #464545;
+  -fx-background-color: #5c5c5c;
   -fx-background-radius: 1em 0em 1em 1em;
 }
 
@@ -223,4 +223,16 @@
 
 .scroll-pane > .corner {
   -fx-background-color: "3C3C3C";
+}
+
+#sentenceLabel {
+
+}
+
+#authorLabel {
+
+}
+
+#durationLabels{
+
 }
