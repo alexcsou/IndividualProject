@@ -549,4 +549,30 @@ public class TranscriptHandler {
     public void setMeetingDurationSeconds(double meetingDurationSeconds) {
         this.meetingDurationSeconds = meetingDurationSeconds;
     }
+
+    /**
+     * Return a string of all speakers in a meeting.
+     * 
+     * @return a string formatted to display speakers properly
+     */
+    public String getSpeakers() {
+        ArrayList<String> speakers = new ArrayList<>();
+        String speakersString = new String();
+        for (TranscriptSentence s : sentences) {
+            if (!speakers.contains(s.getAuthor())) {
+                speakers.add(s.getAuthor());
+            }
+        }
+
+        for (String s : speakers) {
+            speakersString += s + ", ";
+        }
+
+        try {
+            return speakersString.substring(0, speakersString.length() - 2); // remove final ',' separator
+        } catch (Exception e) {
+            return "No Speakers found.";
+        }
+
+    }
 }
