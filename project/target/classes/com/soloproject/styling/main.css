@@ -194,9 +194,9 @@
 }
 
 .TranscriptScrollPane {
-  -fx-background: "3C3C3C";
-  -fx-background-color: "3C3C3C";
-  -fx-padding: 10;
+  -fx-background: #3C3C3C;
+  -fx-background-color: #3C3C3C;
+  -fx-padding: 0 0 0 10;
 }
 
 /* some scroll bar styling inspired by https://stackoverflow.com/q/41804373 */

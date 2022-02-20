@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -65,7 +66,8 @@ public class App extends Application {
                                                                                             // corner and taskbar.
         stage.setScene(scene);
         stage.setResizable(false);
-
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH); // removes hint message for escape and disables
+                                                                        // keybind to preserve dimensions
         stage.show();
     }
 

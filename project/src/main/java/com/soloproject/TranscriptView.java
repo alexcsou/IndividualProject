@@ -58,7 +58,7 @@ public class TranscriptView {
         chatBubbles.getStyleClass().add("TranscriptScrollPane");
         chatBubbles.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
-        chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.78);
+        chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.90);
         chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
 
         VBox chatBubblesVBox = new VBox();
@@ -73,12 +73,13 @@ public class TranscriptView {
             alertHandler.alertFailure("Your data wasn't processed correctly.");
         }
 
-        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.70);
+        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.73);
 
         chatBubbles.setContent(chatBubblesVBox);
 
         VBox meetingDetails = new VBox();
         meetingDetails.setMaxWidth(325);
+        meetingDetails.setMinWidth(325);
         meetingDetails.setSpacing(1);
         meetingDetails.setMinHeight(ScreenSizehandler.getHeight()); // to have vertical separator (which is a VBox
                                                                     // border) span entire screen.
