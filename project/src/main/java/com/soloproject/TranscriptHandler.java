@@ -29,6 +29,7 @@ public class TranscriptHandler {
     private File streamTranscript = null;
     private File teamsTranscript = null;
     private ArrayList<TranscriptSentence> sentences;
+    private ArrayList<Participant> participants;
     private String meetingDurationString; // stored as string as displayed in .vtt file
     private double meetingDurationSeconds; // converts string duration to sum of seconds
     private String transcriptRecognizability; // value out of 1
@@ -47,6 +48,8 @@ public class TranscriptHandler {
         this.stage = stage;
 
         sentences = new ArrayList<>();
+        participants = new ArrayList<>();
+
         meetingDurationString = "";
         meetingDurationSeconds = 0.0;
         transcriptRecognizability = "";
@@ -138,12 +141,12 @@ public class TranscriptHandler {
     }
 
     /**
-     * A method which loads the main view into the scene and fullscreens the app.
+     * A method which loads the main view into the scene and fullscreens the app
      */
     public void loadMainView() {
         stage.getScene().setRoot(new MainView(stage, this).getView());// change root pane of scene to that of MainView
+        createParticipantsSentences();
         stage.setFullScreen(true);
-
     }
 
     /**
@@ -551,7 +554,8 @@ public class TranscriptHandler {
     }
 
     /**
-     * Return a string of all speakers in a meeting.
+     * Return a string of all speakers in a meeting, and create Participant objects,
+     * 1 per speaker
      * 
      * @return a string formatted to display speakers properly
      */
@@ -561,6 +565,7 @@ public class TranscriptHandler {
         for (TranscriptSentence s : sentences) {
             if (!speakers.contains(s.getAuthor())) {
                 speakers.add(s.getAuthor());
+                participants.add(new Participant(s.getAuthor()));
             }
         }
 
@@ -572,6 +577,21 @@ public class TranscriptHandler {
             return speakersString.substring(0, speakersString.length() - 2); // remove final ',' separator
         } catch (Exception e) {
             return "No Speakers found.";
+        }
+
+    }
+
+    /**
+     * A method that iterates through the transcript sentences and adds each
+     * sentence to it's respective participant's arrayList of sentences.
+     */
+    public void createParticipantsSentences() {
+        for (TranscriptSentence s : sentences) {
+            for (Participant p : participants) {
+                if (s.getAuthor().equals(p.getName())) {
+                    p.addSentence(s);
+                }
+            }
         }
 
     }
