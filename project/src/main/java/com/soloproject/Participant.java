@@ -30,6 +30,24 @@ public class Participant {
         return this.sentences;
     }
 
+    public Double getSpokenTime() {
+        return 0.0;
+
+    }
+
+    public Double getNumberOfSentences() {
+        return sentences.size() * 1.0; // cast to Double
+    }
+
+    public Double getNumberOfWords() {
+        return 0.0;
+    }
+
+    public Double getWpm() {
+        return 0.0;
+
+    }
+
     /**
      * Used for debugging.
      */

@@ -145,7 +145,6 @@ public class TranscriptHandler {
      */
     public void loadMainView() {
         stage.getScene().setRoot(new MainView(stage, this).getView());// change root pane of scene to that of MainView
-        createParticipantsSentences();
         stage.setFullScreen(true);
     }
 
@@ -473,7 +472,6 @@ public class TranscriptHandler {
             list.add(new TranscriptBubble(
                     new TranscriptSentence("your sentences Couldn't be loaded.", "", 0, 0, ""), true));
         }
-
         return list;
     }
 
@@ -541,6 +539,10 @@ public class TranscriptHandler {
         this.language = language;
     }
 
+    public ArrayList<Participant> getParticipants() {
+        return this.participants;
+    }
+
     public Double getMeetingDurationSeconds() {
         if (this.meetingDurationSeconds == 0) {
             return 1.0;
@@ -584,6 +586,7 @@ public class TranscriptHandler {
     /**
      * A method that iterates through the transcript sentences and adds each
      * sentence to it's respective participant's arrayList of sentences.
+     * Called within the Dashboard view.
      */
     public void createParticipantsSentences() {
         for (TranscriptSentence s : sentences) {

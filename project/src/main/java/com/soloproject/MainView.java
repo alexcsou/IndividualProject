@@ -24,13 +24,15 @@ public class MainView {
     private DashboardView dashboardView;
 
     public MainView(Stage stage, TranscriptHandler handler) {
+
         this.handler = handler;
 
         transcriptView = new TranscriptView(this.handler);
-        dashboardView = new DashboardView();
+        dashboardView = new DashboardView(this.handler);
 
         mainPane = new BorderPane();
         mainPane.getStyleClass().addAll("mainView");
+
         this.stage = stage;
         stage.setMinHeight(ScreenSizehandler.getHeight());
         stage.setMinWidth(ScreenSizehandler.getWidth());

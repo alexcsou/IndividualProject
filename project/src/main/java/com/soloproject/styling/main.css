@@ -277,3 +277,12 @@
   -fx-border-color: #b1b1b1;
 
 }
+
+.chart {
+  -fx-background-color: "A9A9A9";
+  -fx-background-radius: 5em;
+
+  -fx-padding: 1.5em;
+  -fx-border-insets: 1.5px;
+  -fx-background-insets: 1.5px;
+}
