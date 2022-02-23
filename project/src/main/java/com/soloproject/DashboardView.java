@@ -60,7 +60,9 @@ public class DashboardView {
             PieChart.Data data = new PieChart.Data(percentage + "% -" + p.getName(), p.getNumberOfSentences());
             pieChart.getData().add(data);
 
-            Tooltip t = new Tooltip("Share of spoken sentences: " + percentage + "%");
+            Tooltip t = new Tooltip(
+                    "Share of spoken sentences: " + percentage + "%" + "\n" + "Number of spoken sentences: "
+                            + p.getNumberOfSentences());
             t.getStyleableParent().getStyleClass().clear();
             Tooltip.install(data.getNode(), t);
         }
@@ -81,7 +83,8 @@ public class DashboardView {
             PieChart.Data data = new PieChart.Data(percentage + "% -" + p.getName(), p.getNumberOfWords());
             pieChart.getData().add(data);
 
-            Tooltip t = new Tooltip("Share of spoken words: " + percentage + "%");
+            Tooltip t = new Tooltip("Share of spoken words: " + percentage + "%" + "\n" + "Number of spoken words: "
+                    + p.getNumberOfWords());
             t.getStyleableParent().getStyleClass().clear();
             Tooltip.install(data.getNode(), t);
         }
@@ -105,7 +108,8 @@ public class DashboardView {
             PieChart.Data data = new PieChart.Data(percentage + "% -" + p.getName(), p.getSpokenTime());
             pieChart.getData().add(data);
 
-            Tooltip t = new Tooltip("Share of spoken time: " + percentage + "%");
+            Tooltip t = new Tooltip("Share of spoken time: " + percentage + "%" + "\n" + "Time spoken in seconds: "
+                    + p.getSpokenTime());
             t.getStyleableParent().getStyleClass().clear();
             Tooltip.install(data.getNode(), t);
         }
@@ -118,7 +122,9 @@ public class DashboardView {
                 handler.getMeetingDurationSeconds() - nonSilenceTime);
         pieChart.getData().add(data);
 
-        Tooltip t = new Tooltip("Share of meeting spent in silence: " + percentage + "%");
+        Tooltip t = new Tooltip(
+                "Share of meeting spent in silence: " + percentage + "%" + "\n" + "Time in seconds spent in silence: "
+                        + (handler.getMeetingDurationSeconds() - nonSilenceTime));
         t.getStyleableParent().getStyleClass().clear();
         Tooltip.install(data.getNode(), t);
 

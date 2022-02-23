@@ -119,6 +119,10 @@
   -fx-faint-focus-color: transparent;
 }
 
+.tab-pane .tab:hover {
+  -fx-background-color: #A9A9A9;
+}
+
 .tab-header-area .tab {
   -fx-padding: 3;
   -fx-background-radius: 10 10 0 0;
