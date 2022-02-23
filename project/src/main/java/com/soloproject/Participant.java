@@ -31,8 +31,11 @@ public class Participant {
     }
 
     public Double getSpokenTime() {
-        return 0.0;
-
+        int total = 0;
+        for (TranscriptSentence s : sentences) {
+            total += s.getDuration();
+        }
+        return total * 1.0;
     }
 
     public Double getNumberOfSentences() {
@@ -40,7 +43,11 @@ public class Participant {
     }
 
     public Double getNumberOfWords() {
-        return 0.0;
+        int total = 0;
+        for (TranscriptSentence s : sentences) {
+            total += s.getNumberOfWords();
+        }
+        return total * 1.0;
     }
 
     public Double getWpm() {

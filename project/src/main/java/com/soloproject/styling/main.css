@@ -64,12 +64,12 @@
 }
 
 .root {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
   -fx-padding: 1em;
 }
 
 .button {
-  -fx-background-color: "A9A9A9";
+  -fx-background-color: #A9A9A9;
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
   -fx-padding: 0.75em;
@@ -83,7 +83,7 @@
 }
 
 .button:hover {
-  -fx-background-color: "838383";
+  -fx-background-color: #838383;
 }
 
 .quitButton:hover {
@@ -91,12 +91,12 @@
 }
 
 .alert {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
   -fx-padding: 1em;
 }
 
 .alert:header *.header-panel {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
 }
 
 .helpViewItem {
@@ -125,11 +125,11 @@
 }
 
 .tab-pane .tab {
-  -fx-background-color: "838383";
+  -fx-background-color: #838383;
 }
 
 .tab-pane .tab:selected {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
 }
 
 .tab .tab-label {
@@ -143,7 +143,7 @@
 .transcriptVBox {
   -fx-border-style: hidden solid hidden solid;
   -fx-border-width: 2;
-  -fx-border-color: "838383";
+  -fx-border-color: #838383;
 }
 
 .meetingInfo {
@@ -152,7 +152,7 @@
 }
 
 #bigSep .line {
-  -fx-border-color: "838383";
+  -fx-border-color: #838383;
   -fx-border-width: 1;
 }
 
@@ -161,7 +161,7 @@
 }
 
 #smallSep .line {
-  -fx-border-color: "838383";
+  -fx-border-color: #838383;
   -fx-border-width: 0.2;
 }
 
@@ -175,7 +175,7 @@
 }
 
 .leftChatBubble:hover {
-  -fx-background-color: #b8b8b8;
+  -fx-background-color: #B8B8B8;
 
 }
 
@@ -184,12 +184,12 @@
   -fx-border-insets: 1.5px;
   -fx-background-insets: 1.5px;
 
-  -fx-background-color: #5c5c5c;
+  -fx-background-color: #5C5C5C;
   -fx-background-radius: 1em 0em 1em 1em;
 }
 
 .rightChatBubble:hover {
-  -fx-background-color: #8a8a8a;
+  -fx-background-color: #8A8A8A;
 
 }
 
@@ -220,7 +220,7 @@
 
 .scroll-bar:vertical .track,
 .scroll-bar:horizontal .track {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
   -fx-border-color: transparent;
   -fx-background-radius: 0em;
 }
@@ -232,7 +232,7 @@
 }
 
 .scroll-pane > .corner {
-  -fx-background-color: "3C3C3C";
+  -fx-background-color: #3C3C3C;
 }
 
 #sentenceLabel {
@@ -242,7 +242,7 @@
 .leftChatBubble #authorLabel {
   -fx-font-style: italic;
   -fx-font-weight: bold;
-  -fx-text-fill: #5c5c5c;
+  -fx-text-fill: #5C5C5C;
   -fx-font-size: 1.1em;
 
 }
@@ -250,39 +250,53 @@
 .rightChatBubble #authorLabel {
   -fx-font-style: italic;
   -fx-font-weight: bold;
-  -fx-text-fill: #b1b1b1;
+  -fx-text-fill: #B1B1B1;
   -fx-font-size: 1.1em;
 
 }
 
 .leftChatBubble #durationLabels{
-  -fx-text-fill: #5c5c5c;
+  -fx-text-fill: #5C5C5C;
   -fx-font-size: 0.75em;
   -fx-font-style: italic;
 
 }
 
 .leftChatBubble .separator .line {
-  -fx-border-color: "5c5c5c";
+  -fx-border-color: #5C5C5C;
 
 }
 
 .rightChatBubble #durationLabels{
-  -fx-text-fill: #b1b1b1;
+  -fx-text-fill: #B1B1B1;
   -fx-font-size: 0.75em;
   -fx-font-style: italic;
 }
 
 .rightChatBubble .separator .line {
-  -fx-border-color: #b1b1b1;
+  -fx-border-color: #B1B1B1;
 
 }
 
 .chart {
-  -fx-background-color: "A9A9A9";
-  -fx-background-radius: 5em;
+  -fx-background-color: #5C5C5C;
+  -fx-background-radius: 1em;
 
-  -fx-padding: 1.5em;
-  -fx-border-insets: 1.5px;
-  -fx-background-insets: 1.5px;
+}
+
+.chart-legend { 
+  -fx-background-color: transparent; 
+  -fx-font-size: 0.75em;
+}
+
+.tooltip {
+/*standard tooltip styling : https://stackoverflow.com/a/25339338 */
+  -fx-background: transparent;
+  -fx-text-fill: white;
+  -fx-background-color: rgba(30,30,30,0.8);
+  -fx-background-radius: 6px;
+  -fx-background-insets: 0;
+  -fx-padding: 0.667em 0.75em 0.667em 0.75em; 
+  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
+  -fx-font-size: 0.85em;
 }

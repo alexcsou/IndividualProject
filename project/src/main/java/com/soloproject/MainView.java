@@ -7,6 +7,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -45,7 +46,7 @@ public class MainView {
         TabPane tabs = new TabPane();
 
         // Each tab is a different class of view.
-        Tab dashboard = new Tab("Dashboard", dashboardView.getView());
+        Tab dashboard = new Tab("Dashboard", new StackPane(dashboardView.getView()));
         Tab charts = new Tab("Charts", new Label("content2"));
         Tab insights = new Tab("Insights", new Label("content3"));
         Tab transcript = new Tab("Transcript", transcriptView.getView());

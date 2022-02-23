@@ -15,6 +15,7 @@ public class TranscriptSentence {
     private double startTime;
     private double endTime;
     private String author;
+    private int numberOfWords;
 
     public TranscriptSentence(String sentence, String durationstring, double startTime, double endTime, String author) {
         this.sentence = sentence;
@@ -25,7 +26,7 @@ public class TranscriptSentence {
         this.endTime = (double) Math.round(endTime * 100d) / 100d;
         this.duration = (double) Math.round((endTime - startTime) * 100d) / 100d; // duration is end - start
         this.author = author;
-
+        this.numberOfWords = sentence.split(" ").length;
     }
 
     // ------------------- Getters and Setters -------------------
@@ -72,5 +73,9 @@ public class TranscriptSentence {
 
     public String getAuthor() {
         return this.author;
+    }
+
+    public int getNumberOfWords() {
+        return this.numberOfWords;
     }
 }
