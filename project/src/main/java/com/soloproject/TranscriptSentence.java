@@ -1,5 +1,12 @@
 package com.soloproject;
 
+import java.util.List;
+import java.util.Properties;
+
+import edu.stanford.nlp.pipeline.CoreDocument;
+import edu.stanford.nlp.pipeline.CoreSentence;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+
 /**
  * the TranscriptSentence class represents a portion of a .vtt transcript stored
  * neatly together, namely the actual sentence spoken; the author, the sentence
@@ -17,6 +24,7 @@ public class TranscriptSentence {
     private String author;
     private int numberOfWords;
     private String sentenceType;
+    private String sentiment;
 
     public TranscriptSentence(String sentence, String durationstring, double startTime, double endTime, String author) {
         this.sentence = sentence;
@@ -29,6 +37,7 @@ public class TranscriptSentence {
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
+        setSentenceSentiment();
     }
 
     // ------------------- Getters and Setters -------------------
@@ -42,6 +51,30 @@ public class TranscriptSentence {
             sentenceType = "Interrogative";
         } else {
             sentenceType = "Other";
+        }
+    }
+
+    /**
+     * A method to provide the sentimental an alysis for the sentence. Uses
+     * StandfordCoreNLP Heavily
+     * guided and inspired by: https://www.youtube.com/watch?v=zjop7sE3g8I. Sets
+     * sentiment to either neutral positive or negative
+     */
+    public void setSentenceSentiment() {
+
+        Properties properties = new Properties();
+        properties.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, sentiment");
+        StanfordCoreNLP SFCNLP = new StanfordCoreNLP(properties);
+
+        CoreDocument coreDocument = new CoreDocument(getSentence());
+        SFCNLP.annotate(coreDocument);
+
+        List<CoreSentence> sentenceList = coreDocument.sentences();
+
+        for (CoreSentence s : sentenceList) {
+            String sentiment = s.sentiment();
+
+            this.sentiment = sentiment;
         }
     }
 

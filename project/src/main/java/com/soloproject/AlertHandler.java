@@ -66,8 +66,28 @@ public class AlertHandler {
                 successAlert.setHeaderText("Possible erroneous file choice");
                 successAlert.showAndWait()
                                 .filter(response -> response == ButtonType.OK)
-                                .ifPresent(response -> successAlert.close());// wait until alert is closed or accepted,
+                                .ifPresent(response -> successAlert.close());// wait until alert is closed or accepted
+        }
+
+        /**
+         * A method to display a loading alert while a file is being processed.
+         */
+        public void alertLoading() {
+                Alert loadingAlert = new Alert(AlertType.INFORMATION);
+                loadingAlert.getDialogPane().getStylesheets()
+                                .add(getClass().getResource("styling/main.css").toExternalForm());// specify styling
+                                                                                                  // file location
+                loadingAlert.getDialogPane().getStyleClass().add("alert");// style alert only
+                loadingAlert.setTitle("Your File is About to be Processed");
+                loadingAlert.setContentText(
+                                "Your file is about to be processed. This can take up to a couple of minutes on slower devices."
+                                                + "Please wait for an alert before proceeding. Do not close 𝗙𝗜𝗫𝗔𝗧𝗘𝗗.");
+                loadingAlert.setHeaderText("Preparing to load file...");
+                loadingAlert.showAndWait()
+                                .filter(response -> response == ButtonType.OK)
+                                .ifPresent(response -> loadingAlert.close());// wait until alert is closed or accepted,
                                                                              // and open the
                                                                              // dashboard
+
         }
 }

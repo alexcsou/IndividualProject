@@ -136,10 +136,10 @@ public class DashboardView {
         pieChart.getStyleClass().addAll("chart");
         pieChart.setLabelsVisible(false);
 
-        Double declaratives = 0.0;
-        Double exclamatories = 0.0;
-        Double interrogatives = 0.0;
-        Double others = 0.0;
+        int declaratives = 0;
+        int exclamatories = 0;
+        int interrogatives = 0;
+        int others = 0;
 
         for (TranscriptSentence s : handler.getSentences()) {
 

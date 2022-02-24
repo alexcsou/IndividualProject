@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.stage.FileChooser;
@@ -99,10 +100,14 @@ public class TranscriptHandler {
         File newTranscript = chooser.showOpenDialog(stage);
         if (newTranscript != null) {
             setTeamsTranscript(newTranscript);
+            teamsButton.setText("Loading. Please Wait");
+            teamsButton.setDisable(true);
+            streamButton.setDisable(true);
+            alertHandler.alertLoading(); // alert about long loading
             generateSentences();
             alertHandler.alertSuccess("file successfully loaded.");
             teamsButton.setText("Teams file Selected");
-            teamsButton.setDisable(true);
+            streamButton.setDisable(false);
 
             if (streamTranscript != null) {
                 continueButton.setDisable(false); // allow user to proceed if both files are selected
@@ -209,6 +214,19 @@ public class TranscriptHandler {
         } else {
             return ("Sentence not found");
         }
+    }
+
+    /**
+     * Returns all transcript sentences concatenated as a single String
+     * 
+     * @return all sentences cocnatenated as a single string
+     */
+    public String getSentencesAsSingleString() {
+        String returnString = "";
+        for (TranscriptSentence s : sentences) {
+            returnString += s.getSentence();
+        }
+        return returnString;
     }
 
     /**
