@@ -379,14 +379,14 @@ public class TranscriptHandler {
     }
 
     /**
-     * A method that counts the nulber of sentences, that is lines of vtt text that
+     * A method that counts the number of sentences, that is lines of vtt text that
      * end with a sentence punctuation.
      * 
      * @return the number of spoken sentences in the meeting.
      */
     public int getFullSentenceCount() {
         int count = 0;
-        for (TranscriptSentence s : getSentences()) {
+        for (TranscriptSentence s : sentences) {
             if (s.getSentence().endsWith(".") || s.getSentence().endsWith("?") || s.getSentence().endsWith("!")
                     || s.getSentence().endsWith("...")) {
                 count++;

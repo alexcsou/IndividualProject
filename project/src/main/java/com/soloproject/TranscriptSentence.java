@@ -16,6 +16,7 @@ public class TranscriptSentence {
     private double endTime;
     private String author;
     private int numberOfWords;
+    private String sentenceType;
 
     public TranscriptSentence(String sentence, String durationstring, double startTime, double endTime, String author) {
         this.sentence = sentence;
@@ -27,9 +28,26 @@ public class TranscriptSentence {
         this.duration = (double) Math.round((endTime - startTime) * 100d) / 100d; // duration is end - start
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
+        setSentenceType();
     }
 
     // ------------------- Getters and Setters -------------------
+
+    public void setSentenceType() {
+        if (sentence.endsWith(".") || sentence.endsWith("...")) {
+            sentenceType = "Declarative";
+        } else if (sentence.endsWith("!")) {
+            sentenceType = "Exclamatory";
+        } else if (sentence.endsWith("?")) {
+            sentenceType = "Interrogative";
+        } else {
+            sentenceType = "Other";
+        }
+    }
+
+    public String getSentenceType() {
+        return this.sentenceType;
+    }
 
     public String getdurationString() {
         return this.durationString;
