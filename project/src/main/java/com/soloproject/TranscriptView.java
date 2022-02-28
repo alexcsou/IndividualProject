@@ -58,7 +58,6 @@ public class TranscriptView {
         chatBubbles.getStyleClass().add("TranscriptScrollPane");
         chatBubbles.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
-        chatBubbles.setMinHeight(ScreenSizehandler.getHeight() * 0.90);
         chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
 
         VBox chatBubblesVBox = new VBox();
@@ -104,13 +103,6 @@ public class TranscriptView {
             meetingDuration.setText("Meeting Duration: not found.");
         }
 
-        Label totalSeconds = new Label("Meeting duration in seconds: " + handler.getMeetingDurationSeconds());
-        if (handler.getMeetingDurationSeconds() == 1) {
-            // no value was found, 1 is passed to avoid div by 0
-
-            totalSeconds.setText("Meeting duration in seconds: not found.");
-        }
-
         Label meetingLanguage = new Label("Meeting language: " + handler.getLanguage());
         if (handler.getLanguage() == "") {
             meetingLanguage.setText("Meeting language: not found.");
@@ -128,7 +120,7 @@ public class TranscriptView {
         }
 
         Label meetingRecog = new Label(
-                "Transcript accuracy: " + handler.getTranscriptRecognizabilityDouble() * 100 + "%");
+                "Transcript accuracy: " + Math.round(handler.getTranscriptRecognizabilityDouble() * 100) + "%");
         if (handler.getTranscriptRecognizabilityDouble() == 0.0) {
             meetingRecog.setText("Transcript accuracy: not found.");
         }
@@ -151,8 +143,7 @@ public class TranscriptView {
         // add everything to the view, in a VBox to the right.
         meetingDetails.getChildren().addAll(meetingInformation, bigSep, meetingName, getSep(), meetingSpeakers,
                 getSep(), meetingLanguage,
-                getSep(), meetingDuration,
-                getSep(), totalSeconds, getSep(), meetingRecog, getSep(),
+                getSep(), meetingDuration, getSep(), meetingRecog, getSep(),
                 wordCount, getSep(), wordsPerMinute, getSep(), sentenceCount, getSep(), avgSentenceLength);
         meetingDetails.getStyleClass().add("transcriptVBox");
         meetingDetails.getChildren().forEach(c -> {

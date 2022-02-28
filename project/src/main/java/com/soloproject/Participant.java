@@ -12,6 +12,7 @@ public class Participant {
     private Double numberOfSentences;
     private Double numberOfWords;
     private Double wpm;
+    private Long averageSentiment;
 
     public Participant(String name) {
         this.name = name;
@@ -53,6 +54,18 @@ public class Participant {
     public Double getWpm() {
         return 0.0;
 
+    }
+
+    public void setAverageSentiment() {
+        Double average = 0.0;
+        for (TranscriptSentence s : sentences) {
+            average += s.getSentimentRating();
+        }
+        averageSentiment = Math.round(average / sentences.size());
+    }
+
+    public Long getAverageSentiment() {
+        return this.averageSentiment;
     }
 
     /**

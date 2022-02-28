@@ -1,18 +1,16 @@
 package com.soloproject;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 
 public class DashboardView {
 
@@ -26,22 +24,32 @@ public class DashboardView {
         mainPane.setPadding(new Insets(10, 10, 10, 10));
         mainPane.setVgap(4);
         mainPane.setHgap(4);
-        mainPane.setPrefTileHeight(270);
-        mainPane.setPrefTileWidth(360);
 
     }
 
-    public TilePane getView() {
+    public ScrollPane getView() {
         handler.createParticipantsSentences(); // create participants and their data, ready to be displayed.
         makeView(); // called when creating the tabs.
-        return mainPane;
+
+        ScrollPane returnPane = new ScrollPane();
+        returnPane.getStyleClass().add("TranscriptScrollPane");
+        returnPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        returnPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+        returnPane.setContent(mainPane);
+        returnPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
+        returnPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
+
+        return returnPane;
     }
 
     public void makeView() {
         mainPane.getChildren().add(getParticipationPieChart());
+        mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getParticipationPieChart2());
         mainPane.getChildren().add(getParticipationPieChart3());
         mainPane.getChildren().add(getSentenceTypePieChart());
+        mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
+        mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
 
     public PieChart getParticipationPieChart() {
@@ -64,6 +72,11 @@ public class DashboardView {
             t.getStyleableParent().getStyleClass().clear();
             Tooltip.install(data.getNode(), t);
         }
+
+        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
+        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
         return pieChart;
     }
 
@@ -87,6 +100,10 @@ public class DashboardView {
             Tooltip.install(data.getNode(), t);
         }
 
+        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
+        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
         return pieChart;
     }
 
@@ -126,6 +143,10 @@ public class DashboardView {
         t.getStyleableParent().getStyleClass().clear();
         Tooltip.install(data.getNode(), t);
 
+        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
+        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
         return pieChart;
     }
 
@@ -182,24 +203,38 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
+        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
+        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
+        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
         return pieChart;
     }
 
+    public LineChart<Number, Number> getSentimentalAnalysisChart() {
+
+        NumberAxis xAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Time (seconds)");
+        yAxis.setLabel("Participation");
+        // creating the chart
+        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+
+        lineChart.setTitle("Test chart");
+
+        XYChart.Series<Number, Number> SentimentValues = new XYChart.Series<>();
+        SentimentValues.setName("Sentiment");
+
+        for (int i = 0; i < handler.getSentences().size(); i++) {
+            // add index for x axis and rating for y axis
+            SentimentValues.getData().add(new XYChart.Data<>(i, handler.getSentences().get(i).getSentimentRating()));
+        }
+
+        lineChart.getData().add(SentimentValues);
+
+        lineChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
+        lineChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
+        lineChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
+        lineChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        return lineChart;
+    }
 }
-
-// NumberAxis xAxis = new NumberAxis();
-// NumberAxis yAxis = new NumberAxis();
-// xAxis.setLabel("Time (seconds)");
-// yAxis.setLabel("Participation");
-// // creating the chart
-// final LineChart<Number, Number> lineChart = new LineChart<Number,
-// Number>(xAxis, yAxis);
-
-// lineChart.setTitle("Test chart");
-// // defining a series
-// for (Participant p : handler.getParticipants()) {
-// XYChart.Series<Number, Number> series = new XYChart.Series<>();
-// series.setName(p.getName());
-// series.getData().add(new XYChart.Data<>(0, 1));
-// lineChart.getData().add(series);
-// }

@@ -37,7 +37,8 @@ public class TranscriptSentence {
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
-        setSentenceSentiment();
+        // setSentenceSentiment(); TODO: edit here
+        this.sentiment = "Neutral";
     }
 
     // ------------------- Getters and Setters -------------------
@@ -55,8 +56,8 @@ public class TranscriptSentence {
     }
 
     /**
-     * A method to provide the sentimental an alysis for the sentence. Uses
-     * StandfordCoreNLP Heavily
+     * A method to provide the sentimental analysis for the sentence. Uses
+     * StandfordCoreNLP.
      * guided and inspired by: https://www.youtube.com/watch?v=zjop7sE3g8I. Sets
      * sentiment to either neutral positive or negative
      */
@@ -75,6 +76,22 @@ public class TranscriptSentence {
             String sentiment = s.sentiment();
 
             this.sentiment = sentiment;
+        }
+    }
+
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public int getSentimentRating() {
+        if (this.sentiment.equals("Negative")) {
+            return -1;
+        } else if (this.sentiment.equals("Neutral")) {
+            return 0;
+        } else if (this.sentiment.equals("Positive")) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 
