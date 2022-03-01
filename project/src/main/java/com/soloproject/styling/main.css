@@ -285,12 +285,32 @@
 .chart {
   -fx-background-color: #5C5C5C;
   -fx-background-radius: 1em;
-
+  -fx-text-fill: white;
 }
 
 .chart-legend { 
   -fx-background-color: transparent; 
   -fx-font-size: 0.75em;
+  -fx-padding: 3em;
+}
+
+.chart-title{ 
+  -fx-padding: 1em;
+}
+
+/* from https://stackoverflow.com/a/23746724 */
+.chart-pie {
+  -fx-border-color: derive(-fx-pie-color, -40%);
+  -fx-border-width: 3px;
+}
+
+.chart-pie-label {
+  -fx-fill: #ffffff;
+} 
+
+.chart-pie-label-line {
+  -fx-stroke: #ffffff;
+  -fx-fill: #ffffff;
 }
 
 .tooltip {
@@ -309,12 +329,8 @@
   -fx-bar-fill: #00f900;
 }
 .default-color1.chart-bar { 
-  -fx-bar-fill: #d1c520;
+  -fx-bar-fill: #ffee00;
 }
 .default-color2.chart-bar { 
   -fx-bar-fill: #f80000;
-}
-
-.chart-legend {
-  -fx-padding: 3em;
 }

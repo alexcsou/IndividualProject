@@ -47,10 +47,10 @@ public class DashboardView {
 
     public void makeView() {
         mainPane.getChildren().add(getParticipationPieChart());
-        mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getParticipationPieChart2());
         mainPane.getChildren().add(getParticipationPieChart3());
         mainPane.getChildren().add(getSentenceTypePieChart());
+        mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getSentimentBarChart());
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
@@ -148,7 +148,7 @@ public class DashboardView {
     public PieChart getSentenceTypePieChart() {
 
         PieChart pieChart = new PieChart();
-        pieChart.setTitle("Sentence Type Distribution");
+        pieChart.setTitle("Sentence Type Counts");
         pieChart.getStyleClass().addAll("chart");
         pieChart.setLabelsVisible(true);
 
@@ -281,6 +281,24 @@ public class DashboardView {
             Negatives.getData().add(new XYChart.Data<String, Number>(p.getName(),
                     p.getNegatives().size()));
 
+        }
+
+        for (XYChart.Data<String, Number> d : Positives.getData()) {
+            Tooltip t = new Tooltip("Number of Positive Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        for (XYChart.Data<String, Number> d : Neutrals.getData()) {
+            Tooltip t = new Tooltip("Number of Neutral Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        for (XYChart.Data<String, Number> d : Negatives.getData()) {
+            Tooltip t = new Tooltip("Number of Negative Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
         }
 
         setSize(barChart);
