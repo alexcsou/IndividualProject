@@ -1,6 +1,9 @@
 package com.soloproject;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
@@ -57,7 +60,7 @@ public class DashboardView {
         PieChart pieChart = new PieChart();
         pieChart.setTitle("Share of Spoken Sentences");
         pieChart.getStyleClass().addAll("chart");
-        pieChart.setLabelsVisible(false);
+        pieChart.setLabelsVisible(true);
 
         for (Participant p : handler.getParticipants()) {
 
@@ -73,10 +76,7 @@ public class DashboardView {
             Tooltip.install(data.getNode(), t);
         }
 
-        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
-        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        setSize(pieChart);
         return pieChart;
     }
 
@@ -85,7 +85,7 @@ public class DashboardView {
         PieChart pieChart = new PieChart();
         pieChart.setTitle("Share of Spoken Words");
         pieChart.getStyleClass().addAll("chart");
-        pieChart.setLabelsVisible(false);
+        pieChart.setLabelsVisible(true);
 
         for (Participant p : handler.getParticipants()) {
 
@@ -100,10 +100,7 @@ public class DashboardView {
             Tooltip.install(data.getNode(), t);
         }
 
-        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
-        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        setSize(pieChart);
         return pieChart;
     }
 
@@ -112,7 +109,7 @@ public class DashboardView {
         PieChart pieChart = new PieChart();
         pieChart.setTitle("Share of Spoken Time");
         pieChart.getStyleClass().addAll("chart");
-        pieChart.setLabelsVisible(false);
+        pieChart.setLabelsVisible(true);
 
         Double nonSilenceTime = 0.0; // used to track silence in share of time distribution
         for (Participant p : handler.getParticipants()) {
@@ -143,10 +140,7 @@ public class DashboardView {
         t.getStyleableParent().getStyleClass().clear();
         Tooltip.install(data.getNode(), t);
 
-        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
-        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        setSize(pieChart);
         return pieChart;
     }
 
@@ -155,7 +149,7 @@ public class DashboardView {
         PieChart pieChart = new PieChart();
         pieChart.setTitle("Sentence Type Distribution");
         pieChart.getStyleClass().addAll("chart");
-        pieChart.setLabelsVisible(false);
+        pieChart.setLabelsVisible(true);
 
         int declaratives = 0;
         int exclamatories = 0;
@@ -203,10 +197,7 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
-        pieChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
-        pieChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
-        pieChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        setSize(pieChart);
         return pieChart;
     }
 
@@ -215,26 +206,50 @@ public class DashboardView {
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Time (seconds)");
-        yAxis.setLabel("Participation");
-        // creating the chart
+        yAxis.setLabel("Sentiment Rating");
+
         final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
-        lineChart.setTitle("Test chart");
+        lineChart.setTitle("Sentence Sentiment Over Time");
+        lineChart.setLegendSide(Side.BOTTOM);
+        lineChart.setCreateSymbols(false);
 
-        XYChart.Series<Number, Number> SentimentValues = new XYChart.Series<>();
-        SentimentValues.setName("Sentiment");
+        for (Participant p : handler.getParticipants()) {
+            XYChart.Series<Number, Number> SentimentValues = new XYChart.Series<>();
+            SentimentValues.setName(p.getName());
 
-        for (int i = 0; i < handler.getSentences().size(); i++) {
-            // add index for x axis and rating for y axis
-            SentimentValues.getData().add(new XYChart.Data<>(i, handler.getSentences().get(i).getSentimentRating()));
+            for (TranscriptSentence s : p.getSentences()) {
+                SentimentValues.getData()
+                        .add(new XYChart.Data<>(s.getStartTime(), s.getSentimentRating()));
+            }
+
+            // adding the average line by setting a value at the first and last x values
+            XYChart.Series<Number, Number> avgSentimentValues = new XYChart.Series<>();
+            avgSentimentValues.setName(p.getName() + " -  Average sentiment value");
+
+            p.setAverageSentiment();
+
+            avgSentimentValues.getData()
+                    .add(new XYChart.Data<>(0, p.getAverageSentiment()));
+            avgSentimentValues.getData()
+                    .add(new XYChart.Data<>(
+                            // add second data point at the x position equal to end time of last sentence in
+                            // list
+                            handler.getSentences().get(handler.getSentences().size() - 1).getEndTime(),
+                            p.getAverageSentiment()));
+
+            lineChart.getData().add(SentimentValues);
+            lineChart.getData().add(avgSentimentValues);
         }
 
-        lineChart.getData().add(SentimentValues);
-
-        lineChart.setMinHeight(ScreenSizehandler.getHeight() * 0.33);
-        lineChart.setMaxHeight(ScreenSizehandler.getHeight() * 0.33);
-        lineChart.setMinWidth(ScreenSizehandler.getHeight() * 0.40);
-        lineChart.setMaxWidth(ScreenSizehandler.getHeight() * 0.40);
+        setSize(lineChart);
         return lineChart;
+    }
+
+    public void setSize(Chart chart) {
+        chart.setMinHeight(ScreenSizehandler.getHeight() * 0.50);
+        chart.setMaxHeight(ScreenSizehandler.getHeight() * 0.50);
+        chart.setMinWidth(ScreenSizehandler.getHeight() * 0.80);
+        chart.setMaxWidth(ScreenSizehandler.getHeight() * 0.80);
     }
 }

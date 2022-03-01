@@ -37,8 +37,9 @@ public class TranscriptSentence {
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
-        // setSentenceSentiment(); TODO: edit here
-        this.sentiment = "Neutral";
+        setSentenceSentiment();
+        // TODO: edit here
+        // this.sentiment = "Neutral";
     }
 
     // ------------------- Getters and Setters -------------------
