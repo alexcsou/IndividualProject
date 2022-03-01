@@ -58,7 +58,7 @@ public class TranscriptView {
         chatBubbles.getStyleClass().add("TranscriptScrollPane");
         chatBubbles.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
-        chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.75);
+        chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.90);
 
         VBox chatBubblesVBox = new VBox();
 

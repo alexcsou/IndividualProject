@@ -2,7 +2,8 @@ package com.soloproject;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
-import javafx.scene.Node;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -13,7 +14,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 import javafx.scene.layout.TilePane;
-import javafx.stage.Screen;
 
 public class DashboardView {
 
@@ -51,6 +51,7 @@ public class DashboardView {
         mainPane.getChildren().add(getParticipationPieChart2());
         mainPane.getChildren().add(getParticipationPieChart3());
         mainPane.getChildren().add(getSentenceTypePieChart());
+        mainPane.getChildren().add(getSentimentBarChart());
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
@@ -208,7 +209,7 @@ public class DashboardView {
         xAxis.setLabel("Time (seconds)");
         yAxis.setLabel("Sentiment Rating");
 
-        final LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+        LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
         lineChart.setTitle("Sentence Sentiment Over Time");
         lineChart.setLegendSide(Side.BOTTOM);
@@ -244,6 +245,47 @@ public class DashboardView {
 
         setSize(lineChart);
         return lineChart;
+    }
+
+    public BarChart<String, Number> getSentimentBarChart() {
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Sentence Sentiment per User");
+        yAxis.setLabel("Number of Sentences");
+
+        BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,
+                yAxis);
+
+        barChart.setTitle("Sentence Sentiment Distribution per User");
+        barChart.setLegendSide(Side.BOTTOM);
+
+        XYChart.Series<String, Number> Positives = new XYChart.Series<>();
+        Positives.setName("Positive sentences");
+
+        XYChart.Series<String, Number> Neutrals = new XYChart.Series<>();
+        Neutrals.setName("Neutral sentences");
+
+        XYChart.Series<String, Number> Negatives = new XYChart.Series<>();
+        Negatives.setName("Negative sentences");
+
+        barChart.getData().addAll(Positives, Neutrals, Negatives);
+
+        for (Participant p : handler.getParticipants()) {
+            Positives.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getPositives().size()));
+
+            Neutrals.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getNeutrals().size()));
+
+            Negatives.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getNegatives().size()));
+
+        }
+
+        setSize(barChart);
+        return barChart;
+
     }
 
     public void setSize(Chart chart) {

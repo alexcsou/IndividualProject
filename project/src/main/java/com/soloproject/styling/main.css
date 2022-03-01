@@ -304,3 +304,17 @@
   -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.5) , 10, 0.0 , 0 , 3 );
   -fx-font-size: 0.85em;
 }
+
+.default-color0.chart-bar { 
+  -fx-bar-fill: #00f900;
+}
+.default-color1.chart-bar { 
+  -fx-bar-fill: #d1c520;
+}
+.default-color2.chart-bar { 
+  -fx-bar-fill: #f80000;
+}
+
+.chart-legend {
+  -fx-padding: 3em;
+}

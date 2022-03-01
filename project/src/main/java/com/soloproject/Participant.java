@@ -76,4 +76,37 @@ public class Participant {
             System.out.println(s.getSentence());
         }
     }
+
+    public ArrayList<TranscriptSentence> getPositives() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentimentRating() == 1) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
+
+    public ArrayList<TranscriptSentence> getNeutrals() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentimentRating() == 0) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
+
+    public ArrayList<TranscriptSentence> getNegatives() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentimentRating() == -1) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
 }
