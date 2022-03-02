@@ -27,6 +27,7 @@ public class DashboardView {
 
         mainPane = new TilePane();
         mainPane.setPadding(new Insets(10, 10, 10, 10));
+        mainPane.setPrefTileWidth(ScreenSizehandler.getWidth() * 0.46);
         mainPane.setVgap(4);
         mainPane.setHgap(4);
 
@@ -79,7 +80,6 @@ public class DashboardView {
             Tooltip.install(data.getNode(), t);
         }
 
-        setSize(pieChart);
         return pieChart;
     }
 
@@ -103,7 +103,6 @@ public class DashboardView {
             Tooltip.install(data.getNode(), t);
         }
 
-        setSize(pieChart);
         return pieChart;
     }
 
@@ -143,7 +142,6 @@ public class DashboardView {
         t.getStyleableParent().getStyleClass().clear();
         Tooltip.install(data.getNode(), t);
 
-        setSize(pieChart);
         return pieChart;
     }
 
@@ -200,7 +198,6 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
-        setSize(pieChart);
         return pieChart;
     }
 
@@ -209,7 +206,7 @@ public class DashboardView {
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Time (seconds)");
-        yAxis.setLabel("Sentiment Rating (0-1)");
+        yAxis.setLabel("Sentiment Rating (-1 to 1)");
 
         LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
@@ -245,7 +242,6 @@ public class DashboardView {
             lineChart.getData().add(avgSentimentValues);
         }
 
-        setSize(lineChart);
         return lineChart;
     }
 
@@ -303,15 +299,8 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
-        setSize(barChart);
         return barChart;
 
     }
 
-    public void setSize(Chart chart) {
-        chart.setMinHeight(ScreenSizehandler.getHeight() * 0.50);
-        chart.setMaxHeight(ScreenSizehandler.getHeight() * 0.50);
-        chart.setMinWidth(ScreenSizehandler.getHeight() * 0.7);
-        chart.setMaxWidth(ScreenSizehandler.getHeight() * 0.7);
-    }
 }
