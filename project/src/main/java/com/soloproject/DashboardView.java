@@ -1,5 +1,7 @@
 package com.soloproject;
 
+import java.text.DecimalFormat;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
@@ -207,7 +209,7 @@ public class DashboardView {
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Time (seconds)");
-        yAxis.setLabel("Sentiment Rating");
+        yAxis.setLabel("Sentiment Rating (0-1)");
 
         LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 
@@ -224,12 +226,12 @@ public class DashboardView {
                         .add(new XYChart.Data<>(s.getStartTime(), s.getSentimentRating()));
             }
 
-            // adding the average line by setting a value at the first and last x values
-            XYChart.Series<Number, Number> avgSentimentValues = new XYChart.Series<>();
-            avgSentimentValues.setName(p.getName() + " -  Average sentiment value");
-
             p.setAverageSentiment();
 
+            // adding the average line by setting a value at the first and last x values
+            XYChart.Series<Number, Number> avgSentimentValues = new XYChart.Series<>();
+            avgSentimentValues.setName(p.getName() + " -  Average sentiment value ("
+                    + String.format("%.2f", p.getAverageSentiment()) + ")"); // round to 2 decimal places
             avgSentimentValues.getData()
                     .add(new XYChart.Data<>(0, p.getAverageSentiment()));
             avgSentimentValues.getData()
