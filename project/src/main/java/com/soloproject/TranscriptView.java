@@ -77,8 +77,8 @@ public class TranscriptView {
         chatBubbles.setContent(chatBubblesVBox);
 
         VBox meetingDetails = new VBox();
-        meetingDetails.setMaxWidth(325);
-        meetingDetails.setMinWidth(325);
+        meetingDetails.setMaxWidth(ScreenSizehandler.getWidth() * 0.24);
+        meetingDetails.setMinWidth(ScreenSizehandler.getWidth() * 0.24);
         meetingDetails.setSpacing(1);
         meetingDetails.setMinHeight(ScreenSizehandler.getHeight()); // to have vertical separator (which is a VBox
                                                                     // border) span entire screen.

@@ -311,7 +311,7 @@ public class DashboardView {
     public void setSize(Chart chart) {
         chart.setMinHeight(ScreenSizehandler.getHeight() * 0.50);
         chart.setMaxHeight(ScreenSizehandler.getHeight() * 0.50);
-        chart.setMinWidth(ScreenSizehandler.getHeight() * 0.72);
-        chart.setMaxWidth(ScreenSizehandler.getHeight() * 0.72);
+        chart.setMinWidth(ScreenSizehandler.getHeight() * 0.7);
+        chart.setMaxWidth(ScreenSizehandler.getHeight() * 0.7);
     }
 }
