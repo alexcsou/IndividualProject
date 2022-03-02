@@ -27,36 +27,36 @@
 }
 
 #proceedButton {
-  -fx-background-color: "green";
+  -fx-background-color: #AADEA7;
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
   -fx-padding: 0.75em;
 }
 
 #proceedButton:hover {
-  -fx-background-color: "darkgreen";
+  -fx-background-color: #6cd866;
 }
 
 #resetButton {
-  -fx-background-color: "red";
+  -fx-background-color: #F66D44;
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
   -fx-padding: 0.75em;
 }
 
 #resetButton:hover {
-  -fx-background-color: "darkred";
+  -fx-background-color: #f54712;
 }
 
 #helpButton {
-  -fx-background-color: "orange";
+  -fx-background-color: #FEAE65;
   -fx-background-radius: 5em;
   -fx-min-width: 100px;
   -fx-padding: 0.75em;
 }
 
 #helpButton:hover {
-  -fx-background-color: "darkorange";
+  -fx-background-color: #f88519;
 }
 
 .italicsLabel {
@@ -302,6 +302,10 @@
 .chart-pie {
   -fx-border-color: derive(-fx-pie-color, -40%);
   -fx-border-width: 3px;
+}
+
+.chart-bar {
+  -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0; /* from https://stackoverflow.com/a/33003641 */
 }
 
 .chart-pie-label {
