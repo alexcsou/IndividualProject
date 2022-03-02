@@ -72,7 +72,7 @@ public class TranscriptView {
             alertHandler.alertFailure("Your data wasn't processed correctly.");
         }
 
-        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.73);
+        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.70);
 
         chatBubbles.setContent(chatBubblesVBox);
 
