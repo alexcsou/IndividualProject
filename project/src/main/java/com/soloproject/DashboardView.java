@@ -10,6 +10,7 @@ import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -55,6 +56,7 @@ public class DashboardView {
         mainPane.getChildren().add(getSentenceTypePieChart());
         mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getSentimentBarChart());
+        mainPane.getChildren().add(getWpmBarChart());
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
@@ -249,13 +251,13 @@ public class DashboardView {
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Sentence Sentiment per User");
+        xAxis.setLabel("Sentence Sentiment per Participant");
         yAxis.setLabel("Number of Sentences");
 
         BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,
                 yAxis);
 
-        barChart.setTitle("Sentence Sentiment Distribution per User");
+        barChart.setTitle("Sentence Sentiment Distribution per Participant");
         barChart.setLegendSide(Side.BOTTOM);
 
         XYChart.Series<String, Number> Positives = new XYChart.Series<>();
@@ -303,4 +305,35 @@ public class DashboardView {
 
     }
 
+    public StackedBarChart<String, Number> getWpmBarChart() {
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Participant");
+        yAxis.setLabel("Words per Minute");
+
+        StackedBarChart<String, Number> barChart = new StackedBarChart<String, Number>(xAxis,
+                yAxis);
+
+        barChart.setTitle("Speech speed per user");
+        barChart.setLegendSide(Side.BOTTOM);
+
+        for (Participant p : handler.getParticipants()) {
+            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            series.setName("WPM - " + p.getName());
+            series.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getWpm(handler)));
+            barChart.getData().add(series);
+
+            for (XYChart.Data<String, Number> d : series.getData()) {
+                Tooltip t = new Tooltip("WPM: " + d.getYValue());
+                t.getStyleableParent().getStyleClass().clear();
+                Tooltip.install(d.getNode(), t);
+            }
+
+        }
+
+        return barChart;
+
+    }
 }

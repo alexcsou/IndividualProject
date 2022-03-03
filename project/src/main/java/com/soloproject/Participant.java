@@ -4,19 +4,15 @@ import java.util.ArrayList;
 
 public class Participant {
 
-    private TranscriptHandler handler;
     private String name;
     private ArrayList<TranscriptSentence> sentences;
     private ArrayList<String> speechTimeStamps; // arraylist of xx:xx:xx --> xx:xx:xx strings
-    private Double spokenTime;
-    private Double numberOfSentences;
-    private Double numberOfWords;
-    private Double wpm;
     private Double averageSentiment;
 
     public Participant(String name) {
         this.name = name;
         this.sentences = new ArrayList<>();
+
     }
 
     public void addSentence(TranscriptSentence sentence) {
@@ -51,8 +47,20 @@ public class Participant {
         return total * 1.0;
     }
 
-    public Double getWpm() {
-        return 0.0;
+    public Double getWpm(TranscriptHandler handler) {
+
+        int spokenTime = 0;
+        for (Participant p : handler.getParticipants()) {
+            spokenTime += p.getSpokenTime();
+        }
+        Double silenceTime = handler.getMeetingDurationSeconds() - spokenTime; // add up total silence time to spread an
+                                                                               // equal share to all users to have a
+                                                                               // more accurate wpm.
+
+        Double silenceShare = silenceTime / handler.getParticipants().size();
+
+        Long minutes = Math.round((getSpokenTime() + silenceShare) / 60);
+        return getNumberOfWords() / minutes;
 
     }
 
