@@ -1,5 +1,6 @@
 package com.soloproject;
 
+import javafx.css.Size;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -64,9 +65,16 @@ public class TranscriptView {
 
         // style bubble alignment in alternating fashion
         try {
-            for (int i = 0; i < handler.getBubbles().size(); i += 2) {
+            for (int i = 0; i < handler.getBubbles().size() - 1; i += 2) {
                 chatBubblesVBox.getChildren().add(getHBox("right", handler.getBubbles().get(i)));
                 chatBubblesVBox.getChildren().add(getHBox("left", handler.getBubbles().get(i + 1)));
+            }
+
+            if (!(handler.getBubbles().size() % 2 == 0)) { // if uneven number of sentences, add last sentence here to
+                                                           // avoid oob
+                // exception
+                chatBubblesVBox.getChildren()
+                        .add(getHBox("right", handler.getBubbles().get(handler.getBubbles().size() - 1)));
             }
         } catch (Exception e) {
             alertHandler.alertFailure("Your data wasn't processed correctly.");

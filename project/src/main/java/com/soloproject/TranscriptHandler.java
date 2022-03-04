@@ -481,11 +481,16 @@ public class TranscriptHandler {
         ArrayList<TranscriptBubble> list = new ArrayList<>();
 
         try {
-            for (int i = 0; i < sentences.size(); i += 2) {
+            for (int i = 0; i < sentences.size() - 1; i += 2) {
                 list.add(new TranscriptBubble(sentences.get(i), false)); // true or false determine styling
                 list.add(new TranscriptBubble(sentences.get(i + 1), true));
             }
+            if (!(sentences.size() % 2 == 0)) { // if uneven number of sentences, add last sentence here to avoid oob
+                                                // exception
+                list.add(new TranscriptBubble(sentences.get(sentences.size() - 1), false));
+            }
         } catch (Exception e) {
+            System.out.println(e);
             list.clear();
             list.add(new TranscriptBubble(
                     new TranscriptSentence("your sentences Couldn't be loaded.", "", 0, 0, ""), true));
