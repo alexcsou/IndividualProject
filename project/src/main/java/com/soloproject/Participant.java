@@ -6,7 +6,8 @@ public class Participant {
 
     private String name;
     private ArrayList<TranscriptSentence> sentences;
-    private ArrayList<String> speechTimeStamps; // arraylist of xx:xx:xx --> xx:xx:xx strings
+    private ArrayList<String> hesitations;
+    private ArrayList<String> fillerWordsAndSentences;
     private Double averageSentiment;
 
     public Participant(String name) {
@@ -116,5 +117,22 @@ public class Participant {
             }
         }
         return array;
+    }
+
+    public int getHesitationCount() {
+        int count = 0;
+        for (TranscriptSentence s : sentences) {
+            count += s.getHesitationWordsCount();
+        }
+        return count;
+    }
+
+    public int getFillerCount() {
+        int count = 0;
+        for (TranscriptSentence s : sentences) {
+
+            count += s.getFillerWordsCount();
+        }
+        return count;
     }
 }

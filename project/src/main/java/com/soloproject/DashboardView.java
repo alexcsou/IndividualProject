@@ -2,6 +2,8 @@ package com.soloproject;
 
 import java.text.DecimalFormat;
 
+import javax.swing.Box.Filler;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
@@ -57,6 +59,7 @@ public class DashboardView {
         mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getSentimentBarChart());
         mainPane.getChildren().add(getWpmBarChart());
+        mainPane.getChildren().add(getHesitationAndFillerBarChart());
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
@@ -335,6 +338,53 @@ public class DashboardView {
         }
 
         barChart.setId("horizontalBarChart");
+        return barChart;
+
+    }
+
+    public BarChart<String, Number> getHesitationAndFillerBarChart() {
+
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Filler Words and Hesitation Count per Participant");
+        yAxis.setLabel("Number of Occurences");
+
+        BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,
+                yAxis);
+
+        barChart.setTitle("Count of Filler Words and Hesitations per Participant");
+        barChart.setLegendSide(Side.BOTTOM);
+
+        XYChart.Series<String, Number> FillerWords = new XYChart.Series<>();
+        FillerWords.setName("Filler Words");
+
+        XYChart.Series<String, Number> Hesitations = new XYChart.Series<>();
+        Hesitations.setName("Hesitations");
+
+        barChart.getData().addAll(FillerWords, Hesitations);
+
+        for (Participant p : handler.getParticipants()) {
+            FillerWords.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getFillerCount()));
+
+            Hesitations.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getHesitationCount()));
+
+        }
+
+        for (XYChart.Data<String, Number> d : FillerWords.getData()) {
+            Tooltip t = new Tooltip("Number of Filler Words: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        for (XYChart.Data<String, Number> d : Hesitations.getData()) {
+            Tooltip t = new Tooltip("Number of Hesitations: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        barChart.setId("verticalBarChart");
         return barChart;
 
     }

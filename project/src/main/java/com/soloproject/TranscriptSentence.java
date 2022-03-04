@@ -1,5 +1,6 @@
 package com.soloproject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,8 @@ public class TranscriptSentence {
     private int numberOfWords;
     private String sentenceType;
     private String sentiment;
+    private ArrayList<String> hesitationWords = new ArrayList<>();
+    private ArrayList<String> fillerWords = new ArrayList<>();
 
     public TranscriptSentence(String sentence, String durationstring, double startTime, double endTime, String author) {
         this.sentence = sentence;
@@ -42,7 +45,27 @@ public class TranscriptSentence {
         this.sentiment = "Neutral";
     }
 
-    // ------------------- Getters and Setters -------------------
+    public int getHesitationWordsCount() {
+        int count = 0;
+        String[] words = sentence.split(" ");
+        for (String word : words) {
+            if (hesitationWords.contains(word)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public int getFillerWordsCount() {
+        int count = 0;
+        String[] words = sentence.split(" ");
+        for (String word : words) {
+            if (fillerWords.contains(word)) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public void setSentenceType() {
         if (sentence.endsWith(".") || sentence.endsWith("...")) {
