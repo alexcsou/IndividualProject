@@ -43,13 +43,41 @@ public class TranscriptSentence {
         // setSentenceSentiment();
         // TODO: edit here
         this.sentiment = "Neutral";
+
+        // populating arrays with all filler words and hesitation words
+        hesitationWords.add("Uhm");
+        hesitationWords.add("uhm");
+        hesitationWords.add("Eh");
+        hesitationWords.add("eh");
+        hesitationWords.add("Mhm");
+        hesitationWords.add("mhm");
+        hesitationWords.add("Hm");
+        hesitationWords.add("hm");
+        hesitationWords.add("Uh");
+        hesitationWords.add("uh");
+        hesitationWords.add("Ah");
+        hesitationWords.add("ah");
+        hesitationWords.add("Mh");
+        hesitationWords.add("mh");
+        hesitationWords.add("Um");
+        hesitationWords.add("Um");
+        hesitationWords.add("Er");
+        hesitationWords.add("er");
+        hesitationWords.add("mm");
+        hesitationWords.add("Mm");
+        hesitationWords.add("Huh");
+        hesitationWords.add("huh");
+        hesitationWords.add("Uh-huh");
+        hesitationWords.add("uh-huh");
+
     }
 
     public int getHesitationWordsCount() {
         int count = 0;
         String[] words = sentence.split(" ");
         for (String word : words) {
-            if (hesitationWords.contains(word)) {
+            if (hesitationWords.contains(word)
+                    || (word.length() >= 2 && (hesitationWords.contains(word.substring(0, word.length() - 2))))) {
                 count++;
             }
         }
@@ -60,7 +88,8 @@ public class TranscriptSentence {
         int count = 0;
         String[] words = sentence.split(" ");
         for (String word : words) {
-            if (fillerWords.contains(word)) {
+            if (fillerWords.contains(word)
+                    || (word.length() >= 2 && (fillerWords.contains(word.substring(0, word.length() - 2))))) {
                 count++;
             }
         }
