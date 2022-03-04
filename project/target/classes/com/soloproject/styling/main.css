@@ -304,8 +304,12 @@
   -fx-border-width: 3px;
 }
 
-.chart-bar {
+#verticalBarChart .chart-bar {
   -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0; /* from https://stackoverflow.com/a/33003641 */
+}
+
+#horizontalBarChart .chart-bar {
+  -fx-background-radius: 0 5 5 0, 0 4 4 0, 0 3 3 0; /* from https://stackoverflow.com/a/33003641 */
 }
 
 .chart-pie-label {

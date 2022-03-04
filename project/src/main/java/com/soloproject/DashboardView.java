@@ -301,31 +301,32 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
+        barChart.setId("verticalBarChart");
         return barChart;
 
     }
 
-    public StackedBarChart<String, Number> getWpmBarChart() {
+    public StackedBarChart<Number, String> getWpmBarChart() {
 
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Participant");
-        yAxis.setLabel("Words per Minute");
-
-        StackedBarChart<String, Number> barChart = new StackedBarChart<String, Number>(xAxis,
+        CategoryAxis yAxis = new CategoryAxis();
+        NumberAxis xAxis = new NumberAxis();
+        yAxis.setLabel("Participant");
+        xAxis.setLabel("Words per Minute");
+        xAxis.setTickLabelRotation(90);
+        StackedBarChart<Number, String> barChart = new StackedBarChart<Number, String>(xAxis,
                 yAxis);
 
         barChart.setTitle("Speech speed per user");
         barChart.setLegendSide(Side.BOTTOM);
 
         for (Participant p : handler.getParticipants()) {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
+            XYChart.Series<Number, String> series = new XYChart.Series<>();
             series.setName("WPM - " + p.getName());
-            series.getData().add(new XYChart.Data<String, Number>(p.getName(),
-                    p.getWpm(handler)));
+            series.getData().add(new XYChart.Data<Number, String>(
+                    p.getWpm(handler), p.getName()));
             barChart.getData().add(series);
 
-            for (XYChart.Data<String, Number> d : series.getData()) {
+            for (XYChart.Data<Number, String> d : series.getData()) {
                 Tooltip t = new Tooltip("WPM: " + d.getYValue());
                 t.getStyleableParent().getStyleClass().clear();
                 Tooltip.install(d.getNode(), t);
@@ -333,6 +334,7 @@ public class DashboardView {
 
         }
 
+        barChart.setId("horizontalBarChart");
         return barChart;
 
     }

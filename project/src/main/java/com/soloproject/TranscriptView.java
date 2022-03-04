@@ -70,7 +70,7 @@ public class TranscriptView {
                 chatBubblesVBox.getChildren().add(getHBox("left", handler.getBubbles().get(i + 1)));
             }
 
-            if (!(handler.getBubbles().size() % 2 == 0)) { // if uneven number of sentences, add last sentence here to
+            if (!(handler.getBubbles().size() % 2 == 0)) { // if uneven number of sentences, add last bubble here to
                                                            // avoid oob
                 // exception
                 chatBubblesVBox.getChildren()
