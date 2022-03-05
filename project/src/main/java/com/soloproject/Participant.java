@@ -6,8 +6,6 @@ public class Participant {
 
     private String name;
     private ArrayList<TranscriptSentence> sentences;
-    private ArrayList<String> hesitations;
-    private ArrayList<String> fillerWordsAndSentences;
     private Double averageSentiment;
 
     public Participant(String name) {

@@ -239,10 +239,6 @@
   -fx-background-color: #3C3C3C;
 }
 
-#sentenceLabel {
-
-}
-
 .leftChatBubble #authorLabel {
   -fx-font-style: italic;
   -fx-font-weight: bold;
@@ -280,6 +276,13 @@
 .rightChatBubble .separator .line {
   -fx-border-color: #B1B1B1;
 
+}
+
+#kpis {
+  -fx-background-color: #5C5C5C;
+  -fx-background-radius: 1em;
+  -fx-text-fill: white;
+  -fx-font-size: 4em;
 }
 
 .chart {
@@ -418,4 +421,36 @@
 }
 .default-color7.chart-line-symbol { 
   -fx-background-color: #250033;
+}
+
+
+#horizontalBarChart .default-color0.chart-bar { 
+  -fx-bar-fill: #E6F69D;
+}
+#horizontalBarChart .default-color1.chart-bar { 
+  -fx-bar-fill: #AADEA7;
+}
+#horizontalBarChart .default-color2.chart-bar { 
+  -fx-bar-fill: #64C2A6;
+}
+#horizontalBarChart .default-color3.chart-bar { 
+  -fx-bar-fill:  #2D87BB;
+}
+#horizontalBarChart .default-color4.chart-bar { 
+  -fx-bar-fill:  #582dbb;
+}
+#horizontalBarChart .default-color5.chart-bar { 
+  -fx-bar-fill: #250033;
+}
+
+
+#fillersAndHesitations .default-color0.chart-bar { 
+  -fx-bar-fill:  #582dbb;
+}
+#fillersAndHesitations .default-color1.chart-bar { 
+  -fx-bar-fill: #64C2A6;
+}
+
+#fillersAndHesitations .chart-bar {
+  -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0; /* from https://stackoverflow.com/a/33003641 */
 }

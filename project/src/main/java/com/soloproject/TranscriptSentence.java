@@ -45,30 +45,8 @@ public class TranscriptSentence {
         this.sentiment = "Neutral";
 
         // populating arrays with all filler words and hesitation words
-        hesitationWords.add("Uhm");
-        hesitationWords.add("uhm");
-        hesitationWords.add("Eh");
-        hesitationWords.add("eh");
-        hesitationWords.add("Mhm");
-        hesitationWords.add("mhm");
-        hesitationWords.add("Hm");
-        hesitationWords.add("hm");
-        hesitationWords.add("Uh");
-        hesitationWords.add("uh");
-        hesitationWords.add("Ah");
-        hesitationWords.add("ah");
-        hesitationWords.add("Mh");
-        hesitationWords.add("mh");
-        hesitationWords.add("Um");
-        hesitationWords.add("Um");
-        hesitationWords.add("Er");
-        hesitationWords.add("er");
-        hesitationWords.add("mm");
-        hesitationWords.add("Mm");
-        hesitationWords.add("Huh");
-        hesitationWords.add("huh");
-        hesitationWords.add("Uh-huh");
-        hesitationWords.add("uh-huh");
+        populateHesitationWords();
+        populateFillerWords();
 
     }
 
@@ -198,5 +176,78 @@ public class TranscriptSentence {
 
     public int getNumberOfWords() {
         return this.numberOfWords;
+    }
+
+    public void populateHesitationWords() {
+        hesitationWords.add("Uhm");
+        hesitationWords.add("uhm");
+        hesitationWords.add("Eh");
+        hesitationWords.add("eh");
+        hesitationWords.add("Mhm");
+        hesitationWords.add("mhm");
+        hesitationWords.add("Hm");
+        hesitationWords.add("hm");
+        hesitationWords.add("Hmm");
+        hesitationWords.add("hmm");
+        hesitationWords.add("Uh");
+        hesitationWords.add("uh");
+        hesitationWords.add("Ah");
+        hesitationWords.add("ah");
+        hesitationWords.add("Ahh");
+        hesitationWords.add("ahh");
+        hesitationWords.add("Mh");
+        hesitationWords.add("mh");
+        hesitationWords.add("Um");
+        hesitationWords.add("um");
+        hesitationWords.add("Er");
+        hesitationWords.add("er");
+        hesitationWords.add("mm");
+        hesitationWords.add("Mm");
+        hesitationWords.add("Huh");
+        hesitationWords.add("huh");
+        hesitationWords.add("Uh-huh");
+        hesitationWords.add("uh-huh");
+        hesitationWords.add("Erm");
+        hesitationWords.add("erm");
+        hesitationWords.add("erm");
+        hesitationWords.add("Uhu");
+        hesitationWords.add("uhu");
+
+    }
+
+    public void populateFillerWords() {
+        fillerWords.add("Like");
+        fillerWords.add("like");
+        fillerWords.add("Kinda");
+        fillerWords.add("kinda");
+        fillerWords.add("basically");
+        fillerWords.add("Basically");
+        fillerWords.add("Literally");
+        fillerWords.add("literally");
+        fillerWords.add("seriously");
+        fillerWords.add("Seriously");
+        fillerWords.add("Actually");
+        fillerWords.add("actually");
+        fillerWords.add("Anyway");
+        fillerWords.add("Anyways");
+        fillerWords.add("anyway");
+        fillerWords.add("anyways");
+        fillerWords.add("Sorta");
+        fillerWords.add("sorta");
+        fillerWords.add("Yeah");
+        fillerWords.add("yeah");
+        fillerWords.add("Totally");
+        fillerWords.add("totally");
+        fillerWords.add("Hopefully");
+        fillerWords.add("hopefully");
+        fillerWords.add("Well");
+        fillerWords.add("well");
+        fillerWords.add("Pretty"); // Pretty much
+        fillerWords.add("pretty");
+        fillerWords.add("Whatever");
+        fillerWords.add("whatever");
+        fillerWords.add("Really");
+        fillerWords.add("really");
+
     }
 }

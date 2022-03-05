@@ -31,10 +31,8 @@ public class TranscriptBubble {
         sentenceLabel.setId("sentenceLabel");
 
         Separator smallSep1 = new Separator(Orientation.HORIZONTAL);
-        // smallSep1.setId("bigSep");
 
         Separator smallSep2 = new Separator(Orientation.HORIZONTAL);
-        // smallSep2.setId("bigSep");
 
         VBox sentenceVBox = new VBox(smallSep1, sentenceLabel, smallSep2);
         sentenceVBox.setSpacing(10);

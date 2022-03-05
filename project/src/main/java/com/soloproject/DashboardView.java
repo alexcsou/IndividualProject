@@ -1,23 +1,22 @@
 package com.soloproject;
 
-import java.text.DecimalFormat;
-
-import javax.swing.Box.Filler;
-
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 
 public class DashboardView {
@@ -52,6 +51,8 @@ public class DashboardView {
     }
 
     public void makeView() {
+        // add tiles to the tilepane
+        mainPane.getChildren().add(getKPIs());
         mainPane.getChildren().add(getParticipationPieChart());
         mainPane.getChildren().add(getParticipationPieChart2());
         mainPane.getChildren().add(getParticipationPieChart3());
@@ -60,8 +61,48 @@ public class DashboardView {
         mainPane.getChildren().add(getSentimentBarChart());
         mainPane.getChildren().add(getWpmBarChart());
         mainPane.getChildren().add(getHesitationAndFillerBarChart());
+
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
+    }
+
+    public GridPane getKPIs() {
+
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(10, 10, 10, 10));
+
+        Label one = new Label("1");
+        gridPane.add(one, 0, 0);
+
+        Label two = new Label("2");
+        gridPane.add(two, 2, 0);
+
+        Label three = new Label("3");
+        gridPane.add(three, 4, 0);
+
+        Label four = new Label("4");
+        gridPane.add(four, 0, 2);
+
+        Label five = new Label("5");
+        gridPane.add(five, 2, 2);
+
+        Label six = new Label("6");
+        gridPane.add(six, 4, 2);
+
+        gridPane.add(getSep(Orientation.HORIZONTAL), 0, 1);
+        gridPane.add(getSep(Orientation.HORIZONTAL), 2, 1);
+        gridPane.add(getSep(Orientation.HORIZONTAL), 4, 1);
+
+        gridPane.add(getSep(Orientation.VERTICAL), 1, 0);
+        gridPane.add(getSep(Orientation.VERTICAL), 1, 2);
+        gridPane.add(getSep(Orientation.VERTICAL), 3, 0);
+        gridPane.add(getSep(Orientation.VERTICAL), 3, 2);
+
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setId("kpis");
+        return gridPane;
     }
 
     public PieChart getParticipationPieChart() {
@@ -330,7 +371,7 @@ public class DashboardView {
             barChart.getData().add(series);
 
             for (XYChart.Data<Number, String> d : series.getData()) {
-                Tooltip t = new Tooltip("WPM: " + d.getYValue());
+                Tooltip t = new Tooltip("WPM - " + d.getYValue() + ": " + d.getXValue());
                 t.getStyleableParent().getStyleClass().clear();
                 Tooltip.install(d.getNode(), t);
             }
@@ -384,8 +425,20 @@ public class DashboardView {
             Tooltip.install(d.getNode(), t);
         }
 
-        barChart.setId("verticalBarChart");
+        barChart.setId("fillersAndHesitations");
         return barChart;
 
+    }
+
+    /**
+     * a method that creates a vertical separator to add to the meeting info side
+     * panel.
+     * 
+     * @return Separator object created and styled.
+     */
+    public Separator getSep(Orientation or) {
+        Separator smallSep = new Separator(or);
+        smallSep.setId("bigSep");
+        return smallSep;
     }
 }
