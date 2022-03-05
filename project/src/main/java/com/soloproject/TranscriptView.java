@@ -112,8 +112,6 @@ public class TranscriptView {
             meetingDate.setText("Meeting Date: NOT FOUND");
         }
 
-        meetingName.setWrapText(true);
-
         Label meetingSpeakers = new Label(
                 "Participants: " + handler.getSpeakers());
         meetingSpeakers.setWrapText(true);

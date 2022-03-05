@@ -1,9 +1,11 @@
 package com.soloproject;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.geometry.VPos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -18,6 +20,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.TextAlignment;
 
 public class DashboardView {
 
@@ -73,23 +76,44 @@ public class DashboardView {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Label one = new Label("1");
+        Label one = new Label("Meeting duration:\n\n" + handler.getMeetingDurationString());
         gridPane.add(one, 0, 0);
 
-        Label two = new Label("2");
-        gridPane.add(two, 2, 0);
+        GridPane.setHalignment(one, HPos.CENTER); // adding these two here on top of the lambda because
+        GridPane.setValignment(one, VPos.CENTER); // the Lambda doesnt affect this cell for some reason
 
-        Label three = new Label("3");
+        one.setTextAlignment(TextAlignment.CENTER);
+        one.setWrapText(true);
+
+        Label two = new Label("Number of participants:\n\n" + handler.getParticipants().size());
+        gridPane.add(two, 2, 0);
+        two.setTextAlignment(TextAlignment.CENTER);
+        two.setWrapText(true);
+
+        Label three = new Label(
+                "Transcript accuracy:\n\n" + Math.round(handler.getTranscriptRecognizabilityDouble() * 100) + "%");
+        if (handler.getTranscriptRecognizabilityDouble() == 0.0) {
+            three.setText("Transcript accuracy:\n\nnot found.");
+        }
+        three.setTextAlignment(TextAlignment.CENTER);
+        three.setWrapText(true);
+
         gridPane.add(three, 4, 0);
 
-        Label four = new Label("4");
+        Label four = new Label("Number of spoken sentences:\n\n" + handler.getFullSentenceCount());
         gridPane.add(four, 0, 2);
+        four.setTextAlignment(TextAlignment.CENTER);
+        four.setWrapText(true);
 
-        Label five = new Label("5");
+        Label five = new Label("Number of spoken words:\n\n" + handler.getNumberOfWords());
         gridPane.add(five, 2, 2);
+        five.setTextAlignment(TextAlignment.CENTER);
+        five.setWrapText(true);
 
-        Label six = new Label("6");
+        Label six = new Label("Meeting Language:\n\n" + handler.getLanguage());
         gridPane.add(six, 4, 2);
+        six.setTextAlignment(TextAlignment.CENTER);
+        six.setWrapText(true);
 
         gridPane.add(getSep(Orientation.HORIZONTAL), 0, 1);
         gridPane.add(getSep(Orientation.HORIZONTAL), 2, 1);
@@ -101,7 +125,10 @@ public class DashboardView {
         gridPane.add(getSep(Orientation.VERTICAL), 3, 2);
 
         gridPane.setAlignment(Pos.CENTER);
+        gridPane.getRowConstraints().forEach(s -> s.setValignment(VPos.CENTER));
+        gridPane.getColumnConstraints().forEach(s -> s.setHalignment(HPos.CENTER));
         gridPane.setId("kpis");
+
         return gridPane;
     }
 
