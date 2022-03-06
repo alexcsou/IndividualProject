@@ -284,12 +284,14 @@
   -fx-background-color: #5C5C5C;
   -fx-background-radius: 1em;
   -fx-text-fill: white;
-  -fx-font-size: 1.7em;
+  -fx-font-size: 1.8em;
+  -fx-font-style: italic;
+  -fx-font-weight: bold;
 }
 
 .chart {
   -fx-background-color: #5C5C5C;
-  -fx-background-radius: 1em;
+  -fx-background-radius: 2em;
   -fx-text-fill: white;
 }
 

@@ -6,6 +6,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -69,6 +70,10 @@ public class DashboardView {
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
 
+    public TilePane getMainPane() {
+        return mainPane;
+    }
+
     public GridPane getKPIs() {
 
         GridPane gridPane = new GridPane();
@@ -76,7 +81,7 @@ public class DashboardView {
         gridPane.setVgap(10);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Label one = new Label("Meeting duration:\n\n" + handler.getMeetingDurationString());
+        Label one = new Label("Meeting Duration:\n\n" + handler.getMeetingDurationString());
         gridPane.add(one, 0, 0);
 
         GridPane.setHalignment(one, HPos.CENTER); // adding these two here on top of the lambda because
@@ -85,27 +90,27 @@ public class DashboardView {
         one.setTextAlignment(TextAlignment.CENTER);
         one.setWrapText(true);
 
-        Label two = new Label("Number of participants:\n\n" + handler.getParticipants().size());
+        Label two = new Label("Number of Participants:\n\n" + handler.getParticipants().size());
         gridPane.add(two, 2, 0);
         two.setTextAlignment(TextAlignment.CENTER);
         two.setWrapText(true);
 
         Label three = new Label(
-                "Transcript accuracy:\n\n" + Math.round(handler.getTranscriptRecognizabilityDouble() * 100) + "%");
+                "Transcript Accuracy:\n\n" + Math.round(handler.getTranscriptRecognizabilityDouble() * 100) + "%");
         if (handler.getTranscriptRecognizabilityDouble() == 0.0) {
-            three.setText("Transcript accuracy:\n\nnot found.");
+            three.setText("Transcript Accuracy:\n\nNot Found.");
         }
         three.setTextAlignment(TextAlignment.CENTER);
         three.setWrapText(true);
 
         gridPane.add(three, 4, 0);
 
-        Label four = new Label("Number of spoken sentences:\n\n" + handler.getFullSentenceCount());
+        Label four = new Label("Number of Spoken Sentences:\n\n" + handler.getFullSentenceCount());
         gridPane.add(four, 0, 2);
         four.setTextAlignment(TextAlignment.CENTER);
         four.setWrapText(true);
 
-        Label five = new Label("Number of spoken words:\n\n" + handler.getNumberOfWords());
+        Label five = new Label("Number of Spoken Words:\n\n" + handler.getNumberOfWords());
         gridPane.add(five, 2, 2);
         five.setTextAlignment(TextAlignment.CENTER);
         five.setWrapText(true);

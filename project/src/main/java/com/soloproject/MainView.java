@@ -47,12 +47,10 @@ public class MainView {
 
         // Each tab is a different class of view.
         Tab dashboard = new Tab("Dashboard", new StackPane(dashboardView.getView()));
-        Tab charts = new Tab("Charts", new Label("content2"));
         Tab insights = new Tab("Insights", new Label("content3"));
         Tab transcript = new Tab("Transcript", transcriptView.getView());
-        Tab settings = new Tab("Settings", new Label("content5"));
 
-        tabs.getTabs().addAll(dashboard, charts, insights, transcript, settings);
+        tabs.getTabs().addAll(dashboard, insights, transcript);
         tabs.getTabs().forEach(t -> t.setClosable(false)); // unclosable tabs
 
         Button quitButton = new Button("Quit"); // extra quit button as user is fullscreened and should be able to quit
