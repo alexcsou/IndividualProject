@@ -23,6 +23,7 @@ public class MainView {
     private TranscriptHandler handler; // the mainView has a handler as a way to access meeting transcript info
     private TranscriptView transcriptView; // This view is passed the transcript handler as to display it's data.
     private DashboardView dashboardView;
+    private InsightsView insightView;
 
     public MainView(Stage stage, TranscriptHandler handler) {
 
@@ -30,6 +31,7 @@ public class MainView {
 
         transcriptView = new TranscriptView(this.handler);
         dashboardView = new DashboardView(this.handler);
+        insightView = new InsightsView(this.handler);
 
         mainPane = new BorderPane();
         mainPane.getStyleClass().addAll("mainView");
@@ -47,7 +49,7 @@ public class MainView {
 
         // Each tab is a different class of view.
         Tab dashboard = new Tab("Dashboard", new StackPane(dashboardView.getView()));
-        Tab insights = new Tab("Insights", new Label("content3"));
+        Tab insights = new Tab("Insights", insightView.getView());
         Tab transcript = new Tab("Transcript", transcriptView.getView());
 
         tabs.getTabs().addAll(dashboard, insights, transcript);

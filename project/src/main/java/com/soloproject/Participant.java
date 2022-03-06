@@ -133,4 +133,9 @@ public class Participant {
         }
         return count;
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }
