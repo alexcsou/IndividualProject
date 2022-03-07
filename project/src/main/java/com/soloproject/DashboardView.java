@@ -6,7 +6,6 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -44,7 +43,7 @@ public class DashboardView {
         makeView(); // called when creating the tabs.
 
         ScrollPane returnPane = new ScrollPane();
-        returnPane.getStyleClass().add("TranscriptScrollPane");
+        returnPane.getStyleClass().add("scrollPane");
         returnPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         returnPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         returnPane.setContent(mainPane);

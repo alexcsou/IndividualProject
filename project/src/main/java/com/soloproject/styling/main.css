@@ -199,7 +199,7 @@
   -fx-font-size: 1.4em;
 }
 
-.TranscriptScrollPane {
+.scrollPane {
   -fx-background: #3C3C3C;
   -fx-background-color: #3C3C3C;
   -fx-padding: 0 0 0 10;
@@ -457,4 +457,43 @@
 
 #fillersAndHesitations .chart-bar {
   -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0; /* from https://stackoverflow.com/a/33003641 */
+}
+
+.participantBox {
+  -fx-padding: 0.2em;
+  -fx-background: #838383;
+  -fx-background-color: #838383;
+  -fx-background-radius: 0.2em;
+}
+
+.combo-box .arrow-button {
+  -fx-background-color: #838383;
+}
+
+.combo-box .arrow {
+  -fx-background-color: white;
+}
+
+.combo-box .list-cell 
+{
+    -fx-background: #838383;
+    -fx-background-color: #838383;
+}   
+
+.insightsView {
+  -fx-padding: 2em;
+}
+
+.insightLabel {
+  -fx-font-size: 2em;
+  -fx-font-weight: bold;
+}
+
+.insightBubble {
+  -fx-padding: 1.5em;
+  -fx-border-insets: 1.5px;
+  -fx-background-insets: 1.5px;
+
+  -fx-background-color: #5C5C5C;
+  -fx-background-radius: 1em;
 }
