@@ -169,6 +169,15 @@
   -fx-border-width: 0.2;
 }
 
+#InsightSep {
+  -fx-padding: 0.7em;
+}
+
+#InsightSep .line {
+  -fx-border-color: #838383;
+  -fx-border-width: 0.2;
+}
+
 .leftChatBubble {
   -fx-padding: 1.5em;
   -fx-border-insets: 1.5px;

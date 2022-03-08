@@ -18,7 +18,7 @@ public class InsightBubble {
     }
 
     public void makeBubble() {
-        mainPane.setCenter(new Label(content));
+        mainPane.setCenter(new Label(content + " " + participant.getName()));
     }
 
     public BorderPane getBubble() {

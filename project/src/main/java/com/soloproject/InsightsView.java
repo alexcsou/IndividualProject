@@ -19,44 +19,41 @@ public class InsightsView {
     private BorderPane mainPane;
     private Participant currentParticipant;
 
+    private VBox col1 = new VBox();
+    private VBox col2 = new VBox();
+    private VBox col3 = new VBox();
+
     public InsightsView(TranscriptHandler handler) {
         this.handler = handler;
         mainPane = new BorderPane();
         mainPane.getStyleClass().add("insightsView");
         currentParticipant = handler.getParticipants().get(0); // initialise with first person to speak
+
         makeView();
     }
 
     public void makeView() {
-        Label col1Label = new Label("How can I improve?");
-        col1Label.getStyleClass().add("insightLabel");
-        VBox Col1 = new VBox(col1Label);
-        Col1.getStyleClass().add("insightsView");
 
-        addCol1Insights(Col1);
+        col1.getStyleClass().add("insightsView");
+        col2.getStyleClass().add("insightsView");
+        col3.getStyleClass().add("insightsView");
 
-        Label col2Label = new Label("How will it help?");
-        col2Label.getStyleClass().add("insightLabel");
-        VBox Col2 = new VBox(col2Label);
-        Col2.getStyleClass().add("insightsView");
+        addCol1Insights();
+        addCol2Insights();
+        addCol3Insights();
 
-        Label col3Label = new Label("How did the issue get noticed?");
-        col3Label.getStyleClass().add("insightLabel");
-        VBox Col3 = new VBox(col3Label);
-        Col3.getStyleClass().add("insightsView");
+        col1.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
+        col1.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
 
-        Col1.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        Col1.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
+        col2.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
+        col2.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
 
-        Col2.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        Col2.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
-
-        Col3.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        Col3.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
+        col3.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
+        col3.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
 
         HBox columnContainer = new HBox();
-        columnContainer.getChildren().addAll(Col1, getSep(Orientation.VERTICAL), Col2, getSep(Orientation.VERTICAL),
-                Col3);
+        columnContainer.getChildren().addAll(col1, getSep(Orientation.VERTICAL), col2, getSep(Orientation.VERTICAL),
+                col3);
 
         mainPane.setCenter(columnContainer);
 
@@ -89,11 +86,18 @@ public class InsightsView {
         }
 
         ParticipantsBox.getSelectionModel().selectFirst();
-        ParticipantsBox.setOnAction(e -> setCurrentParticipant(ParticipantsBox.getSelectionModel().getSelectedItem()));
+        ParticipantsBox.setOnAction(e -> refresh(ParticipantsBox.getSelectionModel().getSelectedItem()));
 
         ParticipantsBox.getStyleClass().add("participantBox");
 
         return ParticipantsBox;
+    }
+
+    public void refresh(Participant p) {
+        setCurrentParticipant(p);
+        addCol1Insights();
+        addCol2Insights();
+        addCol3Insights();
     }
 
     /**
@@ -104,11 +108,40 @@ public class InsightsView {
      */
     public Separator getSep(Orientation or) {
         Separator smallSep = new Separator(or);
-        smallSep.setId("bigSep");
+        smallSep.setId("InsightSep");
         return smallSep;
     }
 
-    public void addCol1Insights(VBox col) {
-        col.getChildren().add(new InsightBubble("this is a test", currentParticipant).getBubble());
+    public void addCol1Insights() {
+        Label col1Label = new Label("How can I improve?");
+        col1Label.getStyleClass().add("insightLabel");
+
+        col1.getChildren().clear();
+
+        col1.getChildren().add(col1Label);
+        col1.getChildren().add(getSep(Orientation.HORIZONTAL));
+        col1.getChildren().add(new InsightBubble("this is a test", currentParticipant).getBubble());
+    }
+
+    public void addCol2Insights() {
+        Label col2Label = new Label("How will it help?");
+        col2Label.getStyleClass().add("insightLabel");
+
+        col2.getChildren().clear();
+
+        col2.getChildren().add(col2Label);
+        col2.getChildren().add(getSep(Orientation.HORIZONTAL));
+        col2.getChildren().add(new InsightBubble("this is a test 2", currentParticipant).getBubble());
+    }
+
+    public void addCol3Insights() {
+        Label col3Label = new Label("How did the issue get noticed?");
+        col3Label.getStyleClass().add("insightLabel");
+
+        col3.getChildren().clear();
+
+        col3.getChildren().add(col3Label);
+        col3.getChildren().add(getSep(Orientation.HORIZONTAL));
+        col3.getChildren().add(new InsightBubble("this is a test 3", currentParticipant).getBubble());
     }
 }
