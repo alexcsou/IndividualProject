@@ -5,6 +5,9 @@ import javafx.stage.Screen;
 /**
  * Static class that fetches screen dimensions. Code for dimensions taken from
  * https://stackoverflow.com/a/40320750
+ * This class is sued to have a consistent layout across various screen sizes
+ * and dimensions, as (nearly) every dimension used in this app is a factor of
+ * the screen dimensions.
  */
 public class ScreenSizehandler {
 

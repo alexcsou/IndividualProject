@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import java.awt.Desktop;
 
 /**
- * The helpView class contains a view that a user is presented with upon
+ * The HelpView class contains a view that a user is presented with upon
  * clicking "help" once Fixated is open. It contains a quick guide on how to
  * obtain a .vtt file from both platforms.
  */
@@ -81,6 +81,7 @@ public class helpView {
         HelpButton = new Button("Help");
         HelpButton.setOnAction(e -> showHelp());
 
+        // set up next and prev buttons
         next = new Button("Next");
         next.setOnAction(e -> next());
 
@@ -118,6 +119,12 @@ public class helpView {
         HelpButton.setDisable(false);
     }
 
+    /**
+     * A method that returns a VBox containing the tutorial a user should follow to
+     * download a stream file
+     * 
+     * @return a VBox containing all isntructions as images and labels
+     */
     public VBox getStreamGuide() {
 
         VBox contentBox = new VBox();
@@ -130,11 +137,10 @@ public class helpView {
         link.setText("https://web.microsoftstream.com/");
         link.setOnAction(e -> openBrowser(link.getText()));
 
+        // create all labels and align them to center of screen.
         Label instructionLabel1 = new Label(instruction1);
         instructionLabel1.setWrapText(true);
-        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5); // large label, restrict its size so that
-                                                                           // doesn't span the whole screen if app is
-                                                                           // fullscreened.
+        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5);
         instructionLabel1.setTextAlignment(TextAlignment.CENTER);
 
         Label instructionLabel2 = new Label(instruction2);
@@ -169,6 +175,13 @@ public class helpView {
         return contentBox;
     }
 
+    /**
+     * A method that returns a VBox containing all the items necessary to teach usrs
+     * how to acess the transcript of their meeting from microsoft teams
+     * 
+     * @return the VBox containing all necessary items, labels and pictures, to
+     *         instruct users.
+     */
     public VBox getTeamsGuide() {
         VBox contentBox = new VBox();
         contentBox.setAlignment(Pos.CENTER);
@@ -228,6 +241,9 @@ public class helpView {
         }
     }
 
+    /**
+     * Method called when pressing the next button, loads the teams guide
+     */
     public void next() {
         helpPane.setCenter(getTeamsGuide());
         next.setDisable(true);
@@ -235,6 +251,9 @@ public class helpView {
 
     }
 
+    /**
+     * Method called when pressing the previous button, loads the stream guide.
+     */
     public void previous() {
         helpPane.setCenter(getStreamGuide());
         previous.setDisable(true);

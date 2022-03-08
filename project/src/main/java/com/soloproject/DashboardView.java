@@ -22,6 +22,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * A view that a user is presented with when on the dashboard tab. It contains
+ * all the charts and KPIs about a meeting on a scrollable tilepane. It is
+ * loaded in MainView.
+ */
 public class DashboardView {
 
     private TranscriptHandler handler;
@@ -32,7 +37,7 @@ public class DashboardView {
 
         mainPane = new TilePane();
         mainPane.setPadding(new Insets(10, 10, 10, 10));
-        mainPane.setPrefTileWidth(ScreenSizehandler.getWidth() * 0.46);
+        mainPane.setPrefTileWidth(ScreenSizehandler.getWidth() * 0.46); // sized so two tiles are always shown on a row
         mainPane.setVgap(4);
         mainPane.setHgap(4);
 
@@ -42,7 +47,7 @@ public class DashboardView {
         handler.createParticipantsSentences(); // create participants and their data, ready to be displayed.
         makeView(); // called when creating the tabs.
 
-        ScrollPane returnPane = new ScrollPane();
+        ScrollPane returnPane = new ScrollPane(); // return the mainPane in a scrollpane to make it scrollable
         returnPane.getStyleClass().add("scrollPane");
         returnPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         returnPane.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -54,7 +59,7 @@ public class DashboardView {
     }
 
     public void makeView() {
-        // add tiles to the tilepane
+        // add tiles to the tilepane, create all charts via method calls
         mainPane.getChildren().add(getKPIs());
         mainPane.getChildren().add(getParticipationPieChart());
         mainPane.getChildren().add(getParticipationPieChart2());
@@ -65,14 +70,25 @@ public class DashboardView {
         mainPane.getChildren().add(getWpmBarChart());
         mainPane.getChildren().add(getHesitationAndFillerBarChart());
 
+        // dimensions to be device screen size agnostic
         mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
         mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
     }
 
+    /**
+     * 
+     * @return TilePane the mainpane
+     */
     public TilePane getMainPane() {
         return mainPane;
     }
 
+    /**
+     * Returns the first chart of the app, containing 6 metrics about the meeting
+     * loaded in a gridpane and then put into a tile of a tilepane
+     * 
+     * @return GridPane the gripd cotnaining the metrics
+     */
     public GridPane getKPIs() {
 
         GridPane gridPane = new GridPane();
@@ -83,7 +99,7 @@ public class DashboardView {
         Label one = new Label("Meeting Duration:\n\n" + handler.getMeetingDurationString());
         gridPane.add(one, 0, 0);
 
-        GridPane.setHalignment(one, HPos.CENTER); // adding these two here on top of the lambda because
+        GridPane.setHalignment(one, HPos.CENTER); // adding these two here on top of the lambda (see below) because
         GridPane.setValignment(one, VPos.CENTER); // the Lambda doesnt affect this cell for some reason
 
         one.setTextAlignment(TextAlignment.CENTER);
@@ -119,6 +135,8 @@ public class DashboardView {
         six.setTextAlignment(TextAlignment.CENTER);
         six.setWrapText(true);
 
+        // labels added, now add separators for better readability
+
         gridPane.add(getSep(Orientation.HORIZONTAL), 0, 1);
         gridPane.add(getSep(Orientation.HORIZONTAL), 2, 1);
         gridPane.add(getSep(Orientation.HORIZONTAL), 4, 1);
@@ -136,6 +154,12 @@ public class DashboardView {
         return gridPane;
     }
 
+    /**
+     * Returns the second chart, a pie chart showing the share of spoken sentences
+     * by each participant.
+     * 
+     * @return PieChart, the javafx Node to display in a TilePane tile
+     */
     public PieChart getParticipationPieChart() {
 
         PieChart pieChart = new PieChart();
@@ -143,6 +167,7 @@ public class DashboardView {
         pieChart.getStyleClass().addAll("chart");
         pieChart.setLabelsVisible(true);
 
+        // create data point for each participant
         for (Participant p : handler.getParticipants()) {
 
             int percentage = (int) Math.round((p.getNumberOfSentences() / handler.getSentences().size()) * 100);
@@ -150,6 +175,7 @@ public class DashboardView {
             PieChart.Data data = new PieChart.Data(percentage + "% - " + p.getName(), p.getNumberOfSentences());
             pieChart.getData().add(data);
 
+            // add tooltip for each participant giving the details of the metric
             Tooltip t = new Tooltip(
                     "Share of spoken sentences: " + percentage + "%" + "\n" + "Number of spoken sentences: "
                             + p.getNumberOfSentences());
@@ -160,6 +186,12 @@ public class DashboardView {
         return pieChart;
     }
 
+    /**
+     * The third chart, returning a piechart showing the share of spoken words for
+     * each participant
+     * 
+     * @return the PieChart javafx Node to display in the Tilepane tile.
+     */
     public PieChart getParticipationPieChart2() {
 
         PieChart pieChart = new PieChart();
@@ -167,6 +199,7 @@ public class DashboardView {
         pieChart.getStyleClass().addAll("chart");
         pieChart.setLabelsVisible(true);
 
+        // add data for each participant
         for (Participant p : handler.getParticipants()) {
 
             int percentage = (int) Math.round((p.getNumberOfWords() / handler.getNumberOfWords()) * 100);
@@ -174,6 +207,7 @@ public class DashboardView {
             PieChart.Data data = new PieChart.Data(percentage + "% - " + p.getName(), p.getNumberOfWords());
             pieChart.getData().add(data);
 
+            // add tooltips
             Tooltip t = new Tooltip("Share of spoken words: " + percentage + "%" + "\n" + "Number of spoken words: "
                     + p.getNumberOfWords());
             t.getStyleableParent().getStyleClass().clear();
@@ -183,6 +217,13 @@ public class DashboardView {
         return pieChart;
     }
 
+    /**
+     * The third pie chart, showing the share of spoken time for each
+     * participant, and including an extra data point for silence, calculated as the
+     * total meeting duration minus the sum of spoken time by all participants.
+     * 
+     * @return the PieChart to display
+     */
     public PieChart getParticipationPieChart3() {
 
         PieChart pieChart = new PieChart();
@@ -191,14 +232,19 @@ public class DashboardView {
         pieChart.setLabelsVisible(true);
 
         Double nonSilenceTime = 0.0; // used to track silence in share of time distribution
+
+        // add data for each participant
         for (Participant p : handler.getParticipants()) {
 
+            // keep track of spoken time for each participant
             nonSilenceTime += p.getSpokenTime();
+            // display the spoken time as percentage of meeting duration
             int percentage = (int) Math.round((p.getSpokenTime()) / handler.getMeetingDurationSeconds() * 100);
 
             PieChart.Data data = new PieChart.Data(percentage + "% - " + p.getName(), p.getSpokenTime());
             pieChart.getData().add(data);
 
+            // add tooltips
             Tooltip t = new Tooltip("Share of spoken time: " + percentage + "%" + "\n" + "Time spoken in seconds: "
                     + p.getSpokenTime());
             t.getStyleableParent().getStyleClass().clear();
@@ -213,6 +259,7 @@ public class DashboardView {
                 handler.getMeetingDurationSeconds() - nonSilenceTime);
         pieChart.getData().add(data);
 
+        // add tooltip for silence
         Tooltip t = new Tooltip(
                 "Share of meeting spent in silence: " + percentage + "%" + "\n" + "Time in seconds spent in silence: "
                         + (handler.getMeetingDurationSeconds() - nonSilenceTime));
@@ -222,6 +269,13 @@ public class DashboardView {
         return pieChart;
     }
 
+    /**
+     * fourth and last PieChart, returning the share of each sentence type used in
+     * the meeting, which can be either declarative, interrogative, exclamatory or
+     * other.
+     * 
+     * @return the piechart to display in the tilepane.
+     */
     public PieChart getSentenceTypePieChart() {
 
         PieChart pieChart = new PieChart();
@@ -229,11 +283,13 @@ public class DashboardView {
         pieChart.getStyleClass().addAll("chart");
         pieChart.setLabelsVisible(true);
 
+        // use these values to later add to the chart
         int declaratives = 0;
         int exclamatories = 0;
         int interrogatives = 0;
         int others = 0;
 
+        // iterate through sentences and increment relevant tracking variable
         for (TranscriptSentence s : handler.getSentences()) {
 
             if (s.getSentenceType().equals("Declarative")) {
@@ -246,7 +302,7 @@ public class DashboardView {
                 others += 1;
             }
         }
-
+        // For each sentence type, add data point only if value is not 0
         if (declaratives != 0) {
             PieChart.Data data = new PieChart.Data(declaratives + " declarative sentences",
                     declaratives);
@@ -269,6 +325,7 @@ public class DashboardView {
             pieChart.getData().add(data3);
         }
 
+        // add tooltips
         for (PieChart.Data d : pieChart.getData()) {
             Tooltip t = new Tooltip(d.getName());
             t.getStyleableParent().getStyleClass().clear();
@@ -278,6 +335,15 @@ public class DashboardView {
         return pieChart;
     }
 
+    /**
+     * A method that returns a line chart with a data point for each sentence spoken
+     * by each user, with a negative, neutral and positive sentences being numbered
+     * -1, 0 and 1 respectively. To visualise the average value for each user, the
+     * average is calculated, and then a data point equal to that value is palced
+     * both at the start and end of the chart.
+     * 
+     * @return the line chart to display in a tilepane
+     */
     public LineChart<Number, Number> getSentimentalAnalysisChart() {
 
         NumberAxis xAxis = new NumberAxis();
@@ -289,17 +355,20 @@ public class DashboardView {
 
         lineChart.setTitle("Sentence Sentiment Over Time");
         lineChart.setLegendSide(Side.BOTTOM);
-        lineChart.setCreateSymbols(false);
+        lineChart.setCreateSymbols(false); // hide circle data point icon as heavy loads of points clutter chart
 
+        // new series for each participant
         for (Participant p : handler.getParticipants()) {
             XYChart.Series<Number, Number> SentimentValues = new XYChart.Series<>();
             SentimentValues.setName(p.getName());
 
+            // new data point for each sentence for each participant
             for (TranscriptSentence s : p.getSentences()) {
                 SentimentValues.getData()
                         .add(new XYChart.Data<>(s.getStartTime(), s.getSentimentRating()));
             }
 
+            // calculate average sentence sentiment
             p.setAverageSentiment();
 
             // adding the average line by setting a value at the first and last x values
@@ -315,6 +384,7 @@ public class DashboardView {
                             handler.getSentences().get(handler.getSentences().size() - 1).getEndTime(),
                             p.getAverageSentiment()));
 
+            // add both series
             lineChart.getData().add(SentimentValues);
             lineChart.getData().add(avgSentimentValues);
         }
@@ -322,10 +392,16 @@ public class DashboardView {
         return lineChart;
     }
 
+    /**
+     * A method that returns a bar chart with for each participant, a bar indicating
+     * the number of negative, neutral and positive sentences.
+     * 
+     * @return the bar chart to display in a tile of a tilepane.
+     */
     public BarChart<String, Number> getSentimentBarChart() {
 
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
+        CategoryAxis xAxis = new CategoryAxis(); // for participant names
+        NumberAxis yAxis = new NumberAxis(); // for sentence counts
         xAxis.setLabel("Sentence Sentiment per Participant");
         yAxis.setLabel("Number of Sentences");
 
@@ -335,6 +411,7 @@ public class DashboardView {
         barChart.setTitle("Sentence Sentiment Distribution per Participant");
         barChart.setLegendSide(Side.BOTTOM);
 
+        // one serie per sentence type
         XYChart.Series<String, Number> Positives = new XYChart.Series<>();
         Positives.setName("Positive sentences");
 
@@ -346,6 +423,7 @@ public class DashboardView {
 
         barChart.getData().addAll(Positives, Neutrals, Negatives);
 
+        // add data point for each serie for each participant.
         for (Participant p : handler.getParticipants()) {
             Positives.getData().add(new XYChart.Data<String, Number>(p.getName(),
                     p.getPositives().size()));
@@ -358,6 +436,7 @@ public class DashboardView {
 
         }
 
+        // add all tooltips
         for (XYChart.Data<String, Number> d : Positives.getData()) {
             Tooltip t = new Tooltip("Number of Positive Sentences: " + d.getYValue());
             t.getStyleableParent().getStyleClass().clear();
@@ -381,6 +460,12 @@ public class DashboardView {
 
     }
 
+    /**
+     * A method that returns a stackedbar chart which shows a bar equal to the word
+     * per minute speed of each participant.
+     * 
+     * @return the bar chart to display in the tilepane tile
+     */
     public StackedBarChart<Number, String> getWpmBarChart() {
 
         CategoryAxis yAxis = new CategoryAxis();
@@ -388,6 +473,9 @@ public class DashboardView {
         yAxis.setLabel("Participant");
         xAxis.setLabel("Words per Minute");
         xAxis.setTickLabelRotation(90);
+
+        // using stacked bar chart as normal bar chart off-centers the bar as it expects
+        // at least two serie types.
         StackedBarChart<Number, String> barChart = new StackedBarChart<Number, String>(xAxis,
                 yAxis);
 
@@ -395,12 +483,15 @@ public class DashboardView {
         barChart.setLegendSide(Side.BOTTOM);
 
         for (Participant p : handler.getParticipants()) {
+
+            // One series per participant
             XYChart.Series<Number, String> series = new XYChart.Series<>();
             series.setName("WPM - " + p.getName());
             series.getData().add(new XYChart.Data<Number, String>(
                     p.getWpm(handler), p.getName()));
             barChart.getData().add(series);
 
+            // add tooltips
             for (XYChart.Data<Number, String> d : series.getData()) {
                 Tooltip t = new Tooltip("WPM - " + d.getYValue() + ": " + d.getXValue());
                 t.getStyleableParent().getStyleClass().clear();
@@ -414,6 +505,13 @@ public class DashboardView {
 
     }
 
+    /**
+     * a method that returns a bar chart with one series per user for each
+     * hesitation made, and one series for each filler word used. Hesitations and
+     * filler words are listed in the transcriptsentence class.
+     * 
+     * @return the bar chart with both series for each user.
+     */
     public BarChart<String, Number> getHesitationAndFillerBarChart() {
 
         CategoryAxis xAxis = new CategoryAxis();
@@ -435,6 +533,7 @@ public class DashboardView {
 
         barChart.getData().addAll(FillerWords, Hesitations);
 
+        // add counts for each user.
         for (Participant p : handler.getParticipants()) {
             FillerWords.getData().add(new XYChart.Data<String, Number>(p.getName(),
                     p.getFillerCount()));
@@ -443,7 +542,7 @@ public class DashboardView {
                     p.getHesitationCount()));
 
         }
-
+        // add tooltips
         for (XYChart.Data<String, Number> d : FillerWords.getData()) {
             Tooltip t = new Tooltip("Number of Filler Words: " + d.getYValue());
             t.getStyleableParent().getStyleClass().clear();
@@ -462,10 +561,11 @@ public class DashboardView {
     }
 
     /**
-     * a method that creates a vertical separator to add to the meeting info side
-     * panel.
+     * A method that creates a separator with a provided orientation. used to create
+     * large amounts of separators for laying out the getKPIs() grid.
      * 
-     * @return Separator object created and styled.
+     * @param or the orientation of the separator
+     * @return a separator with the provided orientation.
      */
     public Separator getSep(Orientation or) {
         Separator smallSep = new Separator(or);

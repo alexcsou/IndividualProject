@@ -21,6 +21,12 @@ public class TranscriptBubble {
         this.style = style;
     }
 
+    /**
+     * The getter method for this bubble, returns the Pane that contains it
+     * 
+     * @return Borderpane containg the sentence, the author and the duration
+     *         timestamp.
+     */
     public BorderPane getBubble() {
         BorderPane bubble = new BorderPane();
 
@@ -30,6 +36,7 @@ public class TranscriptBubble {
         sentenceLabel.setWrapText(true);
         sentenceLabel.setId("sentenceLabel");
 
+        // separators for visual clarity
         Separator smallSep1 = new Separator(Orientation.HORIZONTAL);
 
         Separator smallSep2 = new Separator(Orientation.HORIZONTAL);
@@ -58,7 +65,7 @@ public class TranscriptBubble {
         bubble.setCenter(sentenceVBox);
         bubble.setBottom(durationHBox);
 
-        if (style) {
+        if (style) { // conditional styling for left or right bubbles
             bubble.getStyleClass().add("rightChatBubble");
         } else {
             bubble.getStyleClass().add("leftChatBubble");
@@ -68,6 +75,11 @@ public class TranscriptBubble {
         return bubble;
     }
 
+    /**
+     * A getter for the style field
+     * 
+     * @return boolean the field style
+     */
     public boolean getStyle() {
         return this.style;
     }

@@ -50,11 +50,20 @@ public class TranscriptSentence {
 
     }
 
+    /**
+     * A method that returns the count of hesitation words found within a sentence.
+     * 
+     * @return int the count of hesitation words
+     */
     public int getHesitationWordsCount() {
         int count = 0;
         String[] words = sentence.split(" ");
         for (String word : words) {
-            if (hesitationWords.contains(word)
+            if (hesitationWords.contains(word) // if the word is in the list, increment count. to handle issues with
+                                               // words that are bound to a punction sign (e.g. 'uh,' since split on ' '
+                                               // spaces), we
+                                               // also look at words without their last character, if their length is
+                                               // above two
                     || (word.length() >= 2 && (hesitationWords.contains(word.substring(0, word.length() - 2))))) {
                 count++;
             }
@@ -62,11 +71,16 @@ public class TranscriptSentence {
         return count;
     }
 
+    /**
+     * A method that returns the count of filler words found within a sentence.
+     * 
+     * @return int the count of filler words
+     */
     public int getFillerWordsCount() {
         int count = 0;
         String[] words = sentence.split(" ");
         for (String word : words) {
-            if (fillerWords.contains(word)
+            if (fillerWords.contains(word) // check above method for explanation
                     || (word.length() >= 2 && (fillerWords.contains(word.substring(0, word.length() - 2))))) {
                 count++;
             }
@@ -74,6 +88,10 @@ public class TranscriptSentence {
         return count;
     }
 
+    /**
+     * A method that attributes a sentence type to this sentence, based on it's last
+     * character.
+     */
     public void setSentenceType() {
         if (sentence.endsWith(".") || sentence.endsWith("...")) {
             sentenceType = "Declarative";
@@ -90,7 +108,7 @@ public class TranscriptSentence {
      * A method to provide the sentimental analysis for the sentence. Uses
      * StandfordCoreNLP.
      * guided and inspired by: https://www.youtube.com/watch?v=zjop7sE3g8I. Sets
-     * sentiment to either neutral positive or negative
+     * sentiment to either neutral positive or negative for this sentence.
      */
     public void setSentenceSentiment() {
 
@@ -110,10 +128,21 @@ public class TranscriptSentence {
         }
     }
 
+    /**
+     * getter for the sentence sentiment
+     * 
+     * @return String the sentiment, either positive, neutral or negative
+     */
     public String getSentiment() {
         return sentiment;
     }
 
+    /**
+     * A getter for the sentiment value as integer, binding negative to -1, neutral
+     * to 0 and positive to 1.
+     * 
+     * @return the sentiment value of this sentence as an int. 0 if not set
+     */
     public int getSentimentRating() {
         if (this.sentiment.equals("Negative")) {
             return -1;
@@ -126,30 +155,65 @@ public class TranscriptSentence {
         }
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public String getSentenceType() {
         return this.sentenceType;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public String getdurationString() {
         return this.durationString;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public double getStartTime() {
         return this.startTime;
     }
 
+    /**
+     * Setter for start time
+     * 
+     * @param startTime the double in seconds since sentence start time
+     */
     public void setStartTime(double startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public double getEndTime() {
         return this.endTime;
     }
 
+    /**
+     * Setter for end time
+     * 
+     * @param endTime the end time as double
+     */
     public void setEndTime(double endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     * Getter for the string of the actual sentence
+     * 
+     * @return String the sentence spoken. empty string if sentence is null
+     */
     public String getSentence() {
         if (sentence == null) {
             return "";
@@ -158,26 +222,57 @@ public class TranscriptSentence {
         }
     }
 
+    /**
+     * Setter for this sentence's string
+     * 
+     * @param sentence the String to set as sentence
+     */
     public void setSentence(String sentence) {
         this.sentence = sentence;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public double getDuration() {
         return this.duration;
     }
 
+    /**
+     * Setter for sentence duration
+     * 
+     * @param duration duration in double of sentence
+     */
     public void setDuration(double duration) {
         this.duration = duration;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public String getAuthor() {
         return this.author;
     }
 
+    /**
+     * Getter
+     * 
+     * @return
+     */
     public int getNumberOfWords() {
         return this.numberOfWords;
     }
 
+    /**
+     * Method that populates the hesitation words array by adding a list of frequent
+     * hesitation sounds or onomatopoeia picked up by the transcript. Both
+     * capitalised and uncapitalised words are
+     * added.
+     */
     public void populateHesitationWords() {
         hesitationWords.add("Uhm");
         hesitationWords.add("uhm");
@@ -215,6 +310,11 @@ public class TranscriptSentence {
 
     }
 
+    /**
+     * Method that populates the filler words list with often found and frequent
+     * filler words used when speaking. Both capitalised and uncapitalised words are
+     * added.
+     */
     public void populateFillerWords() {
         fillerWords.add("Like");
         fillerWords.add("like");

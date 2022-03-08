@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  * The mainView of the application, which contains all tabs and appears
  * fullscreened upon first launch.
- * This is isntantiated in TranscriptHandler upon closing the file process
+ * This is instantiated in TranscriptHandler upon closing the file process
  * success alert.
  */
 public class MainView {
@@ -29,6 +29,7 @@ public class MainView {
 
         this.handler = handler;
 
+        // create all views
         transcriptView = new TranscriptView(this.handler);
         dashboardView = new DashboardView(this.handler);
         insightView = new InsightsView(this.handler);
@@ -60,6 +61,7 @@ public class MainView {
         quitButton.setOnAction(e -> stage.close());
         quitButton.getStyleClass().add("quitButton");
 
+        // add the tabs and quit button to the top of the mainpane.
         HBox topComponents = new HBox(tabs, quitButton);
         HBox.setHgrow(tabs, Priority.ALWAYS);
 
@@ -67,6 +69,11 @@ public class MainView {
 
     }
 
+    /**
+     * Returns the view
+     * 
+     * @return BorderPane the view.
+     */
     public BorderPane getView() {
         return mainPane;
     }

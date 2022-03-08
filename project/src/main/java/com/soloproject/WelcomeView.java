@@ -22,6 +22,11 @@ public class WelcomeView {
         makeView(mainbox);
     }
 
+    /**
+     * Method that builds the welcome view.
+     * 
+     * @param box the VBox to build the view items into, here the field mainbox
+     */
     public void makeView(VBox box) {
 
         ImageView logoView = new ImageView(logo);
@@ -48,6 +53,11 @@ public class WelcomeView {
         box.getChildren().addAll(titleLabel, infoText1, infoText2); // both items in a VBox
     }
 
+    /**
+     * getter for the view
+     * 
+     * @return VBox the welcome view
+     */
     public VBox getView() {
         return mainbox;
     }

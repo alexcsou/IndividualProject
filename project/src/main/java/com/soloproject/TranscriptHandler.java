@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 import javafx.stage.FileChooser;
@@ -418,6 +417,10 @@ public class TranscriptHandler {
         }
     }
 
+    /**
+     * A method that loads the mainview or alerts a user somehting went wrong after
+     * selecting files.
+     */
     public void proceed() {
         if (streamTranscript != null && teamsTranscript != null) {
             loadMainView();
@@ -425,16 +428,30 @@ public class TranscriptHandler {
             alertHandler.alertFailure("You haven't selected the necessary files to proceed.");
         }
     }
-    // ------------------- Getters and Setters -------------------
 
+    /**
+     * Getter for the stream file select button
+     * 
+     * @return Button
+     */
     public Button getStreamFileSelectButton() {
         return streamButton;
     }
 
+    /**
+     * Getter for the teams file select button
+     * 
+     * @return Button
+     */
     public Button getTeamsFileSelectButton() {
         return teamsButton;
     }
 
+    /**
+     * Getter for the transcript recognizability value.
+     * 
+     * @return Double the recognisability.
+     */
     public Double getTranscriptRecognizabilityDouble() {
         try {
             return Double.parseDouble(this.transcriptRecognizability);
@@ -446,6 +463,7 @@ public class TranscriptHandler {
     }
 
     /**
+     * Mehtod to return the Stream file
      * signals if transcript is null
      * 
      * @return the .vtt Microsoft Stream transcript file
@@ -458,6 +476,7 @@ public class TranscriptHandler {
     }
 
     /**
+     * Method to return the teams file
      * signals if transcript is null
      * 
      * @return the .vtt Teams transcript file
@@ -498,74 +517,165 @@ public class TranscriptHandler {
         return list;
     }
 
+    /**
+     * Stream file setter
+     * 
+     * @param file the file to set as stream file
+     */
     public void setStreamTranscript(File file) {
         this.streamTranscript = file;
     }
 
+    /**
+     * Teams file setter
+     * 
+     * @param file the file to set as Teams file
+     */
     public void setTeamsTranscript(File file) {
         this.teamsTranscript = file;
     }
 
+    /**
+     * Getter for stream button
+     * 
+     * @return Buttont
+     */
     public Button getStreamButton() {
         return this.streamButton;
     }
 
+    /**
+     * Getter for teams button
+     * 
+     * @return Buttont
+     */
     public Button getTeamsButton() {
         return this.teamsButton;
     }
 
+    /**
+     * Getter for continue button
+     * 
+     * @return Buttont
+     */
     public Button getContinueButton() {
         return this.continueButton;
     }
 
-    public void setButton(Button button) {
+    /**
+     * Setter for Stream button
+     * 
+     * @param button
+     */
+    public void setStreamButton(Button button) {
         this.streamButton = button;
     }
 
+    /**
+     * getter for the stage
+     * 
+     * @return Stage the stage
+     */
     public Stage getStage() {
         return this.stage;
     }
 
+    /**
+     * Setter for the stage
+     * 
+     * @param stage the Stage to set as stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+    /**
+     * Getter for the list of transcript sentences
+     * 
+     * @return an array list of sentences
+     */
     public ArrayList<TranscriptSentence> getSentences() {
         return this.sentences;
     }
 
+    /**
+     * Setter for the array list of sentences
+     * 
+     * @param sentences the arraylist of sentence to set
+     */
     public void setSentences(ArrayList<TranscriptSentence> sentences) {
         this.sentences = sentences;
     }
 
+    /**
+     * Getter for the meeting duration string
+     * 
+     * @return the meeting duration string field
+     */
     public String getMeetingDurationString() {
         return this.meetingDurationString;
     }
 
+    /**
+     * Setter for the meeting duration string
+     * 
+     * @param meetingDurationString the string to set
+     */
     public void setMeetingDurationString(String meetingDurationString) {
         this.meetingDurationString = meetingDurationString;
     }
 
+    /**
+     * Getter for transcript recog field
+     * 
+     * @return the string value of the transcript recog
+     */
     public String getTranscriptRecognizability() {
         return this.transcriptRecognizability;
     }
 
+    /**
+     * Setter for the transcript recog
+     * 
+     * @param transcriptRecognizability string to set
+     */
     public void setTranscriptRecognizability(String transcriptRecognizability) {
         this.transcriptRecognizability = transcriptRecognizability;
     }
 
+    /**
+     * getter for the meeting language.
+     * 
+     * @return ther string meeting language
+     */
     public String getLanguage() {
         return this.language;
     }
 
+    /**
+     * Setter for the meeting language
+     * 
+     * @param language the string to set
+     */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * Getter for the list of participants
+     * 
+     * @return arraylist of participants
+     */
     public ArrayList<Participant> getParticipants() {
         return this.participants;
     }
 
+    /**
+     * Getter for the meeting duration string.
+     * 
+     * @return 1.0 if the duration is 0, the duration otherwise. 1 is returned to
+     *         avoid division by 0 and handle meeting duration calculations
+     */
     public Double getMeetingDurationSeconds() {
         if (this.meetingDurationSeconds == 0) {
             return 1.0;
@@ -574,15 +684,22 @@ public class TranscriptHandler {
         }
     }
 
+    /**
+     * Setter for the meeting duration in seconds
+     * 
+     * @param meetingDurationSeconds the double to set
+     */
     public void setMeetingDurationSeconds(double meetingDurationSeconds) {
         this.meetingDurationSeconds = meetingDurationSeconds;
     }
 
     /**
-     * Return a string of all speakers in a meeting, and create Participant objects,
+     * Return a string of all speakers in a meeting, and importantly create
+     * Participant objects,
      * 1 per speaker
      * 
-     * @return a string formatted to display speakers properly
+     * @return a string formatted to display speakers properly, of the form 'X, Y,
+     *         Z'
      */
     public String getSpeakers() {
         ArrayList<String> speakers = new ArrayList<>();

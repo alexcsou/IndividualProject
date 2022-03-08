@@ -82,6 +82,11 @@ public class App extends Application {
         start(stage);
     }
 
+    /**
+     * Main Method of the application
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
