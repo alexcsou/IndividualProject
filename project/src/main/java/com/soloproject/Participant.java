@@ -204,6 +204,52 @@ public class Participant {
     }
 
     /**
+     * A method that returns the list of declarative sentences for this participant
+     * 
+     * @return an arraylist of declarative sentences.
+     */
+    public ArrayList<TranscriptSentence> getDeclaratives() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentenceType().equals("Declarative")) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
+
+    /**
+     * A method that returns the list of interrogative sentences for this
+     * participant
+     * 
+     * @return an arraylist of interrogative sentences.
+     */
+    public ArrayList<TranscriptSentence> getInterrogatives() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentenceType().equals("Interrogative")) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
+
+    /**
+     * A method that returns the list of exclamatory sentences for this participant
+     * 
+     * @return an arraylist of exclamatory sentences.
+     */
+    public ArrayList<TranscriptSentence> getExclamatories() {
+        ArrayList<TranscriptSentence> array = new ArrayList<>();
+        for (TranscriptSentence s : sentences) {
+            if (s.getSentenceType().equals("Exclamatory")) {
+                array.add(s);
+            }
+        }
+        return array;
+    }
+
+    /**
      * A method that returns the count of hesitation words for this user.
      * 
      * @return int the number of hesitations

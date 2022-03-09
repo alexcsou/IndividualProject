@@ -65,6 +65,7 @@ public class DashboardView {
         mainPane.getChildren().add(getParticipationPieChart2());
         mainPane.getChildren().add(getParticipationPieChart3());
         mainPane.getChildren().add(getSentenceTypePieChart());
+        mainPane.getChildren().add(getSentenceTypeBarChart());
         mainPane.getChildren().add(getSentimentalAnalysisChart());
         mainPane.getChildren().add(getSentimentBarChart());
         mainPane.getChildren().add(getWpmBarChart());
@@ -333,6 +334,74 @@ public class DashboardView {
         }
 
         return pieChart;
+    }
+
+    /**
+     * A method that returns a bar chart which lists the count of each sentence type
+     * for each user
+     * 
+     * @return a bar chart to display in a TilePane
+     */
+    public BarChart<String, Number> getSentenceTypeBarChart() {
+
+        CategoryAxis xAxis = new CategoryAxis(); // for participant names
+        NumberAxis yAxis = new NumberAxis(); // for sentence types
+        xAxis.setLabel("Sentence Type per Participant");
+        yAxis.setLabel("Number of Sentences");
+
+        BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis,
+                yAxis);
+
+        barChart.setTitle("Sentence type Distribution per Participant");
+        barChart.setLegendSide(Side.BOTTOM);
+
+        // one serie per sentence type
+        XYChart.Series<String, Number> Declaratives = new XYChart.Series<>();
+        Declaratives.setName("Declarative");
+
+        XYChart.Series<String, Number> Interrogatives = new XYChart.Series<>();
+        Interrogatives.setName("Interrogative");
+
+        XYChart.Series<String, Number> Exclamatories = new XYChart.Series<>();
+        Exclamatories.setName("Exclamatory");
+
+        barChart.getData().addAll(Declaratives, Interrogatives, Exclamatories);
+
+        // add data point for each serie for each participant.
+        for (Participant p : handler.getParticipants()) {
+            Declaratives.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getDeclaratives().size()));
+
+            Interrogatives.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getInterrogatives().size()));
+
+            Exclamatories.getData().add(new XYChart.Data<String, Number>(p.getName(),
+                    p.getExclamatories().size()));
+
+        }
+
+        // add all tooltips
+        for (XYChart.Data<String, Number> d : Declaratives.getData()) {
+            Tooltip t = new Tooltip("Number of Declarative Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        for (XYChart.Data<String, Number> d : Interrogatives.getData()) {
+            Tooltip t = new Tooltip("Number of Interrogatives Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        for (XYChart.Data<String, Number> d : Exclamatories.getData()) {
+            Tooltip t = new Tooltip("Number of Exclamatory Sentences: " + d.getYValue());
+            t.getStyleableParent().getStyleClass().clear();
+            Tooltip.install(d.getNode(), t);
+        }
+
+        barChart.setId("verticalBarChart");
+        return barChart;
+
     }
 
     /**
