@@ -14,7 +14,7 @@ public class InsightBubble {
 
     private BorderPane mainPane;
 
-    public InsightBubble(String content, Participant participant) {
+    public InsightBubble(String content) {
         this.content = content;
         mainPane = new BorderPane();
         mainPane.getStyleClass().add("insightBubble");
@@ -25,7 +25,10 @@ public class InsightBubble {
      * A method that builds the Bubble and its content.
      */
     public void makeBubble() {
-        mainPane.setCenter(new Label(content));
+        Label contentLabel = new Label(content);
+        contentLabel.setMaxWidth(ScreenSizehandler.getWidth() * 0.23);
+        contentLabel.setWrapText(true);
+        mainPane.setCenter(contentLabel);
     }
 
     /**

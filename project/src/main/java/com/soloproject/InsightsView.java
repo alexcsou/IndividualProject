@@ -39,7 +39,6 @@ public class InsightsView {
         mainPane = new BorderPane();
         mainPane.getStyleClass().add("insightsView");
         currentParticipant = handler.getParticipants().get(0); // initialise with first person to speak
-
         makeView();
     }
 
@@ -49,11 +48,6 @@ public class InsightsView {
         col1.getStyleClass().add("insightsView");
         col2.getStyleClass().add("insightsView");
         col3.getStyleClass().add("insightsView");
-
-        // build cols
-        addCol1Insights();
-        addCol2Insights();
-        addCol3Insights();
 
         // size cols
         col1.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
@@ -76,7 +70,9 @@ public class InsightsView {
         // Combobox for selecting user at top of borderpane
         ComboBox<Participant> ParticipantsBox = getComboBox();
 
-        mainPane.setTop(ParticipantsBox);
+        Label infoText = new Label("Select Participant: ");
+        HBox topComponents = new HBox(infoText, ParticipantsBox);
+        mainPane.setTop(topComponents);
     }
 
     /**
@@ -119,8 +115,6 @@ public class InsightsView {
             ParticipantsBox.getItems().add(p);
         }
 
-        ParticipantsBox.getSelectionModel().selectFirst();
-        // pass the selected particpant to the refresh method
         ParticipantsBox.setOnAction(e -> refresh(ParticipantsBox.getSelectionModel().getSelectedItem()));
 
         ParticipantsBox.getStyleClass().add("participantBox");
@@ -165,7 +159,8 @@ public class InsightsView {
 
         col1.getChildren().add(col1Label);
         col1.getChildren().add(getSep(Orientation.HORIZONTAL));
-        col1.getChildren().add(new InsightBubble("this is a test", currentParticipant).getBubble());
+
+        col1.getChildren().add(new InsightBubble(col1Bubble1()).getBubble());
     }
 
     /**
@@ -180,7 +175,7 @@ public class InsightsView {
 
         col2.getChildren().add(col2Label);
         col2.getChildren().add(getSep(Orientation.HORIZONTAL));
-        col2.getChildren().add(new InsightBubble("this is a test 2", currentParticipant).getBubble());
+        col2.getChildren().add(new InsightBubble(col2Bubble1()).getBubble());
     }
 
     /**
@@ -195,6 +190,56 @@ public class InsightsView {
 
         col3.getChildren().add(col3Label);
         col3.getChildren().add(getSep(Orientation.HORIZONTAL));
-        col3.getChildren().add(new InsightBubble("this is a test 3", currentParticipant).getBubble());
+        col3.getChildren().add(new InsightBubble(col3Bubble1()).getBubble());
+    }
+
+    /**
+     * Returns a bubble that advises a user on how to improve the speed of their
+     * speech. based off of
+     * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
+     * 
+     * @return string the string to display in the bubble.
+     */
+    public String col1Bubble1() {
+        if (currentParticipant.getWpm(handler) < 110) {
+            return "You spoke at a considerably slower speed than average. Try to speak a little faster.";
+        } else if (currentParticipant.getWpm(handler) >= 110 && currentParticipant.getWpm(handler) < 170) {
+            return "You spoke at a very understandable speed. Keep it up!";
+        } else if (currentParticipant.getWpm(handler) >= 170 && currentParticipant.getWpm(handler) < 220) {
+            return "You spoke at a considerably faster speed than average. Try to speak a little slower"
+                    + " and to take the time better articulate your words.";
+        } else {
+            return "You spoke at very high speed. Try to greatly reduce the speed at which you speak.";
+        }
+    }
+
+    /**
+     * Returns a bubble that advises a user on how the effect of improving their
+     * speech speed will change a conversation.
+     * based off of
+     * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
+     * 
+     * @return string the string to display in the bubble.
+     */
+    public String col2Bubble1() {
+        return "Having a controlled and correctly paced speaking speed will let you feel more relaxed and in control of your"
+                + " discourse. It'll also give your words more importance and let your audience better understand and follow"
+                + " your train of thought. It is also likely to regulate your breathing and allow you to better control the "
+                + "emotions you insert in your discourse.";
+    }
+
+    /**
+     * Returns a bubble that advises a user on their speech speed compared to the
+     * norm.
+     * From:
+     * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
+     * 
+     * @return string the string to display in the bubble.
+     */
+    public String col3Bubble1() {
+        return "Your word per minute speech speed (wpm) during this meeting was: "
+                + Math.round(currentParticipant.getWpm(handler))
+                + ". A typical conversational speed is between 110 and 170 words per minute. Extremely fast speakers will reach 220+"
+                + " words per minute.";
     }
 }
