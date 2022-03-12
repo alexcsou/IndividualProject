@@ -506,3 +506,27 @@
   -fx-background-color: #5C5C5C;
   -fx-background-radius: 1em;
 }
+
+.col1Bubbles {
+  -fx-background-color: #AADEA7;
+}
+
+.col1Bubbles:hover {
+  -fx-font-size: 1.4em;
+}
+
+.col2Bubbles {
+  -fx-background-color: #64C2A6;
+}
+
+.col2Bubbles:hover {
+  -fx-font-size: 1.4em;
+}
+
+.col3Bubbles {
+  -fx-background-color: #2D87BB;
+}
+
+.col3Bubbles:hover {
+  -fx-font-size: 1.4em;
+}

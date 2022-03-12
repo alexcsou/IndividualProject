@@ -102,6 +102,7 @@ public class TranscriptHandler {
             teamsButton.setText("Loading. Please Wait");
             teamsButton.setDisable(true);
             streamButton.setDisable(true);
+
             alertHandler.alertLoading(); // alert about long loading
             generateSentences();
             alertHandler.alertSuccess("file successfully loaded.");
