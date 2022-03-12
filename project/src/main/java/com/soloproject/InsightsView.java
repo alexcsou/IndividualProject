@@ -161,6 +161,8 @@ public class InsightsView {
         col1.getChildren().add(getSep(Orientation.HORIZONTAL));
 
         col1.getChildren().add(new InsightBubble(col1Bubble1()).getBubble());
+        col1.getChildren().add(new InsightBubble(col1Bubble2()).getBubble());
+        col1.getChildren().add(new InsightBubble(col1Bubble3()).getBubble());
     }
 
     /**
@@ -175,7 +177,11 @@ public class InsightsView {
 
         col2.getChildren().add(col2Label);
         col2.getChildren().add(getSep(Orientation.HORIZONTAL));
+
         col2.getChildren().add(new InsightBubble(col2Bubble1()).getBubble());
+        col2.getChildren().add(new InsightBubble(col2Bubble2()).getBubble());
+        col2.getChildren().add(new InsightBubble(col2Bubble3()).getBubble());
+
     }
 
     /**
@@ -183,7 +189,7 @@ public class InsightsView {
      * column title and separators as this is called whenever the view is refreshed
      */
     public void addCol3Insights() {
-        Label col3Label = new Label("How did the issue get noticed?");
+        Label col3Label = new Label("How did this get noticed?");
         col3Label.getStyleClass().add("insightLabel");
 
         col3.getChildren().clear();
@@ -191,10 +197,13 @@ public class InsightsView {
         col3.getChildren().add(col3Label);
         col3.getChildren().add(getSep(Orientation.HORIZONTAL));
         col3.getChildren().add(new InsightBubble(col3Bubble1()).getBubble());
+        col3.getChildren().add(new InsightBubble(col3Bubble2()).getBubble());
+        col3.getChildren().add(new InsightBubble(col3Bubble3()).getBubble());
     }
 
     /**
-     * Returns a bubble that advises a user on how to improve the speed of their
+     * Returns a string to put in a bubble that advises a user on how to improve the
+     * speed of their
      * speech. based off of
      * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
      * 
@@ -202,7 +211,7 @@ public class InsightsView {
      */
     public String col1Bubble1() {
         if (currentParticipant.getWpm(handler) < 110) {
-            return "You spoke at a considerably slower speed than average. Try to speak a little faster.";
+            return "You spoke at a considerably slower speed than the expected average. Try to speak a little faster.";
         } else if (currentParticipant.getWpm(handler) >= 110 && currentParticipant.getWpm(handler) < 170) {
             return "You spoke at a very understandable speed. Keep it up!";
         } else if (currentParticipant.getWpm(handler) >= 170 && currentParticipant.getWpm(handler) < 220) {
@@ -214,7 +223,8 @@ public class InsightsView {
     }
 
     /**
-     * Returns a bubble that advises a user on how the effect of improving their
+     * Returns a string to put in a bubble that advises a user on how the effect of
+     * improving their
      * speech speed will change a conversation.
      * based off of
      * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
@@ -229,7 +239,8 @@ public class InsightsView {
     }
 
     /**
-     * Returns a bubble that advises a user on their speech speed compared to the
+     * Returns a string to put in a bubble that advises a user on their speech speed
+     * compared to the
      * norm.
      * From:
      * https://cloudflare-ipfs.com/ipfs/QmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco/wiki/Words_per_minute.html
@@ -241,5 +252,119 @@ public class InsightsView {
                 + Math.round(currentParticipant.getWpm(handler))
                 + ". A typical conversational speed is between 110 and 170 words per minute. Extremely fast speakers will reach 220+"
                 + " words per minute.";
+    }
+
+    /**
+     * Returns a string to put in a bubble, which tells a user about their sentence
+     * sentiment.
+     * 
+     * @return the string to display in the bubble
+     */
+    public String col1Bubble2() {
+        if (currentParticipant.getAverageSentiment() < -0.1) {
+            return "Your overall speech sentiment during this meeting was negative. Try to use more positive words and to frame your "
+                    + "discourse in a lighter manner.";
+        } else if (currentParticipant.getAverageSentiment() >= -0.1
+                && currentParticipant.getAverageSentiment() < 0.1) {
+            return "Your overall speech sentiment during this meeting was roughly neutral. This is expected from a conversational"
+                    + " type of meeting between two or more colleagues. If this was the case, good job!";
+        } else if (currentParticipant.getAverageSentiment() >= 0.1 && currentParticipant.getAverageSentiment() < 0.25) {
+            return "Your overall speech sentiment was positive during this meeting. This can be expected from less serious"
+                    + " conversations, when light hearted topics are discussed, or simply if you were in a good mood."
+                    + " If this was the case, good job!";
+        } else {
+            return "Your overall speech sentiment during this meeting was extremely positive. If this was intended, good job!";
+        }
+    }
+
+    /**
+     * Returns a string to put in a bubble, which tells a user about the importance
+     * of their sentence sentiment.
+     * 
+     * @return the string to display in the bubble
+     */
+    public String col2Bubble2() {
+        return "Picking words and formulating sentences that correctly match the thought and tone behind your discourse will allow your audience to"
+                + " better understand the points you are trying to make and allow them to make the corresponding adjustments to their reactions"
+                + " and responses. Intelligent choice of words can affect the sentiment of your discourse very easily, affecting the outcome of conversations.";
+    }
+
+    /**
+     * Returns a string to put in a bubble, which tells a user how their sentence
+     * sentiment was calculated
+     * 
+     * @return the string to display in the bubble
+     */
+    public String col3Bubble2() {
+        return "Your spoken sentences were analysed using Natural Language Processing. Each spoken sentence was given a value: "
+                + "either negative, neutral or positive. These values were assigned an integer equivalent, and an average value "
+                + "was then calculated. your average sentiment value was: "
+                + String.format("%.2f", currentParticipant.getAverageSentiment())
+                + ". This value can range from -1 to +1, but an average"
+                + " value will usually be between -0.1 and +0.1.";
+    }
+
+    /**
+     * Returns a string to put in a bubble, which informs a user about the amount of
+     * filler words they used. based off of
+     * https://schwa.byu.edu/files/2014/12/F2014-Robbins.pdf
+     * 
+     * @return the string to put in the bubble.
+     */
+    public String col1Bubble3() {
+
+        Double fillerWordsPer100Words = 100 * currentParticipant.getFillerCount()
+                / currentParticipant.getNumberOfWords();
+
+        if (fillerWordsPer100Words < 1.28) {
+            return "You used a very low amount of filler words during your meeting. Keep it up!";
+        } else if (fillerWordsPer100Words >= 1.28
+                && fillerWordsPer100Words < 2.17) {
+            return "You used a low amount of filler words during your meeting, good job! You could still do a little better by cutting"
+                    + " out a few.";
+        } else if (fillerWordsPer100Words >= 2.17
+                && fillerWordsPer100Words < 3.49) {
+            return "You used an average amount of filler words during your meeting. Try to reduce your use of these"
+                    + " words by more carefully thinking about your discourse before speaking, and taking the time to"
+                    + " formulate the sentences in your head beforehand.";
+        } else if (fillerWordsPer100Words >= 3.49
+                && fillerWordsPer100Words < 5) {
+            return "You used a high amount of filler words during your meeting. Try to heavily reduce your use of these"
+                    + " words, by more carefully thinking about your discourse before speaking, and taking the time to"
+                    + " formulate the sentences in your head beforehand.";
+        } else {
+            return "You used a very high amount of filler words during your meeting. Try to drastically reduce your use of these"
+                    + " words, by more carefully thinking about your discourse before speaking, and taking the time to"
+                    + " formulate the sentences in your head beforehand.";
+        }
+    }
+
+    /**
+     * A string that informs a user about the effect of filler words on speech.
+     * 
+     * @return the string to display in the bubble
+     */
+    public String col2Bubble3() {
+        return "Use and particularly over-use of filler words can have a very negative impact on your discourse and its perception"
+                + " by your audience. Studies have shown that filler words impact your credibility drastically. Effects also include "
+                + "reduced ease of comprehension by your audience. Causes of excessive filler word use include divided attention from"
+                + " a speaker, use of infrequent and unfamiliar words, and most frequently, nervousness.";
+    }
+
+    /**
+     * A string that informs a user about the way their filler word rate was
+     * calculated.
+     * 
+     * @return the string to display in the bubble
+     */
+    public String col3Bubble3() {
+        Double fillerWordsPer100Words = 100 * currentParticipant.getFillerCount()
+                / currentParticipant.getNumberOfWords();
+        String valueToInsert = String.format("%.2f", fillerWordsPer100Words);
+        return "Your speech was analysed and a \"filler words per hundred words\" value was then calculated. This metric has"
+                + " been used in past studies to demonstrate the effect of filler words on speaker credibility. Your \"filler words per hundred words\""
+                + " value was: " + valueToInsert
+                + ". Frederick Conrad et al. (2013) found that values above 1.28 had increasingly"
+                + " negative effects on speaker credibility.";
     }
 }

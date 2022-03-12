@@ -27,6 +27,8 @@ public class InsightBubble {
     public void makeBubble() {
         Label contentLabel = new Label(content);
         contentLabel.setMaxWidth(ScreenSizehandler.getWidth() * 0.23);
+        contentLabel.setMinHeight(ScreenSizehandler.getHeight() * 0.15);
+        contentLabel.setMaxHeight(ScreenSizehandler.getHeight() * 0.15);
         contentLabel.setWrapText(true);
         mainPane.setCenter(contentLabel);
     }
