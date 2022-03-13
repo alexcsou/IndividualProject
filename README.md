@@ -1,13 +1,11 @@
 <h1 align="center">𝗙𝗜𝗫𝗔𝗧𝗘𝗗 - Reflection Dashboard</h1>
 
 <p align="center">
-  <img alt="Github top language" src="https://img.shields.io/github/languages/top/alexcsou/individualproject?color=56BEB8">
+  <img alt="Github top language" src="https://img.shields.io/github/languages/top/alexcsou/IndividualProject?color=56BEB8">
 
-  <img alt="Github language count" src="https://img.shields.io/github/languages/count/alexcsou/individualproject?color=56BEB8">
+  <img alt="Github language count" src="https://img.shields.io/github/languages/count/alexcsou/IndividualProject?color=56BEB8">
 
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/alexcsou/individualproject?color=56BEB8">
-
-  <img alt="License" src="https://img.shields.io/github/license/alexcsou/individualproject?color=56BEB8">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/alexcsou/IndividualProject?color=56BEB8">
 </p>
 
 <p align="center">
