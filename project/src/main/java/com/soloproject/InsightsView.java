@@ -468,18 +468,24 @@ public class InsightsView {
         int delta = expectedShare - actualShare; // difference between expected sentences spoken and actual sentences
                                                  // spoken in percentage
         if (delta > expectedShare * 0.5) {
-            return "speak lots more";
+            return "You spoke a very small amount during this meeting. Do not hesitate to participate more and interact with the other"
+                    + " participants, to have a more inclusive and fair meeting.";
         } else if (delta <= expectedShare * 0.5
                 && delta > expectedShare * 0.2) {
-            return "speak more";
+            return "You spoke a small amount during this meeting. Do not hesitate to participate a little more and interact with the other"
+                    + " participants, to have a more inclusive and fair meeting.";
         } else if (delta <= expectedShare * 0.2
                 && delta > -(expectedShare * 0.2)) {
-            return "keep it up";
+            return "You spoke an expected amount during this meeting. Well Done!"
+                    + " You contributed to creating a more inclusive and fair meeting.";
         } else if (delta <= -(expectedShare * 0.2)
                 && delta > -(expectedShare * 0.5)) {
-            return "speak less";
+            return "You spoke a large amount during this meeting. Whilst it is great that you were able to express yourself,"
+                    + " try to be a little more careful and allow shyer participants to also have a say, as to have a more inclusive and fair meeting.";
         } else {
-            return "speak lots less";
+            return "You spoke a very large amount during this meeting. Try to make an effort to reduce the amount you speak and to"
+                    + " give others a chance to intervene, be it by being more concise or simply by letting others talk in your stead when an opportunity arises"
+                    + " for someone to speak up.";
         }
     }
 
@@ -490,7 +496,10 @@ public class InsightsView {
      * @return the string to put in the bubble.
      */
     public String col2Bubble5() {
-        return "";
+        return "Being aware of the share of a meeting you spent talking will eventually make you a better colleague or coworker."
+                + " Online meetings are a new environment where body language and conversational cues are hard to decipher or pick up,"
+                + " leading to some very uneven participation. Controlling you volume of speech will create more inclusive, fair and productive"
+                + " meetings.";
     }
 
     /**
@@ -502,6 +511,10 @@ public class InsightsView {
     public String col3Bubble5() {
         int shareOfMeeting = (int) Math
                 .round((currentParticipant.getNumberOfSentences() / handler.getSentences().size()) * 100);
-        return "" + shareOfMeeting;
+        int expectedShare = Math.round(100 / handler.getParticipants().size());
+        return "Your spoken share of the meeting was calculated based off of the share of sentences you spoke during a meeting."
+                + " This share was then compared to an \"expected share\", calculated based off of the number of meeting participants."
+                + " The delta between these two values was then evaluated to establish how much you spoke. Your share of spoken sentences was "
+                + shareOfMeeting + "%, against an expected share of " + expectedShare + "%.";
     }
 }
