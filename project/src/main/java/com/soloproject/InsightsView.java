@@ -164,6 +164,7 @@ public class InsightsView {
         col1.getChildren().add(new InsightBubble("Use of Filler Words", col1Bubble3()).getBubble());
         col1.getChildren().add(new InsightBubble("Hesitations & False Starts", col1Bubble4()).getBubble());
         col1.getChildren().add(new InsightBubble("Participation and Speech Volume", col1Bubble5()).getBubble());
+        col1.getChildren().add(new InsightBubble("Meeting Duration", col1Bubble6()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col1.getChildren().size(); i++) {
@@ -190,6 +191,7 @@ public class InsightsView {
         col2.getChildren().add(new InsightBubble("Use of Filler Words", col2Bubble3()).getBubble());
         col2.getChildren().add(new InsightBubble("Hesitations & False Starts", col2Bubble4()).getBubble());
         col2.getChildren().add(new InsightBubble("Participation and Speech Volume", col2Bubble5()).getBubble());
+        col2.getChildren().add(new InsightBubble("Meeting Duration", col2Bubble6()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col2.getChildren().size(); i++) {
@@ -214,6 +216,7 @@ public class InsightsView {
         col3.getChildren().add(new InsightBubble("Use of Filler Words", col3Bubble3()).getBubble());
         col3.getChildren().add(new InsightBubble("Hesitations & False Starts", col3Bubble4()).getBubble());
         col3.getChildren().add(new InsightBubble("Participation and Speech Volume", col3Bubble5()).getBubble());
+        col3.getChildren().add(new InsightBubble("Meeting Duration", col3Bubble6()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col3.getChildren().size(); i++) {
@@ -516,8 +519,56 @@ public class InsightsView {
                 + actualShare + "%, against an expected share of " + expectedShare + "%.";
     }
 
+    /**
+     * Returns a string to put in a bubble, which informs a user about the length of
+     * their meeting.
+     * 
+     * @return the string to put in the bubble.
+     */
     public String col1Bubble6() {
+        if (handler.getMeetingDurationSeconds() < 600) {
+            return "Your meeting was quite short. Whilst it is very possible to be productive in this time frame, don't hesitate"
+                    + " to, if time allows, spend more time on the discussed matters.";
+        } else if (handler.getMeetingDurationSeconds() >= 600
+                && handler.getMeetingDurationSeconds() < 1800) {
+            return "Your meeting lasted a perfectly reasonable amount of time, allowing for the right balance of"
+                    + " productivity and depth without dragging on. Well Done.";
+        } else if (handler.getMeetingDurationSeconds() >= 1800 && handler.getMeetingDurationSeconds() < 3600) {
+            return "Your meeting was quite long. Whilst it is very possible to be productive in this time frame, and sometimes,"
+                    + " it is even necessary to spend this amount of time in a meeting, don't hesitate to try and be more concise"
+                    + " as to avoid the meeting dragging on and participants losing their focus.";
+        } else {
+            return "Your meeting was very long. Whilst this can be justified, try to make a collective effort to shorten your next meetings.";
+        }
+    }
 
-        return "";
+    /**
+     * Returns a string to put in a bubble, which informs a user about the effect of
+     * changing
+     * their conversation length.
+     * From https://www.scs-consultants.com/docs/SCS_JPB_Winter15.pdf
+     * 
+     * @return the string to put in the bubble.
+     */
+    public String col2Bubble6() {
+
+        return "Keeping your meeting duration under control and in a reasonable range of time will allow all participants to"
+                + " be more productive, focused, and on track. It will prevent colleagues running late and will also force "
+                + "participants to engage, as they will be aware of an exisiting time pressure. Of course, meeting duration"
+                + " needs to be adjusted for the meeting type, where stand-up meetings will be shorter than brainstorming sessions.";
+    }
+
+    /**
+     * Returns a string to put in a bubble, which informs a user about the way their
+     * meeting length was evaluated.
+     * 
+     * @return the string to put in the bubble.
+     */
+    public String col3Bubble6() {
+
+        return "The duration of your meeting was provided by the transcript. A productive meeting, especially in an online"
+                + " context will usually last between 15 and 45 minutes, depending on the meeting type. Less or more will usually have an impact on meeting"
+                + " productivity. Your meeting's duration was " + handler.getMeetingDurationString()
+                + ", which is equal to " + handler.getMeetingDurationSeconds() + " seconds.";
     }
 }

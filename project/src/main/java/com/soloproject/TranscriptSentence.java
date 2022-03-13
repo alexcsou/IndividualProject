@@ -40,7 +40,7 @@ public class TranscriptSentence {
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
-        // TODO: edit here
+        // TODO: edit here + ADD JAR TO README
         setSentenceSentiment();
         // this.sentiment = "Neutral";
 
