@@ -178,6 +178,12 @@
   -fx-border-width: 0.2;
 }
 
+#insightBubbleSep .line {
+  -fx-border-color: #ffffff;
+  -fx-border-width: 0.2;
+}
+
+
 .leftChatBubble {
   -fx-padding: 1.5em;
   -fx-border-insets: 1.5px;
@@ -529,4 +535,11 @@
 
 .col3Bubbles:hover {
   -fx-font-size: 1.4em;
+}
+
+.insightsTitle {
+  -fx-font-size: 1.5em;
+  -fx-padding: 0.5em;
+  -fx-font-weight: bold;
+  -fx-font-style: italic;
 }

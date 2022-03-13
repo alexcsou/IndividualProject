@@ -161,11 +161,11 @@ public class InsightsView {
         col1.getChildren().add(col1Label);
         col1.getChildren().add(getSep(Orientation.HORIZONTAL));
 
-        col1.getChildren().add(new InsightBubble(col1Bubble1()).getBubble());
-        col1.getChildren().add(new InsightBubble(col1Bubble2()).getBubble());
-        col1.getChildren().add(new InsightBubble(col1Bubble3()).getBubble());
-        col1.getChildren().add(new InsightBubble(col1Bubble4()).getBubble());
-        col1.getChildren().add(new InsightBubble(col1Bubble5()).getBubble());
+        col1.getChildren().add(new InsightBubble("Speaking Speed", col1Bubble1()).getBubble());
+        col1.getChildren().add(new InsightBubble("Sentence Sentiment", col1Bubble2()).getBubble());
+        col1.getChildren().add(new InsightBubble("Use of Filler Words", col1Bubble3()).getBubble());
+        col1.getChildren().add(new InsightBubble("Hesitations & False Starts", col1Bubble4()).getBubble());
+        col1.getChildren().add(new InsightBubble("Participation and Speech Volume", col1Bubble5()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col1.getChildren().size(); i++) {
@@ -187,11 +187,11 @@ public class InsightsView {
         col2.getChildren().add(col2Label);
         col2.getChildren().add(getSep(Orientation.HORIZONTAL));
 
-        col2.getChildren().add(new InsightBubble(col2Bubble1()).getBubble());
-        col2.getChildren().add(new InsightBubble(col2Bubble2()).getBubble());
-        col2.getChildren().add(new InsightBubble(col2Bubble3()).getBubble());
-        col2.getChildren().add(new InsightBubble(col2Bubble4()).getBubble());
-        col2.getChildren().add(new InsightBubble(col2Bubble5()).getBubble());
+        col2.getChildren().add(new InsightBubble("Speaking Speed", col2Bubble1()).getBubble());
+        col2.getChildren().add(new InsightBubble("Sentence Sentiment", col2Bubble2()).getBubble());
+        col2.getChildren().add(new InsightBubble("Use of Filler Words", col2Bubble3()).getBubble());
+        col2.getChildren().add(new InsightBubble("Hesitations & False Starts", col2Bubble4()).getBubble());
+        col2.getChildren().add(new InsightBubble("Participation and Speech Volume", col2Bubble5()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col2.getChildren().size(); i++) {
@@ -211,11 +211,11 @@ public class InsightsView {
 
         col3.getChildren().add(col3Label);
         col3.getChildren().add(getSep(Orientation.HORIZONTAL));
-        col3.getChildren().add(new InsightBubble(col3Bubble1()).getBubble());
-        col3.getChildren().add(new InsightBubble(col3Bubble2()).getBubble());
-        col3.getChildren().add(new InsightBubble(col3Bubble3()).getBubble());
-        col3.getChildren().add(new InsightBubble(col3Bubble4()).getBubble());
-        col3.getChildren().add(new InsightBubble(col3Bubble5()).getBubble());
+        col3.getChildren().add(new InsightBubble("Speaking Speed", col3Bubble1()).getBubble());
+        col3.getChildren().add(new InsightBubble("Sentence Sentiment", col3Bubble2()).getBubble());
+        col3.getChildren().add(new InsightBubble("Use of Filler Words", col3Bubble3()).getBubble());
+        col3.getChildren().add(new InsightBubble("Hesitations & False Starts", col3Bubble4()).getBubble());
+        col3.getChildren().add(new InsightBubble("Participation and Speech Volume", col3Bubble5()).getBubble());
 
         // color everything except the title and separator
         for (int i = 2; i < col3.getChildren().size(); i++) {
@@ -454,7 +454,7 @@ public class InsightsView {
 
     /**
      * Returns a string to put in a bubble, which informs a user about the share of
-     * time they spoke. First the spoken sentence share is calculated for each user.
+     * time they spoke. First the spoken words share is calculated for each user.
      * Then an expected share is calculated, as 100/number of participants. The
      * delta between these two values is then used to determine whether a user spoke
      * too much, too little, or juste the right amount.
@@ -463,9 +463,9 @@ public class InsightsView {
      */
     public String col1Bubble5() {
         int actualShare = (int) Math
-                .round((currentParticipant.getNumberOfSentences() / handler.getSentences().size()) * 100);
+                .round((currentParticipant.getNumberOfWords() / handler.getNumberOfWords()) * 100);
         int expectedShare = Math.round(100 / handler.getParticipants().size());
-        int delta = expectedShare - actualShare; // difference between expected sentences spoken and actual sentences
+        int delta = expectedShare - actualShare; // difference between expected words spoken and actual words
                                                  // spoken in percentage
         if (delta > expectedShare * 0.5) {
             return "You spoke a very small amount during this meeting. Do not hesitate to participate more and interact with the other"
@@ -509,12 +509,17 @@ public class InsightsView {
      * @return the string to put in the bubble.
      */
     public String col3Bubble5() {
-        int shareOfMeeting = (int) Math
-                .round((currentParticipant.getNumberOfSentences() / handler.getSentences().size()) * 100);
+        int actualShare = (int) Math
+                .round((currentParticipant.getNumberOfWords() / handler.getNumberOfWords()) * 100);
         int expectedShare = Math.round(100 / handler.getParticipants().size());
-        return "Your spoken share of the meeting was calculated based off of the share of sentences you spoke during a meeting."
+        return "Your spoken share of the meeting was calculated based off of the share of words you spoke according to the provided transcript."
                 + " This share was then compared to an \"expected share\", calculated based off of the number of meeting participants."
-                + " The delta between these two values was then evaluated to establish how much you spoke. Your share of spoken sentences was "
-                + shareOfMeeting + "%, against an expected share of " + expectedShare + "%.";
+                + " The delta between these two values was then evaluated to establish how much you spoke. Your share of spoken words was "
+                + actualShare + "%, against an expected share of " + expectedShare + "%.";
+    }
+
+    public String col1Bubble6() {
+
+        return "";
     }
 }
