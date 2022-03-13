@@ -41,8 +41,8 @@ public class TranscriptSentence {
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
         // TODO: edit here
-        // setSentenceSentiment();
-        this.sentiment = "Neutral";
+        setSentenceSentiment();
+        // this.sentiment = "Neutral";
 
         // populating arrays with all filler words and hesitation words
         populateHesitationWords();
