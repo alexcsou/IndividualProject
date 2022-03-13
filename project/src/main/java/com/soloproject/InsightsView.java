@@ -1,9 +1,6 @@
 package com.soloproject;
 
-import javax.servlet.http.Part;
-
 import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
