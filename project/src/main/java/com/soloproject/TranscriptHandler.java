@@ -36,6 +36,19 @@ public class TranscriptHandler {
     private String language; // usually en-us or en-uk.
     private AlertHandler alertHandler = new AlertHandler();
 
+    /**
+     * Used for testing
+     */
+    public TranscriptHandler() {
+        sentences = new ArrayList<>();
+        participants = new ArrayList<>();
+
+        meetingDurationString = "";
+        meetingDurationSeconds = 0.0;
+        transcriptRecognizability = "";
+        language = "";
+    }
+
     public TranscriptHandler(Stage stage) {
         streamButton = new Button("Choose a Microsoft Stream file");
         streamButton.setOnAction(e -> chooseStreamFile());
@@ -167,6 +180,7 @@ public class TranscriptHandler {
                 if (isValid(line)) { // check line isn't filler text or irrelevant
                     groupof2.add(line);
                     if (groupof2.size() == 2) { // as soon as the array reaches size 3, we create a sentence
+
                         sentences.add(generateSentence(extractAuthor(groupof2.get(1)), groupof2.get(0),
                                 extractSentence(groupof2.get(1))));
                         groupof2.clear(); // empty array and repeat until EOF
@@ -332,7 +346,7 @@ public class TranscriptHandler {
      * seconds.
      * 
      * @param input
-     * @return
+     * @return Double the duration in seconds
      */
     public double secondParser(String input) {
         try {
@@ -354,10 +368,9 @@ public class TranscriptHandler {
      * start and index 1 as the end. Also parses the double from the "confidence"
      * string
      * 
-     * @param confidence a string for the AI transcripting confidence in the "text"
-     * @param duration   a timestamp for the text line of the form "00:00:02.220 -->
-     *                   00:00:04.220"
-     * @param text       the spoken line as a string
+     * @param duration a timestamp for the text line of the form "00:00:02.220 -->
+     *                 00:00:04.220"
+     * @param text     the spoken line as a string
      * @return a TranscriptSentence object with all its fields initialised.
      */
     public TranscriptSentence generateSentence(String author, String duration, String text) {
@@ -465,27 +478,19 @@ public class TranscriptHandler {
 
     /**
      * Mehtod to return the Stream file
-     * signals if transcript is null
      * 
      * @return the .vtt Microsoft Stream transcript file
      */
     public File getStreamTranscript() {
-        if (streamTranscript == null) {
-            alertHandler.alertFailure("Your file does not exist.");
-        }
         return streamTranscript;
     }
 
     /**
      * Method to return the teams file
-     * signals if transcript is null
      * 
      * @return the .vtt Teams transcript file
      */
     public File getTeamsTranscript() {
-        if (teamsTranscript == null) {
-            alertHandler.alertFailure("Your file does not exist.");
-        }
         return teamsTranscript;
     }
 
