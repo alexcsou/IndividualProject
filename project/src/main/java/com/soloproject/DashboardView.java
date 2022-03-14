@@ -548,7 +548,7 @@ public class DashboardView {
         StackedBarChart<Number, String> barChart = new StackedBarChart<Number, String>(xAxis,
                 yAxis);
 
-        barChart.setTitle("Speech speed per user");
+        barChart.setTitle("Speech Rate per User");
         barChart.setLegendSide(Side.BOTTOM);
 
         for (Participant p : handler.getParticipants()) {

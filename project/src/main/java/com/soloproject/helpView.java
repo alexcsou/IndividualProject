@@ -38,7 +38,7 @@ public class helpView {
             "𝗙𝗜𝗫𝗔𝗧𝗘𝗗 is targeted at meetings recorded on Microsoft Teams."
                     + " To make full use of 𝗙𝗜𝗫𝗔𝗧𝗘𝗗, you should provide two transcripts of the same meeting."
                     + " The first file can be downloaded from Microsoft Stream, a video-sharing service."
-                    + " A Second file is also required, which can be downloaded directly from Microsoft Teams."
+                    + " A second file is also required, which can be downloaded directly from Microsoft Teams."
                     + " For a detailed guide, please also refer to the next page."
                     + "\n\n"
                     + "1 - start by navigating to your Microsoft Stream dashboard at the following adress:"

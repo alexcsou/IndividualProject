@@ -70,7 +70,7 @@ public class TranscriptHandler {
         if (newTranscript != null) {
             setStreamTranscript(newTranscript);
             generateMeetingData();
-            alertHandler.alertSuccess("file successfully loaded.");
+            alertHandler.alertSuccess("File successfully loaded.");
             streamButton.setText("Stream file Selected");
             streamButton.setDisable(true);
 
@@ -105,7 +105,7 @@ public class TranscriptHandler {
 
             alertHandler.alertLoading(); // alert about long loading
             generateSentences();
-            alertHandler.alertSuccess("file successfully loaded.");
+            alertHandler.alertSuccess("File successfully loaded.");
             teamsButton.setText("Teams file Selected");
             streamButton.setDisable(false);
 

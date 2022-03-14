@@ -80,7 +80,7 @@ public class AlertHandler {
                 loadingAlert.getDialogPane().getStyleClass().add("alert");// style alert only
                 loadingAlert.setTitle("Your File is About to be Processed");
                 loadingAlert.setContentText(
-                                "Your file is about to be processed. This can take up to a couple of minutes on slower devices. "
+                                "Your file is about to be processed. This can take upwards of several minutes on slower devices. "
                                                 + "Please wait for an alert before proceeding. Do not close 𝗙𝗜𝗫𝗔𝗧𝗘𝗗.");
                 loadingAlert.setHeaderText("Preparing to load file...");
                 loadingAlert.showAndWait()

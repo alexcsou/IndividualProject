@@ -37,6 +37,7 @@ public class InsightBubble {
 
         Label titleLabel = new Label(title);
         titleLabel.setWrapText(true);
+        titleLabel.setMaxWidth(ScreenSizehandler.getWidth() * 0.23);
         titleLabel.getStyleClass().addAll("insightsTitle");
 
         mainPane.setCenter(contentLabel);
