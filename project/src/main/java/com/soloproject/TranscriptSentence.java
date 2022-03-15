@@ -42,7 +42,6 @@ public class TranscriptSentence {
         setSentenceType();
         // TODO: edit here + ADD JAR TO README
         setSentenceSentiment();
-        // this.sentiment = "Neutral";
 
         // populating arrays with all filler words and hesitation words
         populateHesitationWords();
@@ -64,7 +63,7 @@ public class TranscriptSentence {
                                                // spaces), we
                                                // also look at words without their last character, if their length is
                                                // above two
-                    || (word.length() >= 2 && (hesitationWords.contains(word.substring(0, word.length() - 2))))) {
+                    || (word.length() >= 2 && (hesitationWords.contains(word.substring(0, word.length() - 1))))) {
                 count++;
             }
         }
@@ -81,7 +80,7 @@ public class TranscriptSentence {
         String[] words = sentence.split(" ");
         for (String word : words) {
             if (fillerWords.contains(word) // check above method for explanation
-                    || (word.length() >= 2 && (fillerWords.contains(word.substring(0, word.length() - 2))))) {
+                    || (word.length() >= 2 && (fillerWords.contains(word.substring(0, word.length() - 1))))) {
                 count++;
             }
         }
@@ -126,6 +125,15 @@ public class TranscriptSentence {
 
             this.sentiment = sentiment;
         }
+    }
+
+    /**
+     * used for testing
+     * 
+     * @param sentiment the sentiment to set
+     */
+    public void setSentenceSentiment(String sentiment) {
+        this.sentiment = sentiment;
     }
 
     /**

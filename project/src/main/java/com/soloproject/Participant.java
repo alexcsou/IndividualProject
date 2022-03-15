@@ -19,6 +19,7 @@ public class Participant {
     public Participant(String name) {
         this.name = name;
         this.sentences = new ArrayList<>();
+        this.averageSentiment = 0.0;
 
     }
 
@@ -53,7 +54,7 @@ public class Participant {
      * Returns the duration in seconds spoken by this participant by summing all
      * sentence durations
      * 
-     * @return Douvle the spoken time in seconds.
+     * @return Double the spoken time in seconds.
      */
     public Double getSpokenTime() {
         int total = 0;
@@ -99,24 +100,28 @@ public class Participant {
      */
     public Double getWpm(TranscriptHandler handler) {
 
-        int spokenTime = 0; // traack total time spoken by all participants
-        for (Participant p : handler.getParticipants()) {
-            spokenTime += p.getSpokenTime();
+        try {
+            int spokenTime = 0; // track total time spoken by all participants
+            for (Participant p : handler.getParticipants()) {
+                spokenTime += p.getSpokenTime();
+            }
+
+            // get time spent in silence as difference between meeting duration and spoken
+            // time.
+            Double silenceTime = handler.getMeetingDurationSeconds() - spokenTime;
+
+            // calculate share of silence for each user.
+            Double silenceShare = silenceTime / handler.getParticipants().size();
+
+            // add up total silence time to spread an equal share to all users to have a
+            // more accurate wpm.
+
+            // return this participant's specific wpm speed.
+            Double minutes = (getSpokenTime() + silenceShare) / 60;
+            return getNumberOfWords() / minutes;
+        } catch (Exception e) {
+            return 0.0;
         }
-
-        // get time spent in silence as difference between meeting duration and spoken
-        // time.
-        Double silenceTime = handler.getMeetingDurationSeconds() - spokenTime;
-
-        // calculate share of silence for each user.
-        Double silenceShare = silenceTime / handler.getParticipants().size();
-
-        // add up total silence time to spread an equal share to all users to have a
-        // more accurate wpm.
-
-        // return this participant's specific wpm speed.
-        Long minutes = Math.round((getSpokenTime() + silenceShare) / 60);
-        return getNumberOfWords() / minutes;
 
     }
 
