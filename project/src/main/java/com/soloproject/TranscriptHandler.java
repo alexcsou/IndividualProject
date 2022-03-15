@@ -724,7 +724,7 @@ public class TranscriptHandler {
         try {
             return speakersString.substring(0, speakersString.length() - 2); // remove final ',' separator
         } catch (Exception e) {
-            return "No Speakers found.";
+            return "No Speakers Found.";
         }
 
     }

@@ -3,16 +3,7 @@ package com.soloproject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +12,6 @@ import org.junit.Test;
 public class TranscriptHandlerTest {
 
     private TranscriptHandler handler;
-    private File testFile;
 
     @Before
     public void setUp() {
@@ -398,5 +388,70 @@ public class TranscriptHandlerTest {
         handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "author"));
         handler.getSentences().add(new TranscriptSentence("This too!", "", 0.0, 0.0, "author"));
         assertEquals(3, handler.getFullSentenceCount());
+    }
+
+    @Test
+    public void assertGetSpeakersWorks1() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Author1"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Author2"));
+        assertEquals("Test Author1, Test Author2", handler.getSpeakers());
+    }
+
+    @Test
+    public void assertGetSpeakersWorks2() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Author1"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Author2"));
+        assertNotEquals("Test Author2, Test Author1", handler.getSpeakers());
+    }
+
+    @Test
+    public void assertGetSpeakersWorks3() {
+        assertEquals("No Speakers Found.", handler.getSpeakers());
+    }
+
+    @Test
+    public void assertGetSpeakersWorks4() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Author1"));
+        assertEquals("Test Author1", handler.getSpeakers());
+    }
+
+    @Test
+    public void assertCreateParticipantsSetencesWorks1() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant2"));
+        handler.getParticipants().add(new Participant("Test Participant1"));
+        handler.getParticipants().add(new Participant("Test Participant2"));
+        handler.createParticipantsSentences();
+        assertEquals(1, handler.getParticipants().get(0).getSentences().size());
+    }
+
+    @Test
+    public void assertCreateParticipantsSetencesWorks2() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant2"));
+        handler.getParticipants().add(new Participant("Test Participant1"));
+        handler.getParticipants().add(new Participant("Test Participant2"));
+        handler.createParticipantsSentences();
+        assertEquals(1, handler.getParticipants().get(1).getSentences().size());
+    }
+
+    @Test
+    public void assertCreateParticipantsSetencesWorks3() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant1"));
+        handler.getParticipants().add(new Participant("Test Participant1"));
+        handler.getParticipants().add(new Participant("Test Participant2"));
+        handler.createParticipantsSentences();
+        assertEquals(2, handler.getParticipants().get(0).getSentences().size());
+    }
+
+    @Test
+    public void assertCreateParticipantsSetencesWorks4() {
+        handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant"));
+        handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant"));
+        handler.getParticipants().add(new Participant("Test Participant1"));
+        handler.getParticipants().add(new Participant("Test Participant2"));
+        handler.createParticipantsSentences();
+        assertEquals(0, handler.getParticipants().get(0).getSentences().size());
     }
 }
