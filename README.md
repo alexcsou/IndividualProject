@@ -44,7 +44,7 @@ $ cd java
 $ cd com
 $ cd soloproject
 ```
-Launching the Main class will start the application. This may take a while as the StandfordNLP model needs to be loaded for sentimental analysis to proceed. An executable JAR of the project is readily available for download <a href="" target="_blank">here, should anything go wrong</a>.
+Launching the Main class will start the application. This may take a while as the StandfordNLP model needs to be loaded for sentimental analysis to proceed. An executable JAR of the project is readily available for download <a href="" target="https://1drv.ms/u/s!Ajxfgyd9ge-Sh7JrjB-wDjWtpHXqcQ">here, should anything go wrong</a>.
 
 
 Made by <a href="https://github.com/alexcsou" target="_blank">Alexandre Chouman</a>.
