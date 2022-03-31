@@ -37,8 +37,8 @@ public class MainView {
         mainPane.getStyleClass().addAll("mainView");
 
         this.stage = stage;
-        stage.setMinHeight(ScreenSizehandler.getHeight());
-        stage.setMinWidth(ScreenSizehandler.getWidth());
+        stage.setMinHeight(ScreenSizeHandler.getHeight());
+        stage.setMinWidth(ScreenSizeHandler.getWidth());
 
         makeView();
     }

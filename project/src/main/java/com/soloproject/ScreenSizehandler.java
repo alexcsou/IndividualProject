@@ -9,12 +9,12 @@ import javafx.stage.Screen;
  * and dimensions, as (nearly) every dimension used in this app is a factor of
  * the screen dimensions.
  */
-public class ScreenSizehandler {
+public class ScreenSizeHandler {
 
     private static int width = (int) Screen.getPrimary().getBounds().getWidth();
     private static int height = (int) Screen.getPrimary().getBounds().getHeight();
 
-    public ScreenSizehandler() {
+    public ScreenSizeHandler() {
     }
 
     public static int getWidth() {

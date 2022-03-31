@@ -49,14 +49,14 @@ public class InsightsView {
         col3.getStyleClass().add("insightsView");
 
         // size cols
-        col1.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        col1.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
+        col1.setMinWidth(ScreenSizeHandler.getWidth() * 0.3);
+        col1.setMinHeight(ScreenSizeHandler.getHeight() * 0.92);
 
-        col2.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        col2.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
+        col2.setMinWidth(ScreenSizeHandler.getWidth() * 0.3);
+        col2.setMinHeight(ScreenSizeHandler.getHeight() * 0.92);
 
-        col3.setMinWidth(ScreenSizehandler.getWidth() * 0.3);
-        col3.setMinHeight(ScreenSizehandler.getHeight() * 0.92);
+        col3.setMinWidth(ScreenSizeHandler.getWidth() * 0.3);
+        col3.setMinHeight(ScreenSizeHandler.getHeight() * 0.92);
 
         // All cols in an HBox
         HBox columnContainer = new HBox();
@@ -96,8 +96,8 @@ public class InsightsView {
         returnPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         returnPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         returnPane.setContent(mainPane);
-        returnPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
-        returnPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
+        returnPane.setMaxHeight(ScreenSizeHandler.getHeight() * 0.92);
+        returnPane.setMaxWidth(ScreenSizeHandler.getWidth() * 1);
         return returnPane;
     }
 

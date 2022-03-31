@@ -66,7 +66,7 @@ public class TranscriptView {
         chatBubbles.getStyleClass().add("scrollPane");
         chatBubbles.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         chatBubbles.setHbarPolicy(ScrollBarPolicy.NEVER);
-        chatBubbles.setMaxHeight(ScreenSizehandler.getHeight() * 0.90); // dont overlap tab bar
+        chatBubbles.setMaxHeight(ScreenSizeHandler.getHeight() * 0.90); // dont overlap tab bar
 
         VBox chatBubblesVBox = new VBox();
 
@@ -87,15 +87,15 @@ public class TranscriptView {
             alertHandler.alertFailure("Your data wasn't processed correctly.");
         }
 
-        chatBubblesVBox.setMinWidth(ScreenSizehandler.getWidth() * 0.70);
+        chatBubblesVBox.setMinWidth(ScreenSizeHandler.getWidth() * 0.70);
 
         chatBubbles.setContent(chatBubblesVBox);
 
         VBox meetingDetails = new VBox();
-        meetingDetails.setMaxWidth(ScreenSizehandler.getWidth() * 0.24);
-        meetingDetails.setMinWidth(ScreenSizehandler.getWidth() * 0.24);
+        meetingDetails.setMaxWidth(ScreenSizeHandler.getWidth() * 0.24);
+        meetingDetails.setMinWidth(ScreenSizeHandler.getWidth() * 0.24);
         meetingDetails.setSpacing(1);
-        meetingDetails.setMinHeight(ScreenSizehandler.getHeight()); // to have vertical separator (which is a VBox
+        meetingDetails.setMinHeight(ScreenSizeHandler.getHeight()); // to have vertical separator (which is a VBox
                                                                     // border) span entire screen.
 
         Label meetingInformation = new Label("Meeting Information\n");

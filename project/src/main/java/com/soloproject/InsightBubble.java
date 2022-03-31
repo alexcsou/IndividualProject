@@ -31,13 +31,13 @@ public class InsightBubble {
      */
     public void makeBubble() {
         Label contentLabel = new Label(content);
-        contentLabel.setMaxWidth(ScreenSizehandler.getWidth() * 0.23);
-        contentLabel.setMinHeight(ScreenSizehandler.getHeight() * 0.15);
+        contentLabel.setMaxWidth(ScreenSizeHandler.getWidth() * 0.23);
+        contentLabel.setMinHeight(ScreenSizeHandler.getHeight() * 0.15);
         contentLabel.setWrapText(true);
 
         Label titleLabel = new Label(title);
         titleLabel.setWrapText(true);
-        titleLabel.setMaxWidth(ScreenSizehandler.getWidth() * 0.23);
+        titleLabel.setMaxWidth(ScreenSizeHandler.getWidth() * 0.23);
         titleLabel.getStyleClass().addAll("insightsTitle");
 
         mainPane.setCenter(contentLabel);
@@ -63,7 +63,7 @@ public class InsightBubble {
     public Separator getSep(Orientation or) {
         Separator smallSep = new Separator(or);
         smallSep.setId("insightBubbleSep");
-        smallSep.setMaxWidth(ScreenSizehandler.getWidth() * 0.20);
+        smallSep.setMaxWidth(ScreenSizeHandler.getWidth() * 0.20);
         return smallSep;
     }
 }

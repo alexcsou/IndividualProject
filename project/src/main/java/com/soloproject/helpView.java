@@ -24,7 +24,7 @@ import java.awt.Desktop;
  * clicking "help" once Fixated is open. It contains a quick guide on how to
  * obtain a .vtt file from both platforms.
  */
-public class helpView {
+public class HelpView {
 
     private BorderPane helpPane = new BorderPane();
     private Button next;
@@ -77,7 +77,7 @@ public class helpView {
                     + " Your file should be automatically downloaded."
                     + "\nPlease note your file's name should normally end with the date the meeting took place on, in the 'YYY-MM-DD' format.");
 
-    public helpView() {
+    public HelpView() {
         HelpButton = new Button("Help");
         HelpButton.setOnAction(e -> showHelp());
 
@@ -140,7 +140,7 @@ public class helpView {
         // create all labels and align them to center of screen.
         Label instructionLabel1 = new Label(instruction1);
         instructionLabel1.setWrapText(true);
-        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5);
+        instructionLabel1.setMaxWidth(ScreenSizeHandler.getWidth() / 2.5);
         instructionLabel1.setTextAlignment(TextAlignment.CENTER);
 
         Label instructionLabel2 = new Label(instruction2);
@@ -191,7 +191,7 @@ public class helpView {
 
         Label instructionLabel1 = new Label(instruction5);
         instructionLabel1.setWrapText(true);
-        instructionLabel1.setMaxWidth(ScreenSizehandler.getWidth() / 2.5); // large label, restrict its size so that
+        instructionLabel1.setMaxWidth(ScreenSizeHandler.getWidth() / 2.5); // large label, restrict its size so that
                                                                            // doesn't span the whole screen if app is
                                                                            // fullscreened.
         instructionLabel1.setTextAlignment(TextAlignment.CENTER);

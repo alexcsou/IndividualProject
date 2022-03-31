@@ -37,7 +37,7 @@ public class DashboardView {
 
         mainPane = new TilePane();
         mainPane.setPadding(new Insets(10, 10, 10, 10));
-        mainPane.setPrefTileWidth(ScreenSizehandler.getWidth() * 0.46); // sized so two tiles are always shown on a row
+        mainPane.setPrefTileWidth(ScreenSizeHandler.getWidth() * 0.46); // sized so two tiles are always shown on a row
         mainPane.setVgap(4);
         mainPane.setHgap(4);
 
@@ -52,8 +52,8 @@ public class DashboardView {
         returnPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         returnPane.setHbarPolicy(ScrollBarPolicy.NEVER);
         returnPane.setContent(mainPane);
-        returnPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
-        returnPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
+        returnPane.setMaxHeight(ScreenSizeHandler.getHeight() * 0.92);
+        returnPane.setMaxWidth(ScreenSizeHandler.getWidth() * 1);
 
         return returnPane;
     }
@@ -72,8 +72,8 @@ public class DashboardView {
         mainPane.getChildren().add(getHesitationAndFillerBarChart());
 
         // dimensions to be device screen size agnostic
-        mainPane.setMaxHeight(ScreenSizehandler.getHeight() * 0.92);
-        mainPane.setMaxWidth(ScreenSizehandler.getWidth() * 1);
+        mainPane.setMaxHeight(ScreenSizeHandler.getHeight() * 0.92);
+        mainPane.setMaxWidth(ScreenSizeHandler.getWidth() * 1);
     }
 
     /**

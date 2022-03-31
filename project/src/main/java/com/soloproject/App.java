@@ -24,7 +24,7 @@ public class App extends Application {
 
         TranscriptHandler handler = new TranscriptHandler(stage);
         WelcomeView welcomeView = new WelcomeView();
-        helpView helpView = new helpView();
+        HelpView helpView = new HelpView();
 
         BorderPane root = new BorderPane();
         root.setTop(welcomeView.getView()); // display the welcome messages
