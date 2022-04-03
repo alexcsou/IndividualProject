@@ -40,7 +40,6 @@ public class TranscriptSentence {
         this.author = author;
         this.numberOfWords = sentence.split(" ").length;
         setSentenceType();
-        // TODO: edit here + ADD JAR TO README
         setSentenceSentiment();
 
         // populating arrays with all filler words and hesitation words

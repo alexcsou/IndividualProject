@@ -416,7 +416,7 @@ public class TranscriptHandlerTest {
     }
 
     @Test
-    public void assertCreateParticipantsSetencesWorks1() {
+    public void assertCreateParticipantsSentencesWorks1() {
         handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
         handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant2"));
         handler.getParticipants().add(new Participant("Test Participant1"));
@@ -426,7 +426,7 @@ public class TranscriptHandlerTest {
     }
 
     @Test
-    public void assertCreateParticipantsSetencesWorks2() {
+    public void assertCreateParticipantsSentencesWorks2() {
         handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
         handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant2"));
         handler.getParticipants().add(new Participant("Test Participant1"));
@@ -436,7 +436,7 @@ public class TranscriptHandlerTest {
     }
 
     @Test
-    public void assertCreateParticipantsSetencesWorks3() {
+    public void assertCreateParticipantsSentencesWorks3() {
         handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant1"));
         handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant1"));
         handler.getParticipants().add(new Participant("Test Participant1"));
@@ -446,7 +446,7 @@ public class TranscriptHandlerTest {
     }
 
     @Test
-    public void assertCreateParticipantsSetencesWorks4() {
+    public void assertCreateParticipantsSentencesWorks4() {
         handler.getSentences().add(new TranscriptSentence("This is is a test...", "", 0.0, 0.0, "Test Participant"));
         handler.getSentences().add(new TranscriptSentence("This too!?", "", 0.0, 0.0, "Test Participant"));
         handler.getParticipants().add(new Participant("Test Participant1"));

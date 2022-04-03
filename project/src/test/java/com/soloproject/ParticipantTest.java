@@ -156,18 +156,6 @@ public class ParticipantTest {
 
     @Test
     public void assertSetAverageSentimentWorks2() {
-        participant
-                .addSentence(
-                        new TranscriptSentence("I hate life it sucks i hate everything, fuck ", "", 0, 6,
-                                "Test Participant"));
-
-        participant.getSentences().get(0).setSentenceSentiment();
-        participant.setAverageSentiment();
-        assertEquals(-1, participant.getAverageSentiment(), 0.0);
-    }
-
-    @Test
-    public void assertSetAverageSentimentWorks3() {
         participant.addSentence(
                 new TranscriptSentence(
                         "Ok", "", 7, 12, "Test Participant"));
